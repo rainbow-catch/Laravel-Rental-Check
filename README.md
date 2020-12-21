@@ -1,2 +1,2 @@
 # RentalCheck-laravel
-The laravel project for rentaCheck
+The laravel project for rentalCheck
