@@ -12,7 +12,7 @@
                             <h4 class="title">Update User</h4>
                         </div>
                         <div class="content">
-                            {!! Form::open(array('url' => 'admin/user/'.$user->id, 'files' => true)) !!}
+                            {!! Form::open(array('url' => 'admin/user/administrator/'.$user->id, 'files' => true)) !!}
                             {{ Form::hidden('_method', 'PUT') }}
                             {{ csrf_field() }}
                             <div class="row">
@@ -48,12 +48,6 @@
                                                     selected="selected"
                                                     @endif
                                             >Female
-                                            </option>
-                                            <option value="others"
-                                                    @if($user->gender == "others")
-                                                    selected="selected"
-                                                    @endif
-                                            >Others
                                             </option>
                                         </select>
                                     </div>
@@ -101,42 +95,28 @@
                                     </div>
                                 </div>
                             </div>
-                            @if(Auth::user()->role == "admin" && Auth::user()->id == 1)
+
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Role</label>
                                         <select name="role" id="role" class="form-control">
-                                            <option value="user"
-                                                    @if($user->role == 'user')
-                                                    selected="selected"
-                                                    @endif
-                                            >User</option>
-                                            <option value="admin"
-                                                    @if($user->role == 'admin')
-                                                    selected="selected"
-                                                    @endif
-                                            >Admin</option>
+                                            @foreach(config('var.role') as $role)
+                                                <option @if($user->role == $role) selected="selected" @endif>{{ $role }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>
                             </div>
-                            @endif
+
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Status</label>
                                         <select name="status" id="status" class="form-control">
-                                            <option value="1"
-                                                    @if($user->status == 1)
-                                                    selected="selected"
-                                                    @endif
-                                            >Active</option>
-                                            <option value="0"
-                                                    @if($user->status == 0)
-                                                    selected="selected"
-                                                    @endif
-                                            >Inactive</option>
+                                            @foreach(config('var.status') as $status)
+                                                <option @if($user->status == $status) selected="selected" @endif>{{ $status }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>

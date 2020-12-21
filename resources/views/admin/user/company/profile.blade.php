@@ -12,7 +12,7 @@
                             <h4 class="title">Update Profile</h4>
                         </div>
                         <div class="content">
-                            {!! Form::open(array('url' => 'admin/user/'.Auth::user()->id.'/profile', 'files' => true)) !!}
+                            {!! Form::open(array('url' => 'admin/user/company/'.Auth::user()->id.'/profile', 'files' => true)) !!}
                             {{ Form::hidden('_method', 'PUT') }}
                             {{ csrf_field() }}
                             <div class="row">
@@ -49,12 +49,7 @@
                                                     @endif
                                             >Female
                                             </option>
-                                            <option value="others"
-                                                    @if($user->gender == "others")
-                                                    selected="selected"
-                                                    @endif
-                                            >Others
-                                            </option>
+
                                         </select>
                                     </div>
                                 </div>

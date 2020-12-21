@@ -10,7 +10,7 @@
                     <div class="card">
                         <div class="content">
                             <div class="toolbar">
-                                <a href="{{url('admin/user/create')}}" rel="tooltip" title="Add New User"
+                                <a href="{{url('admin/user/customer/create')}}" rel="tooltip" title="Add New User"
                                    class="btn btn-danger" style="margin-right: 20px">
                                     <i class="ti-plus"></i>
                                 </a>
@@ -55,7 +55,7 @@
                                                     <div class="table-icons">
                                                         <a rel="tooltip" title="Edit"
                                                            class="btn btn-simple btn-warning btn-icon table-action edit"
-                                                           href="{{url('admin/user/'.$user->id.'/edit')}}">
+                                                           href="{{url('admin/user/customer/'.$user->id.'/edit')}}">
                                                             <i class="ti-pencil-alt"></i>
                                                         </a>
                                                         <button rel="tooltip" title="Remove"
@@ -64,7 +64,7 @@
                                                             <i class="ti-close"></i>
                                                         </button>
                                                         <div class="collapse">
-                                                            {!! Form::open(array('id' => 'delete-user', 'url' => 'admin/user/'.$user->id)) !!}
+                                                            {!! Form::open(array('id' => 'delete-user', 'url' => 'admin/user/customer/'.$user->id)) !!}
                                                             {{ Form::hidden('_method', 'DELETE') }}
                                                             <button type="submit" class="btn btn-danger btn-ok">Delete</button>
                                                             {!! Form::close() !!}

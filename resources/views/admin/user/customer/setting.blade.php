@@ -12,7 +12,7 @@
                             <h4 class="title">Change Password</h4>
                         </div>
                         <div class="content">
-                            {!! Form::open(array('url' => 'admin/user/'.Auth::user()->id.'/setting', 'files' => true, 'id'=>'passwordValidation')) !!}
+                            {!! Form::open(array('url' => 'admin/user/customer/'.Auth::user()->id.'/setting', 'files' => true, 'id'=>'passwordValidation')) !!}
                             {{ Form::hidden('_method', 'PUT') }}
                             {{ csrf_field() }}
 

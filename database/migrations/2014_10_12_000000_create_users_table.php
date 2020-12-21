@@ -22,12 +22,13 @@ class CreateUsersTable extends Migration
             $table->text('address')->nullable();
             $table->string('email', 50)->unique();
             $table->string('password', 200);
-            $table->string('avatar', 200);
+            $table->string('avatar', 200)->default('boy.png');
             $table->string('about', 300)->nullable();
             $table->string('facebook_id', 191)->unique()->nullable();
             $table->string('twitter_id', 191)->unique()->nullable();
             $table->enum('role', ['admin', 'company', 'customer'])->default('customer');
-            $table->boolean('status')->default(true);
+            $table->boolean('super_admin')->default(false);
+            $table->enum('status', ['registered', 'allowed', 'completed'])->default("registered");
             $table->rememberToken();
             $table->timestamps();
         });

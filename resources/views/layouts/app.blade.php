@@ -125,9 +125,6 @@
                                                 <label>Select Role *</label>
                                                 <select name="role">
                                                     <option value="" disabled selected>Select Role</option>
-                                                    <option value="admin" @if(old('role')=="admin" ) selected="selected"
-                                                            @endif>Admin
-                                                    </option>
                                                     <option value="company" @if(old('role')=="company" ) selected="selected"
                                                             @endif>Company
                                                     </option>

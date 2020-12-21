@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Model\User;
+use App\User;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
-class UserController extends AdminController
+class AdministratorController extends AdminController
 {
     public function __construct()
     {
@@ -23,8 +23,8 @@ class UserController extends AdminController
      */
     public function index()
     {
-        $users = User::all();
-        return view('admin.user.view')->with('users', $users);
+        $users = User::where('role', 'admin')->get();
+        return view('admin.user.administrator.view')->with('users', $users);
     }
 
     /**
@@ -34,7 +34,7 @@ class UserController extends AdminController
      */
     public function create()
     {
-        return view('admin.user.add');
+        return view('admin.user.administrator.add');
     }
 
     /**
@@ -52,7 +52,7 @@ class UserController extends AdminController
             'email' => 'required|email|max:50|unique:users',
             'address' => 'max:200',
             'about' => 'max:300',
-            'role' => 'in:user,admin',
+            'role' => 'in:customer,company,admin',
             'password' => 'required|min:6',
         ];
         if (!empty($request->input('phone'))) {
@@ -91,7 +91,7 @@ class UserController extends AdminController
             $user->save();
             Session::flash('flash_title', "Success");
             Session::flash('flash_message', "User has been added. You can add more user from the form below.");
-            return redirect('/admin/user/create');
+            return redirect('/admin/user/administrator/create');
         }
     }
 
@@ -115,7 +115,7 @@ class UserController extends AdminController
     public function edit($id)
     {
         $user = User::find($id);
-        return view('admin.user.edit')->with([
+        return view('admin.user.administrator.edit')->with([
             'user' => $user
         ]);
     }
@@ -137,7 +137,7 @@ class UserController extends AdminController
             'email' => 'required|email|max:255|unique:users,email,' . $id,
             'address' => 'max:200',
             'about' => 'max:300',
-            'role' => 'in:user,admin'
+            'role' => 'in:customer,company,admin'
         ];
         if (!empty($request->input('phone'))) {
             $rules['phone'] = 'numeric|max:999999999999999';
@@ -185,7 +185,7 @@ class UserController extends AdminController
             $user->save();
             Session::flash('flash_title', "Success");
             Session::flash('flash_message', "User profile has been updated.");
-            return redirect('/admin/user');
+            return redirect('/admin/user/administrator');
         }
     }
 
@@ -199,7 +199,7 @@ class UserController extends AdminController
     public function profile($id)
     {
         $user = User::find($id);
-        return view('admin.user.profile')->with([
+        return view('admin.user.administrator.profile')->with([
             'user' => $user,
         ]);
     }
@@ -295,7 +295,7 @@ class UserController extends AdminController
                     Session::flash('flash_title', 'Success');
                     Session::flash('flash_message', 'The user, ' . $user_name . ' has been deleted');
 
-                    return redirect('/admin/user');
+                    return redirect('/admin/user/administrator');
                 } else {
                     $error_message = "Sorry, user could not be deleted.";
                 }
@@ -319,7 +319,7 @@ class UserController extends AdminController
      */
     public function setting($id)
     {
-        return view('admin.user.setting');
+        return view('admin.user.administrator.setting');
     }
 
     /**

@@ -44,19 +44,21 @@
             <ul class="nav">
                 @if($admin_nav)
                     @foreach($admin_nav as $item)
-                        @if(array_key_exists('add', $item['actions']))
-                        <li @if (Request::is('admin/'.strtolower($item['name']).'/create*') || Request::is('admin/'.strtolower($item['name']))) class="active" @endif>
+                        @if($item['name'] == 'User')
+                        <li @if (Request::is('admin/user*'))  class="active" @endif>
                             <a data-toggle="collapse" href="#componentsExamples">
                                 <i class="{{$item['icon']}}"></i>
                                 <p>{{$item['name']}}
                                     <b class="caret"></b>
                                 </p>
                             </a>
-                            <div @if (Request::is('admin/'.strtolower($item['name']).'/create*') || Request::is('admin/'.strtolower($item['name']))) class="collapse in" @else class="collapse" @endif id="componentsExamples">
+                            <div @if (Request::is('admin/user*'))  class="collapse in" @else class="collapse" @endif id="componentsExamples">
                                 <ul class="nav">
-                                    <li @if (Request::is('admin/'.strtolower($item['name']).'/create*')) class="active" @endif><a href="{{ url($item['actions']['add'])}}">Add</a></li>
-                                    <li @if (Request::is('admin/'.strtolower($item['name']))) class="active" @endif><a href="{{ url($item['actions']['view'])}}">View</a>
-                                    </li>
+                                    <li @if (Request::is('admin/user/customer*')) class="active" @endif><a href="{{ url($item['actions']['customer'])}}">Customer</a></li>
+                                    <li @if (Request::is('admin/user/company*')) class="active" @endif><a href="{{ url($item['actions']['company'])}}">Company</a></li>
+                                    @if(Auth::user()->super_admin)
+                                        <li @if (Request::is('admin/user/administrator*')) class="active" @endif><a href="{{ url($item['actions']['administrator'])}}">Administrator</a></li>
+                                    @endif
                                 </ul>
                             </div>
                         </li>
