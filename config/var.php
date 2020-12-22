@@ -12,6 +12,10 @@ return [
         'allowed',
         'completed',
     ],
+    'status1'=> [
+        'active',
+        'inactive',
+    ],
     'role'=>[
         'customer',
         'company',

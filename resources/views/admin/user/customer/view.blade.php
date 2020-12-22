@@ -44,11 +44,12 @@
                                                         <button class="btn btn-default btn-xs btn-fill">{{ $user->role }}</button>
                                                 </td>
                                                 <td>
-                                                    @if($user->status == 1)
-                                                        <button class="btn btn-success btn-xs btn-fill">Active</button>
+                                                    @if($user->status == 'completed')
+                                                        <button class="btn btn-success btn-xs btn-fill">Completed</button>
+                                                    @elseif($user->status == 'allowed')
+                                                        <button class="btn btn-warning btn-xs btn-fill">Allowed</button>
                                                     @else
-                                                        <button class="btn btn-default btn-xs btn-fill">Inactive
-                                                        </button>
+                                                        <button class="btn btn-default btn-xs btn-fill">registered</button>
                                                     @endif
                                                 </td>
                                                 <td>
@@ -112,14 +113,13 @@
             $table.bootstrapTable({
                 toolbar: ".toolbar",
                 clickToSelect: true,
-                showRefresh: true,
+                // showRefresh: true,
                 search: true,
                 showToggle: true,
                 showColumns: true,
                 pagination: true,
                 searchAlign: 'left',
                 pageSize: 8,
-                clickToSelect: false,
                 pageList: [8, 10, 25, 50, 100],
 
                 formatShowingRows: function (pageFrom, pageTo, totalRows) {

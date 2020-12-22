@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Category;
 use App\Model\RoomType;
 use App\Model\Room;
 
@@ -11,7 +12,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 
-class RoomController extends AdminController
+class CategoryController extends AdminController
 {
 
     /**
@@ -28,11 +29,10 @@ class RoomController extends AdminController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($id)
+    public function index()
     {
-        $room_type = RoomType::find($id);
-        return view('admin.room.view')
-            ->with('room_type', $room_type);
+        $data = Category::all();
+        return view('admin.category.view')->with('categories', $data);
     }
 
     /**

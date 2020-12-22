@@ -31,37 +31,46 @@ Route::group(['prefix' => 'dashboard', 'middleware'=>'company'], function () {
  */
 Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('/', 'Admin\HomeController@index');
-    Route::resource('slider', 'Admin\SliderController');
-    Route::resource('facility', 'Admin\FacilityController');
-    Route::resource('event', 'Admin\EventController');
-    Route::resource('food', 'Admin\FoodController');
-    Route::get('page', 'Admin\PageController@index');
-    Route::get('page/{id}/edit', 'Admin\PageController@edit');
-    Route::put('page/{id}', 'Admin\PageController@update');
+//    Route::resource('slider', 'Admin\SliderController');
+//    Route::resource('facility', 'Admin\FacilityController');
+//    Route::resource('event', 'Admin\EventController');
+//    Route::resource('food', 'Admin\FoodController');
+//    Route::get('page', 'Admin\PageController@index');
+//    Route::get('page/{id}/edit', 'Admin\PageController@edit');
+//    Route::put('page/{id}', 'Admin\PageController@update');
 
     Route::group(['prefix' => 'user'], function (){
         // Customer Routes
         Route::resource('customer', 'Admin\CustomerController');
-        Route::get('customer/{id}/profile', 'Admin\CustomerController@profile');
-        Route::put('customer/{id}/profile', 'Admin\CustomerController@update_profile');
-        Route::get('customer/{id}/setting', 'Admin\CustomerController@setting');
-        Route::put('customer/{id}/setting', 'Admin\CustomerController@update_setting');
+//        Route::get('customer/{id}/profile', 'Admin\CustomerController@profile');
+//        Route::put('customer/{id}/profile', 'Admin\CustomerController@update_profile');
+//        Route::get('customer/{id}/setting', 'Admin\CustomerController@setting');
+//        Route::put('customer/{id}/setting', 'Admin\CustomerController@update_setting');
 
         // Company Routes
         Route::resource('company', 'Admin\CompanyController');
-        Route::get('company/{id}/profile', 'Admin\CompanyController@profile');
-        Route::put('company/{id}/profile', 'Admin\CompanyController@update_profile');
-        Route::get('company/{id}/setting', 'Admin\CompanyController@setting');
-        Route::put('company/{id}/setting', 'Admin\CompanyController@update_setting');
+//        Route::get('company/{id}/profile', 'Admin\CompanyController@profile');
+//        Route::put('company/{id}/profile', 'Admin\CompanyController@update_profile');
+//        Route::get('company/{id}/setting', 'Admin\CompanyController@setting');
+//        Route::put('company/{id}/setting', 'Admin\CompanyController@update_setting');
 
         // Admin Routes
         Route::resource('administrator', 'Admin\AdministratorController');
-        Route::get('administrator/{id}/profile', 'Admin\AdministratorController@profile');
-        Route::put('administrator/{id}/profile', 'Admin\AdministratorController@update_profile');
-        Route::get('administrator/{id}/setting', 'Admin\AdministratorController@setting');
-        Route::put('administrator/{id}/setting', 'Admin\AdministratorController@update_setting');
+//        Route::get('administrator/{id}/profile', 'Admin\AdministratorController@profile');
+//        Route::put('administrator/{id}/profile', 'Admin\AdministratorController@update_profile');
+//        Route::get('administrator/{id}/setting', 'Admin\AdministratorController@setting');
+//        Route::put('administrator/{id}/setting', 'Admin\AdministratorController@update_setting');
     });
 
+        Route::prefix('category')->name('category.')->group(function () {
+            Route::get('/', 'Admin\CategoryController@index');
+            Route::get('{id}/edit', 'Admin\CategoryController@edit');
+            Route::get('add', 'Admin\CategoryController@create');
+            Route::post('{id}/update', 'Admin\CategoryController@update');
+            Route::post('store', 'Admin\CategoryController@store');
+
+            Route::resource('incident', "Admin\IncidentController");
+        });
 
     //Routes for RoomBookings
     Route::get('/room_booking', 'Admin\RoomBookingController@index');

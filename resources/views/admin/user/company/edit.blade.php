@@ -49,6 +49,12 @@
                                                     @endif
                                             >Female
                                             </option>
+                                            <option value="others"
+                                                    @if($user->gender == "others")
+                                                    selected="selected"
+                                                    @endif
+                                            >Others
+                                            </option>
 
                                         </select>
                                     </div>
@@ -103,7 +109,7 @@
                                         <label>Role</label>
                                         <select name="role" id="role" class="form-control">
                                             @foreach(config('var.role') as $role)
-                                                <option @if(Input::old('role') == $role) selected="selected" @endif>{{ $role }}</option>
+                                                <option @if($user->role == $role) selected="selected" @endif>{{ $role }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -117,7 +123,7 @@
                                         <label>Status</label>
                                         <select name="status" id="status" class="form-control">
                                             @foreach(config('var.status') as $status)
-                                                <option @if(Input::old('status') == $status) selected="selected" @endif>{{ $status }}</option>
+                                                <option @if($user->status == $status) selected="selected" @endif>{{ $status }}</option>
                                             @endforeach
                                         </select>
                                     </div>

@@ -9,19 +9,19 @@
                 <div class="col-md-10 col-md-offset-1">
                     <div class="card">
                         <div class="header">
-                            <h4 class="title">Edit Facility</h4>
+                            <h4 class="title">Edit incident</h4>
                         </div>
                         <div class="content">
-                            {!! Form::open(array('url' => 'admin/facility/'.$facility->id, 'id' => 'facility-add-form')) !!}
+                            {!! Form::open(array('url' => 'admin/category/incident/'.$incident->id)) !!}
                             {{ Form::hidden('_method', 'PUT') }}
                             {{ csrf_field() }}
 
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label>Facility Name<star>*</star></label>
-                                        <input type="text" name="name" class="form-control border-input"
-                                               placeholder="Ex: AC Night Bus" value="{{ $facility->name }}">
+                                        <label>Incident Name<star>*</star></label>
+                                        <input type="text" name="incident" class="form-control border-input"
+                                               placeholder="Ex: AC Night Bus" value="{{ $incident->incident }}">
                                     </div>
                                 </div>
                             </div>
@@ -30,15 +30,15 @@
                                     <div class="form-group">
                                         <label>Status</label>
                                         <select name="status" id="status" class="form-control">
-                                            @foreach(config('var.role') as $role)
-                                                <option @if($user->role == $role) selected="selected" @endif>{{ $role }}</option>
+                                            @foreach(config('var.status1') as $status)
+                                                <option @if($incident->isActive == $status) selected="selected" @endif>{{ $status }}</option>
                                             @endforeach
                                         </select>
                                     </div>
                                 </div>
                             </div>
                             <div class="text-center">
-                                <button type="submit" class="btn btn-info btn-fill btn-wd">Update Facility</button>
+                                <button type="submit" class="btn btn-info btn-fill btn-wd">Update incident</button>
                             </div>
                             <div class="clearfix"></div>
                             {!! Form::close() !!}
@@ -68,7 +68,7 @@
     <script>
         $().ready(function () {
 
-            var $validator = $("#facility-add-form").validate({
+            var $validator = $("#incident-add-form").validate({
                 rules: {
                     name: {
                         required: true,

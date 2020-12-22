@@ -44,7 +44,7 @@
             <ul class="nav">
                 @if($admin_nav)
                     @foreach($admin_nav as $item)
-                        @if($item['name'] == 'User')
+                        @if($item['name'] == 'user')
                         <li @if (Request::is('admin/user*'))  class="active" @endif>
                             <a data-toggle="collapse" href="#componentsExamples">
                                 <i class="{{$item['icon']}}"></i>
@@ -62,18 +62,18 @@
                                 </ul>
                             </div>
                         </li>
-                        @elseif(array_key_exists('room_booking', $item['actions']) || array_key_exists('event_booking', $item['actions']))
-                            <li @if (Request::is('admin/'.strtolower($item['name']).'/*')) class="active" @endif>
-                                <a data-toggle="collapse" href="#componentsExamples">
+                        @elseif($item['name'] == 'category')
+                            <li @if (Request::is('admin/category*')) class="active" @endif>
+                                <a data-toggle="collapse" href="#componentsCategories">
                                     <i class="{{$item['icon']}}"></i>
                                     <p>{{$item['name']}}
                                         <b class="caret"></b>
                                     </p>
                                 </a>
-                                <div @if (Request::is('admin/'.strtolower($item['name']).'/*')) class="collapse in" @else class="collapse" @endif id="componentsExamples">
+                                <div @if (Request::is('admin/category*')) class="collapse in" @else class="collapse" @endif id="componentsCategories">
                                     <ul class="nav">
-                                        <li @if (Request::is('admin/'.strtolower($item['name']).'/room_booking')) class="active" @endif><a href="{{ url($item['actions']['room_booking'])}}">Room Bookings</a></li>
-                                        <li @if (Request::is('admin/'.strtolower($item['name']).'/event_booking')) class="active" @endif><a href="{{ url($item['actions']['event_booking'])}}">Event Bookings</a></li>
+                                        <li @if (Request::is('admin/category')) class="active" @endif><a href="{{ url($item['actions']['category'])}}">Category</a></li>
+                                        <li @if (Request::is('admin/category/incident')) class="active" @endif><a href="{{ url($item['actions']['incident'])}}">Incident</a></li>
                                     </ul>
                                 </div>
                             </li>

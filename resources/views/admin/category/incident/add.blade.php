@@ -9,19 +9,19 @@
                 <div class="col-md-10 col-md-offset-1">
                     <div class="card">
                         <div class="header">
-                            <h4 class="title">Edit Facility</h4>
+                            <h4 class="title">Add incident</h4>
                         </div>
                         <div class="content">
-                            {!! Form::open(array('url' => 'admin/facility/'.$facility->id, 'id' => 'facility-add-form')) !!}
-                            {{ Form::hidden('_method', 'PUT') }}
+                            {!! Form::open(array('url' => 'admin/category/incident/', 'id' => 'incident-add-form')) !!}
+                            {{ Form::hidden('_method', 'POST') }}
                             {{ csrf_field() }}
 
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label>Facility Name<star>*</star></label>
-                                        <input type="text" name="name" class="form-control border-input"
-                                               placeholder="Ex: AC Night Bus" value="{{ $facility->name }}">
+                                        <label>Incident Name<star>*</star></label>
+                                        <input type="text" name="incident" class="form-control border-input"
+                                               placeholder="Ex: Days late" value="{{ Input::old('incident') }}">
                                     </div>
                                 </div>
                             </div>
@@ -30,15 +30,15 @@
                                     <div class="form-group">
                                         <label>Status</label>
                                         <select name="status" id="status" class="form-control">
-                                            @foreach(config('var.role') as $role)
-                                                <option @if($user->role == $role) selected="selected" @endif>{{ $role }}</option>
+                                            @foreach(config('var.status1') as $status)
+                                                <option @if(Input::old('status') == $status) selected="selected" @endif>{{ $status }}</option>
                                             @endforeach
                                         </select>
                                     </div>
                                 </div>
                             </div>
                             <div class="text-center">
-                                <button type="submit" class="btn btn-info btn-fill btn-wd">Update Facility</button>
+                                <button type="submit" class="btn btn-info btn-fill btn-wd">Add incident</button>
                             </div>
                             <div class="clearfix"></div>
                             {!! Form::close() !!}
@@ -55,6 +55,9 @@
     <!--  Forms Validations Plugin -->
     <script src="{{asset("backend/js/jquery.validate.min.js")}}"></script>
 
+    <!--  Select Picker Plugin -->
+    <script src="{{asset('backend/js/bootstrap-selectpicker.js')}}"></script>
+
     <!--  Plugin for Date Time Picker and Full Calendar Plugin-->
     <script src="{{asset("backend/js/moment.min.js")}}"></script>
 
@@ -68,7 +71,7 @@
     <script>
         $().ready(function () {
 
-            var $validator = $("#facility-add-form").validate({
+            var $validator = $("#incident-add-form").validate({
                 rules: {
                     name: {
                         required: true,

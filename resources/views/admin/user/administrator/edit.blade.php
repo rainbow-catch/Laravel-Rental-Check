@@ -49,6 +49,12 @@
                                                     @endif
                                             >Female
                                             </option>
+                                            <option value="others"
+                                                    @if($user->gender == "others")
+                                                    selected="selected"
+                                                    @endif
+                                            >Others
+                                            </option>
                                         </select>
                                     </div>
                                 </div>

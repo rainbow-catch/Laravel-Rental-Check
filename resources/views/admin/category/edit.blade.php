@@ -30,9 +30,13 @@
                                     <div class="form-group">
                                         <label>Status</label>
                                         <select name="status" id="status" class="form-control">
-                                            @foreach(config('var.role') as $role)
-                                                <option @if($user->role == $role) selected="selected" @endif>{{ $role }}</option>
-                                            @endforeach
+                                            <option value="1"
+                                                    @if ($facility->status == '1') selected="selected" @endif>Active
+                                            </option>
+                                            <option value="0"
+                                                    @if ($facility->status == '0') selected="selected" @endif>
+                                                Inactive
+                                            </option>
                                         </select>
                                     </div>
                                 </div>

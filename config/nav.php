@@ -15,13 +15,21 @@ return [
 
     'admin' => [
         'user' => [
-            'name' => 'User',
+            'name' => 'user',
             'actions' => [
                 'customer' => 'admin/user/customer',
                 'company' => 'admin/user/company',
                 'administrator' => 'admin/user/administrator',
             ],
             'icon' => 'ti-user'
+        ],
+        'category' => [
+            'name' => 'category',
+            'actions' => [
+                'category' => 'admin/category',
+                'incident' => 'admin/category/incident',
+            ],
+            'icon' => 'ti-pencil-alt'
         ],
 //        'booking' => [
 //            'name' =>  'Booking',
