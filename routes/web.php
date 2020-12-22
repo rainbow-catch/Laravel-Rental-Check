@@ -62,15 +62,16 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
 //        Route::put('administrator/{id}/setting', 'Admin\AdministratorController@update_setting');
     });
 
-        Route::prefix('category')->name('category.')->group(function () {
-            Route::get('/', 'Admin\CategoryController@index');
-            Route::get('{id}/edit', 'Admin\CategoryController@edit');
-            Route::get('add', 'Admin\CategoryController@create');
-            Route::post('{id}/update', 'Admin\CategoryController@update');
-            Route::post('store', 'Admin\CategoryController@store');
+    Route::prefix('category')->name('category.')->group(function () {
+        Route::get('/', 'Admin\CategoryController@index');
+        Route::get('/{id}/edit', 'Admin\CategoryController@edit');
+        Route::get('create', 'Admin\CategoryController@create');
+        Route::post('/{id}/update', 'Admin\CategoryController@update');
+        Route::post('/store', 'Admin\CategoryController@store');
+        Route::delete('/{id}', 'Admin\CategoryController@destroy');
 
-            Route::resource('incident', "Admin\IncidentController");
-        });
+        Route::resource('incident', "Admin\IncidentController");
+    });
 
     //Routes for RoomBookings
     Route::get('/room_booking', 'Admin\RoomBookingController@index');

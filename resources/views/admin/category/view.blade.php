@@ -10,7 +10,7 @@
                     <div class="card">
                         <div class="content">
                             <div class="toolbar">
-                                <a href="{{url('admin/user/category/create')}}" rel="tooltip" title="Add New Category"
+                                <a href="{{url('admin/category/create')}}" rel="tooltip" title="Add New Category"
                                    class="btn btn-danger" style="margin-right: 20px">
                                     <i class="ti-plus"></i>
                                 </a>
@@ -19,8 +19,9 @@
                             <table id="bootstrap-table" class="table">
                                 <thead>
                                 <th data-field="sn" class="text-center">S.N.</th>
-                                <th data-field="name" class="text-center">Name</th>
-                                <th data-field="icon">Icon</th>
+                                <th data-field="id" class="text-center" data-sortable="true">ID</th>
+                                <th data-field="name" data-sortable="true">Name</th>
+                                <th data-field="order" data-sortable="true">Order</th>
                                 <th data-field="status" data-sortable="true">Status</th>
                                 <th data-field="actions" class="td-actions text-right">Actions
                                 </th>
@@ -31,21 +32,21 @@
                                         @foreach($categories as $index => $category)
                                             <tr>
                                                 <td>{{$index+1}}</td>
-                                                <td>{{ $category->name }}</td>
-                                                <td><img src="{{'/storage/facilities/'.$category->icon}}" alt=""></td>
+                                                <td>{{$category->id}}</td>
+                                                <td>{{ $category->category }}</td>
+                                                <td>{{ $category->order + 1}}</td>
                                                 <td>
-                                                    @if($category->status == 1)
+                                                    @if($category->isActive)
                                                         <button class="btn btn-success btn-xs btn-fill">Active</button>
                                                     @else
-                                                        <button class="btn btn-default btn-xs btn-fill">Inactive
-                                                        </button>
+                                                        <button class="btn btn-default btn-xs btn-fill">Inactive</button>
                                                     @endif
                                                 </td>
                                                 <td>
                                                     <div class="table-icons">
                                                         <a rel="tooltip" title="Edit"
                                                            class="btn btn-simple btn-warning btn-icon table-action edit"
-                                                           href="{{url('admin/facility/'.$category->id.'/edit')}}">
+                                                           href="{{url('admin/category/'.$category->id.'/edit')}}">
                                                             <i class="ti-pencil-alt"></i>
                                                         </a>
                                                         <button rel="tooltip" title="Remove"
@@ -54,7 +55,7 @@
                                                             <i class="ti-close"></i>
                                                         </button>
                                                         <div class="collapse">
-                                                            {!! Form::open(array('id' => 'delete-facility', 'url' => 'admin/facility/'.$category->id)) !!}
+                                                            {!! Form::open(array('id' => 'delete-category', 'url' => 'admin/category/'.$category->id)) !!}
                                                             {{ Form::hidden('_method', 'DELETE') }}
                                                             <button type="submit" class="btn btn-danger btn-ok">Delete</button>
                                                             {!! Form::close() !!}
@@ -86,7 +87,7 @@
 
         var delete_button = function(){
             swal({  title: "Are you sure?",
-                text: "You want to delete the facility.",
+                text: "You want to delete the category.",
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonClass: "btn btn-info btn-fill",
@@ -94,7 +95,7 @@
                 cancelButtonClass: "btn btn-danger btn-fill",
                 closeOnConfirm: false,
             },function(){
-                $('form#delete-facility').submit();
+                $('form#delete-category').submit();
             });
         }
 
@@ -104,14 +105,13 @@
             $table.bootstrapTable({
                 toolbar: ".toolbar",
                 clickToSelect: true,
-                showRefresh: true,
+                // showRefresh: true,
                 search: true,
                 showToggle: true,
                 showColumns: true,
                 pagination: true,
                 searchAlign: 'left',
                 pageSize: 8,
-                clickToSelect: false,
                 pageList: [8, 10, 25, 50, 100],
 
                 formatShowingRows: function (pageFrom, pageTo, totalRows) {

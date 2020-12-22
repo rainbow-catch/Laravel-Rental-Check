@@ -9,83 +9,68 @@
                 <div class="col-md-10 col-md-offset-1">
                     <div class="card">
                         <div class="header">
-                            <h4 class="title">Add Facility</h4>
+                            <h4 class="title">Add Category</h4>
                         </div>
                         <div class="content">
-                            {!! Form::open(array('url' => 'admin/facility/', 'id' => 'facility-add-form')) !!}
-                            {{ Form::hidden('_method', 'POST') }}
-                            {{ csrf_field() }}
-
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label>Facility Name<star>*</star></label>
-                                        <input type="text" name="name" class="form-control border-input"
-                                               placeholder="Ex: AC Night Bus" value="{{ old('name') }}">
+                            {{--{!! Form::open(array('url' => 'admin/category/', 'id' => 'category-add-form')) !!}--}}
+                            {{--{{ Form::hidden('_method', 'POST') }}--}}
+                            <form action="{{ url('admin/category/store') }}" method="post">
+                                {{ csrf_field() }}
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>Category Name<star>*</star></label>
+                                            <input type="text" name="category" class="form-control border-input"
+                                                   placeholder="Ex: Apartment" value="{{ Input::old('category') }}">
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label>Icon</label>
-                                        <select name="icon" id="icon" class="form-control">
-                                            <option selected="" disabled="">- Select Travel Mode -</option>
-                                            <option value="AIR"
-                                                    @if (Input::old('icon') == 'AIR ') selected="selected" @endif>
-                                                AIR
-                                            </option>
-                                            <option value="DRIVING"
-                                                    @if (Input::old('icon') == 'DRIVING ') selected="selected" @endif>
-                                                DRIVING
-                                            </option>
-                                            <option value="TRANSIT"
-                                                    @if (Input::old('icon') == 'TRANSIT') selected="selected" @endif>
-                                                PUBLIC VEHICLE
-                                            </option>
-                                            <option value="BICYCLING"
-                                                    @if (Input::old('icon') == 'BICYCLING ') selected="selected" @endif>
-                                                BICYCLING
-                                            </option>
-                                            <option value="WALKING"
-                                                    @if (Input::old('icon') == 'WALKING') selected="selected" @endif>
-                                                WALKING
-                                            </option>
-                                        </select>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>Status<star>*</star></label>
+                                            <select name="status" id="status" class="form-control">
+                                                @foreach(config('var.status1') as $status)
+                                                    <option @if(Input::old('status') == $status) selected="selected" @endif value="{{ $status == 'active'? 1: 0 }}">{{ $status }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label>Description</label>
-                                        <textarea name="description" rows="5" class="form-control border-input"
-                                                  placeholder="Ex: Comfortable while enjoying the view.">{{ old('description') }}</textarea>
+                                <br>
+                                <div class="row input-incident">
+                                    <div class="col-xs-7">
+                                        <div class="form-group">
+                                            <label>Incidents<star>*</star></label>
+                                            <select name="incidents[]" id="status" class="form-control">
+                                                @foreach($incidents as $incident)
+                                                    <option value="{{ $incident->id }}">{{ $incident->incident }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-5 col-sm-4 col-sm-offset-1">
+                                        <div class="form-group">
+                                            <label>Scores<star>*</star></label>
+                                            <select name="scores[]" id="status" class="form-control">
+                                                <option>0</option>
+                                                @for($index = 1; $index<=10; $index++)
+                                                    <option>{{ $index }}</option>
+                                                @endfor
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label>Status</label>
-                                        <select name="status" id="status" class="form-control">
-                                            <option value="1"
-                                                    @if (Input::old('status') == '1') selected="selected" @endif>Active
-                                            </option>
-                                            <option value="0"
-                                                    @if (Input::old('status') == '0') selected="selected" @endif>
-                                                Inactive
-                                            </option>
-                                        </select>
-                                    </div>
+                                <button type="button" class="btn btn-success btn-fill" onclick="addIncidentForm()">+ Add Incident Type</button>
+                                <br>
+                                <br>
+                                <br>
+                                <div class="text-center">
+                                    <input type="submit" class="btn btn-info btn-fill btn-wd" value="Add Category"/>
                                 </div>
-                            </div>
-                            <div class="text-center">
-                                <button type="submit" class="btn btn-info btn-fill btn-wd">Add Facility
-                                </button>
-                            </div>
-                            <div class="clearfix"></div>
-                            {!! Form::close() !!}
+                                <div class="clearfix"></div>
+                            </form>
+                            {{--{!! Form::close() !!}--}}
                         </div>
                     </div>
                 </div>
@@ -108,6 +93,29 @@
     <!--  Date Time Picker Plugin is included in this js file -->
     <script src="{{asset('/backend/js/bootstrap-datetimepicker.js')}}"></script>
     <script>
+        function addIncidentForm() {
+            $input_form = '<div class="col-xs-7">\n' +
+                '                                        <div class="form-group">\n' +
+                '                                            <select name="incidents[]" id="status" class="form-control">\n' +
+            '                                                   @foreach($incidents as $incident)\n' +
+                '                                                    <option value="{{ $incident->id }}">{{ $incident->incident }}</option>\n' +
+                '                                                @endforeach\n' +
+                '                                            </select>\n' +
+                '                                        </div>\n' +
+                '                                    </div>\n' +
+                '                                    <div class="col-xs-5 col-sm-4 col-sm-offset-1">\n' +
+                '                                        <div class="form-group">\n' +
+                '                                            <select name="scores[]" id="status" class="form-control">\n' +
+                '                                                <option>0</option>\n' +
+                '                                                @for($index = 1; $index<=10; $index++)\n' +
+                '                                                    <option>{{ $index }}</option>\n' +
+                '                                                @endfor\n' +
+                '                                            </select>\n' +
+                '                                        </div>\n' +
+                '                                    </div>';
+            $('.input-incident').append($input_form);
+        }
+
         // Init DatetimePicker
         demo.initFormExtendedDatetimepickers();
     </script>
@@ -115,7 +123,7 @@
     <script>
         $().ready(function () {
 
-            var $validator = $("#facility-add-form").validate({
+            var $validator = $("#category-add-form").validate({
                 rules: {
                     name: {
                         required: true,

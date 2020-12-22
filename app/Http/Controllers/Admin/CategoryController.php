@@ -3,12 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Category;
-use App\Model\RoomType;
-use App\Model\Room;
 
-use App\Http\Controllers\Admin\AdminController;
+use App\Incident;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 
@@ -40,11 +37,9 @@ class CategoryController extends AdminController
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($id)
+    public function create()
     {
-        $room_type = RoomType::find($id);
-        return view('admin.room.add')
-            ->with('room_type', $room_type);
+        return view('admin.category.add')->with('incidents', Incident::all());
     }
 
     /**
@@ -53,33 +48,48 @@ class CategoryController extends AdminController
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store($id, Request $request)
+    public function store(Request $request)
     {
         $rules = [
-            'room_number' => 'required|numeric|max:99999|unique:rooms,room_number',
-            'description' => 'max:200',
-            'status' => 'boolean|required'
+            'category' => 'required|string|unique:categories,category',
+            'incidents' => 'required|array',
+            'scores' => 'required|array',
+            'status' => 'required|boolean'
         ];
+
+        $incidents = $request->incidents;
+        $scores = $request->scores;
 
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
             return redirect()->back()
                 ->withInput($request->all)
                 ->withErrors($validator);
-        } else {
-            $room_type = RoomType::find($id);
-            $room = new Room();
-            $room->room_number = $request->input('room_number');
-            $room->description = $request->input('description');
-            $room->status = $request->input('status');
+        }
+        else if(count($incidents) != count(array_unique($incidents))) {
+            return redirect()->back()
+                ->withInput($request->all)
+                ->withErrors("Duplicated Incident type");
+        }
+        else{
+            $order = Category::count();
+            $category = Category::create([
+                'category' => $request->category,
+                'order' => $order,
+                'isActive' => $request->status
+            ]);
 
-            $room->room_type()->associate($room_type);
-            $room->save();
+            $data = [];
+            for($i = 0; $i < count($incidents); $i++) {
+                if($scores[$i] == 0) continue;
+                $data[$incidents[$i]] =  ['score'=>$scores[$i]];
+            }
+            $category->incidents($data);
 
             Session::flash('flash_title', "Success");
-            Session::flash('flash_message', "Room has been added. Add more rooms.");
+            Session::flash('flash_message', "Category has been added. Add more categories.");
 
-            return redirect('/admin/room_type/'.$id.'/room');
+            return redirect('/admin/category');
         }
     }
 
@@ -100,13 +110,11 @@ class CategoryController extends AdminController
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id, $room_id)
+    public function edit($id)
     {
-        $room_type = RoomType::find($id);
-        $room = Room::find($room_id);
-        return view('admin.room.edit')
-            ->with('room_type', $room_type)
-            ->with('room', $room);
+        $category = Category::find($id);
+        return view('admin.category.edit')
+            ->with('category', $category)->with('incidents', Incident::all())->with('category_count', Category::count());
 
     }
 
@@ -117,33 +125,51 @@ class CategoryController extends AdminController
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update($id, $room_id, Request $request)
+    public function update($id,  Request $request)
     {
         $rules = [
-            'room_number' => 'required|numeric|max:99999|unique:rooms,room_number,'.$room_id,
-            'description' => 'max:200',
-            'status' => 'boolean|required'
+            'category' => 'required|string|unique:categories,category,'.$id,
+            'incidents' => 'required|array',
+            'scores' => 'required|array',
+            'order' => 'required|integer',
+            'status' => 'required|boolean'
         ];
 
         $validator = Validator::make($request->all(), $rules);
+        $incidents = $request->incidents;
+        $scores = $request->scores;
+        $order = $request->order;
+
         if ($validator->fails()) {
             return redirect()->back()
                 ->withInput($request->all)
                 ->withErrors($validator);
-        } else {
-            $room = Room::find($room_id);
-            $room->room_number = $request->input('room_number');
-            $room->description = $request->input('description');
-            if($request->has('available')){
-                $room->available = $request->input('available');
+        }
+        elseif(count($incidents) != count(array_unique($incidents))) {
+            return redirect()->back()
+                ->withInput($request->all)
+                ->withErrors("Duplicated Incident type");
+        }
+        else {
+            $category = Category::find($id);
+            $category->category = $request->category;
+            $category->isActive = $request->status;
+            $category->save();
+
+            $data = [];
+            for($i = 0; $i < count($incidents); $i++) {
+                if($scores[$i] == 0) continue;
+                $data[$incidents[$i]] =  ['score'=>$scores[$i]];
             }
-            $room->status = $request->input('status');
-            $room->save();
+            $category->incidents($data);
 
+            if($category->order != $order){
+                $this->reorderCategories($category->id, $order);
+            }
             Session::flash('flash_title', "Success");
-            Session::flash('flash_message', "Room has been updated.");
+            Session::flash('flash_message', "Category has been updated.");
 
-            return redirect('/admin/room_type/'.$id.'/room');
+            return redirect('/admin/category');
         }
     }
 
@@ -153,26 +179,43 @@ class CategoryController extends AdminController
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id, $room_id)
+    public function destroy($id)
     {
-        $room = Room::findOrFail($room_id);
+        $category = Category::find($id);
 
-        // Delete room bookings
-        foreach ($room->room_bookings as $booking) {
-            $booking->delete();
-        }
+        // TO_DO_DEM Clear all Facilities by Eloquent remove pivot records
 
-        if($room->delete()){
+        $category->delete();
 
-            Session::flash('flash_title', 'Success');
-            Session::flash('flash_message', 'Room has been deleted');
+        Session::flash('flash_title', 'Success');
+        Session::flash('flash_message', 'The incident has been deleted successfully');
+        return redirect('admin/category');
+    }
 
-            return redirect('/admin/room_type/'.$id.'/room');
-        }
-        return redirect()
-            ->back()
-            ->withErrors(array('message' => 'Sorry, the room could not be deleted.'));
+    private function reorderCategories($id, $order)
+    {
+        $selected = Category::find($id);
+        $from = $selected->order;
+        $to = $order;
 
+        $selected->order = $to;
+
+        //If down
+        if($from > $to)
+            foreach(Category::where('order', '<', $from)->where('order', '>=', $to)->get() as $item) {
+                $oldOrder = $item->order;
+                $item->update([
+                        'order'=> $oldOrder + 1
+                    ]);
+            }
+        else
+            foreach(Category::where('order', '>', $from)->where('order', '<=', $to)->get() as $item) {
+                $oldOrder = $item->order;
+                $item->update([
+                    'order'=> $oldOrder - 1
+                ]);
+            }
+        $selected->save();
     }
 
 }

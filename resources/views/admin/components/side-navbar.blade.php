@@ -72,8 +72,8 @@
                                 </a>
                                 <div @if (Request::is('admin/category*')) class="collapse in" @else class="collapse" @endif id="componentsCategories">
                                     <ul class="nav">
-                                        <li @if (Request::is('admin/category')) class="active" @endif><a href="{{ url($item['actions']['category'])}}">Category</a></li>
-                                        <li @if (Request::is('admin/category/incident')) class="active" @endif><a href="{{ url($item['actions']['incident'])}}">Incident</a></li>
+                                        <li @if (Request::is('admin/category*') && !Request::is('admin/category/incident*')) class="active" @endif><a href="{{ url($item['actions']['category'])}}">Category</a></li>
+                                        <li @if (Request::is('admin/category/incident*')) class="active" @endif><a href="{{ url($item['actions']['incident'])}}">Incident</a></li>
                                     </ul>
                                 </div>
                             </li>
