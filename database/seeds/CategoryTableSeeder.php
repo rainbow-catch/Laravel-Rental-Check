@@ -18,7 +18,7 @@ class CategoryTableSeeder extends seeder
             'incident'=>'Insurance Fraud'
         ]);
         Incident::create([
-            'incident'=>'Damages'
+            'incident'=>'Damages_$'
         ]);
         Incident::create([
             'incident'=>'Days Late'
@@ -32,28 +32,90 @@ class CategoryTableSeeder extends seeder
         Incident::create([
             'incident'=>'Soiled Seats'
         ]);
-
-        $length = Category::all()->count();
-        $category1 = Category::create([
-            'category' => 'auto',
-            'order' => $length
+        Incident::create([
+            'incident'=>'Smoke Odor'
+        ]);
+        Incident::create([
+            'incident'=>'Deposit Spent'
+        ]);
+        Incident::create([
+            'incident'=>'Citations / Violations'
+        ]);
+        Incident::create([
+            'incident'=>'Other'
         ]);
 
-        $category2 = Category::create([
-            'category' => 'apartment',
-            'order' => $length + 1
+        $autoRental = Category::create([
+            'category' => 'Auto Rental',
+            'order' => 0
         ]);
 
-        $category1->incidents([
-            1 => ['score'=>5],
+        $apartmentRental = Category::create([
+            'category' => 'Apartment Rental',
+            'order' => 1
+        ]);
+
+        $eventRental = Category::create([
+            'category' => 'Event Rental',
+            'order' => 2
+        ]);
+
+        $equipmentRental = Category::create([
+            'category' => 'Equipment Rental',
+            'order' => 2
+        ]);
+
+        $furnitureRental = Category::create([
+            'category' => 'Furniture Rental',
+            'order' => 3
+        ]);
+
+        $autoRental->incidents([
+            1 => ['score'=>8],
             2 => ['score'=>6],
-            5 => ['score'=>1],
-            6 => ['score'=>2],
+            3 => ['score'=>4],
+            4 => ['score'=>10],
+            5 => ['score'=>9],
+            6 => ['score'=>5],
+            7 => ['score'=>7],
+            8 => ['score'=>3],
+            9 => ['score'=>2],
+            10 => ['score'=>1],
         ]);
 
-        $category2->incidents([
-            2 => ['score'=>5],
-            4 => ['score'=>6],
+        $apartmentRental->incidents([
+            1 => ['score'=>8],
+            2 => ['score'=>6],
+            6 => ['score'=>5],
+            7 => ['score'=>7],
+            9 => ['score'=>2],
+            10 => ['score'=>1],
+        ]);
+
+        $eventRental->incidents([
+            2 => ['score'=>6],
+            4 => ['score'=>10],
+            5 => ['score'=>9],
+            8 => ['score'=>3],
+            10 => ['score'=>1],
+        ]);
+
+        $equipmentRental ->incidents([
+            2 => ['score'=>6],
+            4 => ['score'=>10],
+            5 => ['score'=>9],
+            8 => ['score'=>3],
+            10 => ['score'=>1],
+        ]);
+
+        $furnitureRental->incidents([
+            1 => ['score'=>8],
+            2 => ['score'=>6],
+            4 => ['score'=>10],
+            5 => ['score'=>9],
+            6 => ['score'=>5],
+            8 => ['score'=>3],
+            10 => ['score'=>1],
         ]);
     }
 }
