@@ -107,6 +107,7 @@
                                     <div class="form-group">
                                         <label>Role</label>
                                         <select name="role" id="role" class="form-control">
+                                            <option value="" disabled selected>- Select Role -</option>
                                             @foreach(config('var.role') as $role)
                                                 <option @if($user->role == $role) selected="selected" @endif>{{ $role }}</option>
                                             @endforeach
@@ -121,9 +122,10 @@
                                     <div class="form-group">
                                         <label>Status</label>
                                         <select name="status" id="status" class="form-control">
-                                        @foreach(config('var.status') as $status)
-                                            <option @if($user->status == $status) selected="selected" @endif>{{ $status }}</option>
-                                        @endforeach
+                                            <option value="" disabled selected>- Select Status -</option>
+                                            @foreach(config('var.status') as $status)
+                                                <option @if($user->status == $status) selected="selected" @endif>{{ $status }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>

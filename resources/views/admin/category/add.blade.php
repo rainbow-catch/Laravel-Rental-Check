@@ -30,6 +30,7 @@
                                         <div class="form-group">
                                             <label>Status<star>*</star></label>
                                             <select name="status" id="status" class="form-control">
+                                                <option value="" disabled selected>- Select Status -</option>
                                                 @foreach(config('var.status1') as $status)
                                                     <option @if(Input::old('status') == $status) selected="selected" @endif value="{{ $status == 'active'? 1: 0 }}">{{ $status }}</option>
                                                 @endforeach

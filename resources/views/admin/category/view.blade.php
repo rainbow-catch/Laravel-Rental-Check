@@ -36,7 +36,7 @@
                                                 <td>{{ $category->category }}</td>
                                                 <td>{{ $category->order + 1}}</td>
                                                 <td>
-                                                    @if($category->isActive)
+                                                    @if($category->isActive =='active')
                                                         <button class="btn btn-success btn-xs btn-fill">Active</button>
                                                     @else
                                                         <button class="btn btn-default btn-xs btn-fill">Inactive</button>

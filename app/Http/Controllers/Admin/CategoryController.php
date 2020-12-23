@@ -54,7 +54,7 @@ class CategoryController extends AdminController
             'category' => 'required|string|unique:categories,category',
             'incidents' => 'required|array',
             'scores' => 'required|array',
-            'status' => 'required|boolean'
+            'status' => 'required|in:active,inactive'
         ];
 
         $incidents = $request->incidents;
@@ -132,7 +132,7 @@ class CategoryController extends AdminController
             'incidents' => 'required|array',
             'scores' => 'required|array',
             'order' => 'required|integer',
-            'status' => 'required|boolean'
+            'status' => 'required|in:active,inactive'
         ];
 
         $validator = Validator::make($request->all(), $rules);

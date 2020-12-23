@@ -13,6 +13,12 @@
 
 
 Auth::routes();
+
+// Social Logins
+Route::get('social/auth/redirect/{provider}', 'Auth\AuthController@redirectToProvider');
+Route::get('social/auth/{provider}', 'Auth\AuthController@handleProviderCallback');
+
+
 Route::get('logout', 'Auth\LoginController@logout', function () {
     return abort(404);
 });

@@ -53,8 +53,8 @@
                         <h3>Sign In <span>iCheck<strong>Rental</strong></span></h3>
                         <div class="soc-log fl-wrap">
                             <p>For faster login or register use your social account.</p>
-                            <a href="#" class="facebook-log"><i class="fa fa-facebook-official"></i>Log in with Facebook</a>
-                            <a href="#" class="twitter-log"><i class="fa fa-twitter"></i> Log in with Twitter</a>
+                            <a href="{{ url('/social/auth/redirect', ['facebook']) }}" class="facebook-log"><i class="fa fa-facebook-official"></i>Log in with Facebook</a>
+                            <a href="{{ url('/social/auth/redirect', ['twitter']) }}" class="twitter-log"><i class="fa fa-twitter"></i> Log in with Twitter</a>
                         </div>
                         <div class="log-separator fl-wrap"><span>or</span></div>
                         <div id="tabs-container">
@@ -124,7 +124,7 @@
 
                                                 <label>Select Role *</label>
                                                 <select name="role">
-                                                    <option value="" disabled selected>Select Role</option>
+                                                    <option value="" disabled selected>- Select Role -</option>
                                                     <option value="company" @if(old('role')=="company" ) selected="selected"
                                                             @endif>Company
                                                     </option>
@@ -196,7 +196,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
 @yield('scripts')
 <script
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDwJSRi0zFjDemECmFl9JtRj1FY7TiTRRo&libraries=places&callback=initAutocomplete">
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqifuyms9Dcg68sKoOokZQZkl9l3IZUKY&libraries=places&callback=initAutocomplete">
 </script>
 <script>
     $(document).ready(function() {

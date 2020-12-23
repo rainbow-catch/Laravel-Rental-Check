@@ -62,12 +62,12 @@ class CategoryTableSeeder extends seeder
 
         $equipmentRental = Category::create([
             'category' => 'Equipment Rental',
-            'order' => 2
+            'order' => 3
         ]);
 
         $furnitureRental = Category::create([
             'category' => 'Furniture Rental',
-            'order' => 3
+            'order' => 4
         ]);
 
         $autoRental->incidents([

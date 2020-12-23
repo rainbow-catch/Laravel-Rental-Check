@@ -30,6 +30,7 @@
                                     <div class="form-group">
                                         <label>Status</label>
                                         <select name="status" id="status" class="form-control">
+                                            <option value="" disabled selected>- Select Status -</option>
                                             @foreach(config('var.status1') as $status)
                                                 <option @if($incident->isActive == $status) selected="selected" @endif>{{ $status }}</option>
                                             @endforeach

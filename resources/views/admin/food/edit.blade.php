@@ -84,6 +84,7 @@
                                     <div class="form-group">
                                         <label>Status</label>
                                         <select name="status" id="status" class="form-control">
+                                            <option value="" disabled selected>- Select Status -</option>
                                             <option value="1"
                                                     @if ($food->status == '1') selected="selected" @endif>Active
                                             </option>

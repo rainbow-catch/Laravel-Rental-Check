@@ -9,6 +9,7 @@
 return [
     'status'=> [
         'registered',
+        'blocked',
         'allowed',
         'completed',
     ],

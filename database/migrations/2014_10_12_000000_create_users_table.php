@@ -28,7 +28,7 @@ class CreateUsersTable extends Migration
             $table->string('twitter_id', 191)->unique()->nullable();
             $table->enum('role', ['admin', 'company', 'customer'])->default('customer');
             $table->boolean('super_admin')->default(false);
-            $table->enum('status', ['registered', 'allowed', 'completed'])->default("registered");
+            $table->enum('status', ['registered', 'blocked', 'allowed', 'completed'])->default("registered");
             $table->rememberToken();
             $table->timestamps();
         });

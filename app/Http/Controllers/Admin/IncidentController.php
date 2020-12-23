@@ -46,7 +46,7 @@ class IncidentController extends AdminController
     {
         $rules = [
             'incident' => 'required|max:50|unique:incidents,incident',
-            'status' => 'in:active,inactive'
+            'status' => 'required|in:active,inactive'
         ];
 
         $validator = Validator::make($request->all(), $rules);
@@ -90,7 +90,7 @@ class IncidentController extends AdminController
     {
         $rules = [
             'incident' => 'required|max:50|unique:incidents,incident,'.$id,
-            'status' => 'in:active,inactive'
+            'status' => 'required|in:active,inactive'
         ];
 
         $validator = Validator::make($request->all(), $rules);

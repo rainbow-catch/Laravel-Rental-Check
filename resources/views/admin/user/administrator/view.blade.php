@@ -44,13 +44,16 @@
                                                     <button class="btn btn-default btn-xs btn-fill">{{ $user->role }}</button>
                                                 </td>
                                                 <td>
-                                                    @if($user->status == 'completed')
-                                                        <button class="btn btn-success btn-xs btn-fill">Completed</button>
-                                                    @elseif($user->status == 'allowed')
-                                                        <button class="btn btn-warning btn-xs btn-fill">Allowed</button>
-                                                    @else
+                                                    @switch($user->status)
+                                                        @case('completed')
+                                                        <button class="btn btn-success btn-xs btn-fill">Completed</button> @break
+                                                        @case('allowed')
+                                                        <button class="btn btn-warning btn-xs btn-fill">Allowed</button> @break
+                                                        @case('blocked')
+                                                        <button class="btn btn-danger btn-xs btn-fill">Blocked</button> @break
+                                                        @default
                                                         <button class="btn btn-default btn-xs btn-fill">registered</button>
-                                                    @endif
+                                                    @endswitch
                                                 </td>
                                                 <td>
                                                     <div class="table-icons">

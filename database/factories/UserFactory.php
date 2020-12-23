@@ -32,7 +32,7 @@ $factory->define(App\User::class, function (Faker $faker) {
         'avatar' => $avatar,
         'about' => $faker->text($maxNbChars = 200),
         'role' => array_rand(['customer'=>'customer', 'company'=> 'customer']),
-        'status' => TRUE,
+        'status' => array_rand(['registered'=>'registered', 'allowed'=> 'allowed', 'completed'=>'completed', 'blocked'=>'blocked']),
         'remember_token' => str_random(10),
     ];
 });
