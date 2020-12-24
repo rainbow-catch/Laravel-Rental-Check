@@ -41,7 +41,8 @@
                                             </option>
                                             <option value="female" @if (Input::old('gender') == 'female') selected="selected" @endif>Female
                                             </option>
-
+                                            <option value="others" @if (Input::old('gender') == 'others') selected="selected" @endif>Others
+                                            </option>
                                         </select>
                                     </div>
                                 </div>

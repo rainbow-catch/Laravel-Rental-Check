@@ -24,6 +24,8 @@ Route::get('logout', 'Auth\LoginController@logout', function () {
 });
 
 Route::get('/', 'HomeController@index')->name('home');
+Route::get('/profile', 'HomeController@profile')->name('profile');
+Route::post('/profile/update', 'HomeController@updateProfile')->name('profile.update');
 
 /*
  * Dashboard

@@ -20,7 +20,7 @@
     <link type="text/css" rel="stylesheet" href="{{ asset('css/plugins.css') }}">
     <link type="text/css" rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link type="text/css" rel="stylesheet" href="{{ asset('css/color.css') }}">
-    <link type="text/css" rel="stylesheet" href="{{ asset('css/custom.css') }}">
+    {{--<link type="text/css" rel="stylesheet" href="{{ asset('css/custom.css') }}">--}}
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet" />
     <!--=============== favicons ===============-->
     <link rel="shortcut icon" href="{{ asset('images/favicon.ico') }}">
@@ -102,49 +102,23 @@
                                             <form action="{{ route('register') }}" method="post" name="registerform"
                                                   class="main-register-form" id="main-register-form2">
                                                 @csrf
-                                                <label>First Name * </label>
-                                                <input name="first_name" type="text"
-                                                       class="{{ $errors->has('first_name') ? ' is-invalid' : '' }}"
-                                                       value="{{ old('first_name') }}" required onClick="this.select()">
-                                                @if ($errors->has('first_name'))
-                                                    <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $errors->first('first_name') }}</strong>
-                                                </span>
-                                                @endif
-
-                                                <label>Last Name *</label>
-                                                <input name="last_name" type="text" onClick="this.select()"
-                                                       class="{{ $errors->has('last_name') ? ' is-invalid' : '' }}"
-                                                       value="{{ old('last_name') }}" required>
-                                                @if ($errors->has('last_name'))
-                                                    <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $errors->first('last_name') }}</strong>
-                                                </span>
-                                                @endif
 
                                                 <label>Select Role *</label>
                                                 <select name="role">
                                                     <option value="" disabled selected>- Select Role -</option>
-                                                    <option value="company" @if(old('role')=="company" ) selected="selected"
+                                                    <option value="Admin" @if(old('role')=="Admin" ) selected="selected"
+                                                            @endif>Admin
+                                                    </option>
+                                                    <option value="Company" @if(old('role')=="company" ) selected="selected"
                                                             @endif>Company
                                                     </option>
-                                                    <option value="customer" @if(old('role')=="customer" ) selected="selected"
+                                                    <option value="Customer" @if(old('role')=="customer" ) selected="selected"
                                                             @endif>Customer
                                                     </option>
                                                 </select>
                                                 @if ($errors->has('role'))
                                                     <span class="help-block">
                                                     <strong>{{ $errors->first('role') }}</strong>
-                                                </span>
-                                                @endif
-
-                                                <label>Mobile Phone *</label>
-                                                <input name="phone" type="text" onClick="this.select()"
-                                                       class="{{ $errors->has('phone') ? ' is-invalid' : '' }}"
-                                                       value="{{ old('phone') }}" required>
-                                                @if ($errors->has('phone'))
-                                                    <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $errors->first('phone') }}</strong>
                                                 </span>
                                                 @endif
 

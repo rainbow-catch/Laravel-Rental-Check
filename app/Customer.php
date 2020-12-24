@@ -2,22 +2,21 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable
+class Customer extends Model
 {
-    use Notifiable;
-
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'password', 'email',
-        'role', 'isCompleted',
-        'isActive', 'super_admin'
+        'user_id',
+        'first_name', 'last_name', 'gender', 'address', 'phone', 'avatar',
+        'linkedin_id', 'instagram_id', 'facebook_id', 'twitter_id',
+        'license', 'about'
     ];
 
     /**
@@ -28,10 +27,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-
-
-    public function detail() {
-        $model = 'App\\'.$this->role;
-        return $this->hasOne($model);
+    public function user() {
+        $this->belongsTo('App\User');
     }
 }

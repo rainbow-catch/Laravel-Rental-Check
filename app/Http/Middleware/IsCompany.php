@@ -16,8 +16,11 @@ class IsCompany
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::user() && Auth::user()->role == "company") {
-            return $next($request);
+        if (Auth::user() && Auth::user()->role == "Company") {
+            if(Auth::user()->detail)
+                return $next($request);
+            else
+                return redirect('/profile')->withErrors('Complete your profile first.');
         }
         abort(401);
     }

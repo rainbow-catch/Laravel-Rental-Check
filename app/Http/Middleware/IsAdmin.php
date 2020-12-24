@@ -16,8 +16,11 @@ class IsAdmin
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::user() && Auth::user()->role == "admin") {
-            return $next($request);
+        if (Auth::user() && Auth::user()->role == "Admin") {
+            if(Auth::user()->detail)
+                return $next($request);
+            else
+                return redirect('/profile')->withErrors('Complete your profile first.');
         }
         abort(401);
     }
