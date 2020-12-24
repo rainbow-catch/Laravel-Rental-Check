@@ -69,6 +69,12 @@ return [
             'url' => env('APP_URL').'/storage/avatars',
             'visibility' => 'public',
         ],
+        'license' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/licenses'),
+            'url' => env('APP_URL').'/storage/licenses',
+            'visibility' => 'public',
+        ],
     ],
 
 ];

@@ -179,8 +179,8 @@ class CompanyController extends AdminController
             $detail->phone = $request->input('phone');
             $detail->address = $request->input('address');
             $detail->about = $request->input('about');
-            if($request->input('license'))
-                $detail->license = $request->input('license');
+            if ($request->license)
+                $detail->license = $request->file('license')->store('','license');
             $detail->fed_id = $request->input('fed_id');
             $detail->payment_method = $request->input('payment_method');
 

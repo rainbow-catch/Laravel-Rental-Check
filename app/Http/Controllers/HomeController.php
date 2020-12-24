@@ -85,7 +85,8 @@ class HomeController extends Controller
                         ->withErrors($validator);
                 }
                 $data = $request->all();
-                unset($data['first_name'], $data['last_name']);
+
+                unset($data['first_name'], $data['last_name'], $data['license']);
 
                 $data['company_name'] = $request->first_name;
                 $data['manager_name'] = $request->last_name;
@@ -96,6 +97,9 @@ class HomeController extends Controller
                     $data['avatar'] = $request->file('avatar')->store('','avatar');
                 else
                     $data['avatar'] = $available_avatars[array_rand($available_avatars)];
+
+                if ($request->license)
+                    $data['license'] = $request->file('license')->store('','license');
 
                 Company::updateOrCreate(['user_id'=>Auth::user()->id], $data);
 
@@ -113,6 +117,7 @@ class HomeController extends Controller
                         ->withErrors($validator);
                 }
                 $data = $request->all();
+                unset($data['license']);
 
                 $available_avatars = ['boy.png', 'boy-1.png', 'girl.png', 'girl-1.png', 'girl-2.png', 'man.png', 'man-1.png', 'man-2.png', 'man-3.png'];
 
@@ -120,6 +125,9 @@ class HomeController extends Controller
                     $data['avatar'] = $request->file('avatar')->store('','avatar');
                 else
                     $data['avatar'] = $available_avatars[array_rand($available_avatars)];
+
+                if ($request->license)
+                    $data['license'] = $request->file('license')->store('','license');
 
                 Customer::updateOrCreate(['user_id'=>Auth::user()->id], $data);
 

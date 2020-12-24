@@ -179,8 +179,8 @@ class CustomerController extends AdminController
             $detail->phone = $request->input('phone');
             $detail->address = $request->input('address');
             $detail->about = $request->input('about');
-            if($request->input('license'))
-                $detail->license = $request->input('license');
+            if ($request->license)
+                $detail->license = $request->file('license')->store('','license');
             $detail->payment_method = $request->input('payment_method');
 
             // Avatar Upload

@@ -108,11 +108,12 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label>Business License</label>
-                                        <input type="file" name="license" class="form-control border-input">
+                                        <label>Driver License</label>
+                                        <input type="file" name="license" onchange="readLicenseURL(this);" class="form-control border-input">
                                     </div>
                                 </div>
                             </div>
+                            <img id="license" src="{{'/storage/licenses/'. ($user->detail? $user->detail->license: '')}}" alt="license" style="width: 500px;">
 
                             <div class="row">
                                 <div class="col-md-12">
@@ -226,6 +227,33 @@
     <!--  Date Time Picker Plugin is included in this js file -->
     <script src="{{asset('/backend/js/bootstrap-datetimepicker.js')}}"></script>
     <script>
+        function readLicenseURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#license')
+                        .attr('src', e.target.result)
+                        .width(500);
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#blah')
+                        .attr('src', e.target.result)
+                        .width(120)
+                        .height(120);
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
         // Init DatetimePicker
         demo.initFormExtendedDatetimepickers();
     </script>
