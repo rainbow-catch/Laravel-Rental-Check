@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Category;
+use App\Company;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -23,7 +25,7 @@ class CompanyController extends AdminController
      */
     public function index()
     {
-        $users = User::where('role', 'company')->get();
+        $users = User::where('role', 'Company')->get();
         return view('admin.user.company.view')->with('users', $users);
     }
 
@@ -52,7 +54,7 @@ class CompanyController extends AdminController
             'email' => 'required|email|max:50|unique:users',
             'address' => 'max:200',
             'about' => 'max:300',
-            'role' => 'in:customer,company,admin',
+            'role' => 'in:Customer,Company,Admin',
             'password' => 'required|min:6',
         ];
         if (!empty($request->input('phone'))) {
@@ -115,9 +117,7 @@ class CompanyController extends AdminController
     public function edit($id)
     {
         $user = User::find($id);
-        return view('admin.user.company.edit')->with([
-            'user' => $user
-        ]);
+        return view('admin.user.company.edit')->with(['user' => $user, 'categories'=>Category::all()]);
     }
 
     /**
@@ -134,11 +134,15 @@ class CompanyController extends AdminController
             'first_name' => 'required|max:25',
             'last_name' => 'required|max:25',
             'gender' => 'required|in:male,female,others',
-            'email' => 'required|email|max:255|unique:users,email,' . $id,
+            'email' => 'required|email|max:255|unique:users,email,'.$id,
             'address' => 'max:200',
             'about' => 'max:300',
-            'role' => 'in:customer,company,admin'
+            'role' => 'in:Customer,Company,Admin',
+
         ];
+        $rules['payment_method'] = "required|in:Visa,MasterCard,Square Up,Paypal,Stripe,Venmo";
+        $rules['fed_id'] = "required|numeric";
+
         if (!empty($request->input('phone'))) {
             $rules['phone'] = 'numeric|max:999999999999999';
         }
@@ -159,30 +163,39 @@ class CompanyController extends AdminController
                 ->with('user', $user);
         } else {
             $user = User::find($id);
-            $user->first_name = $request->input('first_name');
-            $user->last_name = $request->input('last_name');
-            $user->gender = $request->input('gender');
-            $user->phone = $request->input('phone');
+            $detail = Company::where('user_id', $user->id)->first();
+
             $user->email = $request->input('email');
-            $user->address = $request->input('address');
-            $user->about = $request->input('about');
             $user->role = $request->input('role');
-            $user->status = $request->input('status');
+            $user->isActive = $request->input('isActive');
 
             if ($request->input('password')){
                 $user->password = bcrypt($request->input('password'));
             }
 
+            $detail->company_name = $request->input('first_name');
+            $detail->manager_name = $request->input('last_name');
+            $detail->gender = $request->input('gender');
+            $detail->phone = $request->input('phone');
+            $detail->address = $request->input('address');
+            $detail->about = $request->input('about');
+            if($request->input('license'))
+                $detail->license = $request->input('license');
+            $detail->fed_id = $request->input('fed_id');
+            $detail->payment_method = $request->input('payment_method');
+
             // Avatar Upload
             if ($request->hasFile('avatar')) {
-                if(!in_array($user->avatar, ['boy.png', 'boy-1.png', 'girl.png', 'girl-1.png', 'girl-2.png','man.png', 'man-1.png', 'man-2.png', 'man-3.png'])){
-                    Storage::delete('public/avatars/'.$user->avatar);
+                if(!in_array($detail->avatar, ['boy.png', 'boy-1.png', 'girl.png', 'girl-1.png', 'girl-2.png','man.png', 'man-1.png', 'man-2.png', 'man-3.png'])){
+                    Storage::delete('public/avatars/'.$detail->avatar);
                 }
                 $path = $request->file('avatar')->store('','avatar');
-                $user->avatar = $path;
+                $detail->avatar = $path;
             }
 
             $user->save();
+            $detail->save();
+
             Session::flash('flash_title', "Success");
             Session::flash('flash_message', "User profile has been updated.");
             return redirect('/admin/user/company');

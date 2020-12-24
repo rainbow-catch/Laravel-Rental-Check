@@ -76,6 +76,7 @@ class HomeController extends Controller
                     $rules['license'] = "required|file";
                 $rules['fed_id'] = "required|numeric";
                 $rules['membership'] = "required|in:basic,extended,premium";
+                $rules['payment_method'] = "required|in:Visa,MasterCard,Square Up,Paypal,Stripe,Venmo";
 
                 $validator = Validator::make($request->all(), $rules);
                 if ($validator->fails()) {
@@ -101,6 +102,7 @@ class HomeController extends Controller
                 return redirect('/dashboard');
             }
             case 'Customer': {
+                $rules['payment_method'] = "required|in:Visa,MasterCard,Square Up,Paypal,Stripe,Venmo";
                 if(Customer::where('user_id', Auth::user()->id)->count()==0)
                     $rules['license'] = "required|file";
 

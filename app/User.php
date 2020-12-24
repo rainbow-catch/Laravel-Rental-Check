@@ -34,4 +34,13 @@ class User extends Authenticatable
         $model = 'App\\'.$this->role;
         return $this->hasOne($model);
     }
+
+
+    public function fullName() {
+        if(!$this->detail) return 'ABC';
+        if($this->role != 'Company')
+            return $this->detail->first_name.' '.$this->detail->last_name;
+        else
+            return $this->detail->manager_name;
+    }
 }

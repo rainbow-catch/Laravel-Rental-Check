@@ -38,4 +38,5 @@ class UsersTableSeeder  extends Seeder
         factory(Company::class, 10)->create();
         factory(Admin::class, 5)->create();
     }
+
 }

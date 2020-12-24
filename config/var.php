@@ -9,17 +9,23 @@
 return [
     'status'=> [
         'registered',
-        'blocked',
-        'allowed',
         'completed',
     ],
     'status1'=> [
-        'active',
-        'inactive',
+        'Active',
+        'Inactive',
     ],
     'role'=>[
-        'customer',
-        'company',
-        'admin',
-    ]
+        'Customer',
+        'Company',
+        'Admin',
+    ],
+    'payment_method'=>[
+        'Visa',
+        'MasterCard',
+        'Square Up',
+        'Paypal',
+        'Stripe',
+        'Venmo'
+    ],
 ];

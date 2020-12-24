@@ -44,6 +44,8 @@ class CreateUsersTable extends Migration
             $table->string('instagram_id', 191)->unique()->nullable();
             $table->string('linkedin_id', 191)->unique()->nullable();
 
+            $table->enum('payment_method', ['Visa', 'MasterCard', 'Square Up', 'Paypal', 'Stripe', 'Venmo']);
+
             $table->foreign('user_id')
                 ->references('id')->on('users')
                 ->onUpdate('cascade')
@@ -56,9 +58,9 @@ class CreateUsersTable extends Migration
             $table->unsignedInteger('user_id');
             $table->string('company_name', 25);
             $table->string('manager_name', 50);
-            $table->enum('gender', ['male', 'female', 'others'])->nullable();
+            $table->enum('gender', ['male', 'female', 'others']);
             $table->string('phone', 15);
-            $table->text('address')->nullable();
+            $table->text('address');
             $table->string('avatar', 200)->default('boy.png');
             $table->string('license', 200);
             $table->string('about', 300)->nullable();
@@ -67,6 +69,8 @@ class CreateUsersTable extends Migration
             $table->string('twitter_id', 191)->unique()->nullable();
             $table->string('instagram_id', 191)->unique()->nullable();
             $table->string('linkedin_id', 191)->unique()->nullable();
+
+            $table->enum('payment_method', ['Visa', 'MasterCard', 'Square Up', 'Paypal', 'Stripe', 'Venmo']);
 
             $table->unsignedInteger('category_id');
             $table->string('fed_id');

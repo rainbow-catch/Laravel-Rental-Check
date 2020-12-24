@@ -116,7 +116,7 @@
                                             <label> Fed ID <i class="fa fa-id-badge"></i> </label>
                                             <input type="text" name="fed_id" placeholder="346257245" value="{{ old('fed_id') ? old('fed_id') :( $detail? $detail->fed_id :'' )}}"/>
 
-                                            <label> Category <i class="fa fa-female"></i> </label>
+                                            <label> Category <i class="fa fa-tag"></i> </label>
                                             <select name="category_id">
                                                 <option value="" disabled selected>- Select Category -</option>
                                                 @foreach($categories as $category)
@@ -130,6 +130,15 @@
                                             <label> @if(Auth::user()->role == "Company") Business License @else Driver
                                                 License : {{ ( $detail? 'DONE' :'' ) }} @endif <i class="fa fa-file"></i> </label>
                                             <input type="file" name="license" placeholder="Upload license" value="{{ old('license') ? old('license') :( $detail? $detail->license :'' )}}"/>
+
+                                            <label> Payment <i class="fa fa-paypal"></i> </label>
+                                            <select name="payment_method">
+                                                <option value="" disabled selected>- Select Payment -</option>
+                                                @foreach(config('var.payment_method') as $item)
+                                                    <option value="{{ $item }}" {{ old('payment_method')? (Input::old('payment_method')== $item? 'selected':''): ($detail? ( $detail->payment_method == $item? 'selected':''): '') }} >{{ $item }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
 
                                             <label> Notes</label>
                                             <textarea cols="40" rows="3" placeholder="About Me" name="about">{{ old('about') ? old('about') :( $detail? $detail->about :'' )}}</textarea>
@@ -149,7 +158,7 @@
                                                 <div class="col-md-4">
                                                     <div class="add-list-media-header">
                                                         <label class="radio inline">
-                                                            <input type="radio" value="basic" name="membership" {{ $detail? ($detail->membership=='basic'? 'selected': ''): '' }}>
+                                                            <input type="radio" readonly value="basic" name="membership" {{ $detail? ($detail->membership=='basic'? 'selected': ''): '' }}>
                                                             <span>Basic 99$</span>
                                                         </label>
                                                     </div>
@@ -159,7 +168,7 @@
                                                 <div class="col-md-4">
                                                     <div class="add-list-media-header">
                                                         <label class="radio inline">
-                                                            <input type="radio" value='extended' name="membership" {{ $detail? ($detail->membership=='extended'? 'selected': ''): '' }}>
+                                                            <input type="radio" readonly value='extended' name="membership" {{ $detail? ($detail->membership=='extended'? 'selected': ''): '' }}>
                                                             <span>Extended 99$</span>
                                                         </label>
                                                     </div>
@@ -169,7 +178,7 @@
                                                 <div class="col-md-4">
                                                     <div class="add-list-media-header">
                                                         <label class="radio inline">
-                                                            <input type="radio" value="premium" name="membership" {{ $detail? ($detail->membership=='premium'? 'selected': ''): '' }}>
+                                                            <input type="radio" readonly value="premium" name="membership" {{ $detail? ($detail->membership=='premium'? 'selected': ''): '' }}>
                                                             <span>Professional 149$</span>
                                                         </label>
                                                     </div>

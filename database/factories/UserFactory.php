@@ -13,11 +13,12 @@ use Faker\Generator as Faker;
 |
 */
 
-$factory->define(App\User::class, function (Faker $faker) {
+$factory->define(App\User::class, function ($faker, $params) {
+    $role=$params['role'];
     return [
         'email' => $faker->unique()->safeEmail,
         'password' => bcrypt('password'),
-        'role' => array_rand(['customer'=>'customer', 'company'=> 'customer']),
+        'role' => $role,
         'isActive' => $faker->boolean,
         'remember_token' => str_random(10),
     ];
@@ -32,7 +33,7 @@ $factory->define(App\Customer::class, function (Faker $faker) {
     else
         $avatar = $faker->randomElement(['boy.png', 'boy-1.png', 'man.png', 'man-1.png', 'man-2.png', 'man-3.png']);
     return [
-        'user_id' => factory('App\User')->create()->id,
+        'user_id' => factory('App\User')->create(['role'=>'Customer'])->id,
         'first_name' => $faker->firstName,
         'last_name' => $faker->lastName,
         'gender' => $gender,
@@ -45,6 +46,7 @@ $factory->define(App\Customer::class, function (Faker $faker) {
         'twitter_id' => $faker->url,
         'linkedin_id' => $faker->url,
         'instagram_id' => $faker->url,
+        'payment_method' => $faker->randomElement(config('var.payment_method')),
     ];
 });
 
@@ -58,7 +60,7 @@ $factory->define(App\Company::class, function (Faker $faker) {
     else
         $avatar = $faker->randomElement(['boy.png', 'boy-1.png', 'man.png', 'man-1.png', 'man-2.png', 'man-3.png']);
     return [
-        'user_id' => factory('App\User')->create()->id,
+        'user_id' => factory('App\User')->create(['role'=>'Company'])->id,
         'company_name' => $faker->name,
         'manager_name' => $faker->name,
         'gender' => $gender,
@@ -71,6 +73,7 @@ $factory->define(App\Company::class, function (Faker $faker) {
         'twitter_id' => $faker->url,
         'linkedin_id' => $faker->url,
         'instagram_id' => $faker->url,
+        'payment_method' => $faker->randomElement(config('var.payment_method')),
         'fed_id' => $faker->randomNumber(6),
         'category_id' => $faker->randomElement($categories)->id
     ];
@@ -84,7 +87,7 @@ $factory->define(App\Admin::class, function (Faker $faker) {
     else
         $avatar = $faker->randomElement(['boy.png', 'boy-1.png', 'man.png', 'man-1.png', 'man-2.png', 'man-3.png']);
     return [
-        'user_id' => factory('App\User')->create()->id,
+        'user_id' => factory('App\User')->create(['role'=>'Admin'])->id,
         'first_name' => $faker->firstName,
         'last_name' => $faker->lastName,
         'gender' => $gender,

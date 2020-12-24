@@ -10,21 +10,23 @@
                     <div class="card">
                         <div class="content">
                             <div class="toolbar">
-                                <a href="{{url('admin/user/company/create')}}" rel="tooltip" title="Add New User"
-                                   class="btn btn-danger" style="margin-right: 20px">
-                                    <i class="ti-plus"></i>
-                                </a>
+                                {{--<a href="{{url('admin/user/company/create')}}" rel="tooltip" title="Add New User"--}}
+                                   {{--class="btn btn-danger" style="margin-right: 20px">--}}
+                                    {{--<i class="ti-plus"></i>--}}
+                                {{--</a>--}}
                                 <!--Here you can write extra buttons/actions for the toolbar-->
                             </div>
                             <table id="bootstrap-table" class="table">
                                 <thead>
                                 <th data-field="sn" class="text-center">S.N.</th>
                                 <th data-field="id" class="text-center">User ID</th>
+                                <th data-field="company_name" data-sortable="true">Company Name</th>
                                 <th data-field="name" data-sortable="true">Name</th>
                                 <th data-field="phone" data-sortable="true">Phone</th>
                                 <th data-field="email" data-sortable="true">Email</th>
                                 <th data-field="address" data-sortable="true">Address</th>
                                 <th data-field="roles" data-sortable="true">Role</th>
+                                <th data-field="isActive" data-sortable="true">IsActive</th>
                                 <th data-field="status" data-sortable="true">Status</th>
                                 <th data-field="actions" class="td-actions text-right">Actions
                                 </th>
@@ -36,24 +38,23 @@
                                             <tr>
                                                 <td>{{$index+1}}</td>
                                                 <td>{{ $user->id }}</td>
-                                                <td>{{ $user->first_name." ".$user->last_name }}</td>
-                                                <td>{{ $user->phone }}</td>
+                                                <td>{{ $user->detail->company_name }}</td>
+                                                <td>{{ $user->detail->manager_name }}</td>
+                                                <td>{{ $user->detail->phone }}</td>
                                                 <td>{{ $user->email }}</td>
-                                                <td>{{ $user->address }}</td>
+                                                <td>{{ $user->detail->address }}</td>
                                                 <td>
-                                                        <button class="btn btn-default btn-xs btn-fill">{{ $user->role }}</button>
+                                                    <button class="btn btn-default btn-xs btn-fill">{{ $user->role }}</button>
                                                 </td>
                                                 <td>
-                                                    @switch($user->status)
-                                                        @case('completed')
-                                                        <button class="btn btn-success btn-xs btn-fill">Completed</button> @break
-                                                        @case('allowed')
-                                                        <button class="btn btn-warning btn-xs btn-fill">Allowed</button> @break
-                                                        @case('blocked')
-                                                        <button class="btn btn-danger btn-xs btn-fill">Blocked</button> @break
-                                                        @default
-                                                        <button class="btn btn-default btn-xs btn-fill">registered</button>
-                                                    @endswitch
+                                                    @if($user->isActive) <button class="btn btn-success btn-xs btn-fill">Active</button>
+                                                    @else <button class="btn btn-default btn-xs btn-fill">Inactive</button>
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if($user->detail) <button class="btn btn-success btn-xs btn-fill">Completed</button>
+                                                    @else <button class="btn btn-default btn-xs btn-fill">Registered</button>
+                                                    @endif
                                                 </td>
                                                 <td>
                                                     <div class="table-icons">
@@ -77,7 +78,7 @@
                                                 </td>
                                             </tr>
                                         @endforeach
-                                        @endunless
+                                    @endunless
                                 </tbody>
                             </table>
                         </div>

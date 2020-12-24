@@ -17,11 +17,11 @@
         <div class="sidebar-wrapper">
             <div class="user">
                 <div class="photo">
-                    <img src="{{'/storage/avatars/'.Auth::user()->avatar}}"/>
+                    <img src="{{'/storage/avatars/'.Auth::user()->detail->avatar}}"/>
                 </div>
                 <div class="info">
                     <a data-toggle="collapse" href="#collapseExample" class="collapsed">
-                        {{Auth::user()->first_name." ".Auth::user()->last_name}}
+                        {{Auth::user()->fullName()}}
                         <b class="caret"></b>
                     </a>
                     <div class="collapse" id="collapseExample">

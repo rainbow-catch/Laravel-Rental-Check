@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Admin;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -23,7 +24,7 @@ class AdministratorController extends AdminController
      */
     public function index()
     {
-        $users = User::where('role', 'admin')->get();
+        $users = User::where('role', 'Admin')->get();
         return view('admin.user.administrator.view')->with('users', $users);
     }
 
@@ -52,7 +53,7 @@ class AdministratorController extends AdminController
             'email' => 'required|email|max:50|unique:users',
             'address' => 'max:200',
             'about' => 'max:300',
-            'role' => 'in:customer,company,admin',
+            'role' => 'in:Customer,Company,Admin',
             'password' => 'required|min:6',
         ];
         if (!empty($request->input('phone'))) {
@@ -131,17 +132,20 @@ class AdministratorController extends AdminController
     {
         $user = User::find($id);
         $rules = [
-            'first_name' => 'required|max:25',
-            'last_name' => 'required|max:25',
+            'first_name' => 'required|string',
+            'last_name' => 'required|string',
             'gender' => 'required|in:male,female,others',
+            'address' => 'required|string',
+            'phone' => 'required|numeric|max:999999999999999',
+            'facebook_id' => 'nullable|url',
+            'twitter_id' => 'nullable|url',
+            'instagram_id' => 'nullable|url',
+            'linkedin_id' => 'nullable|url',
             'email' => 'required|email|max:255|unique:users,email,' . $id,
-            'address' => 'max:200',
             'about' => 'max:300',
-            'role' => 'in:customer,company,admin'
+            'role' => 'in:Customer,Company,Admin',
+            'isActive'=> 'required|boolean'
         ];
-        if (!empty($request->input('phone'))) {
-            $rules['phone'] = 'numeric|max:999999999999999';
-        }
 
         if ($request->hasFile('avatar')) {
             $rules['avatar'] = 'mimes:jpeg,jpg,png,PNG,JPEG,JPG,JPG';
@@ -159,30 +163,40 @@ class AdministratorController extends AdminController
                 ->with('user', $user);
         } else {
             $user = User::find($id);
-            $user->first_name = $request->input('first_name');
-            $user->last_name = $request->input('last_name');
-            $user->gender = $request->input('gender');
-            $user->phone = $request->input('phone');
             $user->email = $request->input('email');
-            $user->address = $request->input('address');
-            $user->about = $request->input('about');
             $user->role = $request->input('role');
-            $user->status = $request->input('status');
+            $user->isActive = $request->input('isActive');
 
             if ($request->input('password')){
                 $user->password = bcrypt($request->input('password'));
             }
 
+            $detail = Admin::where('user_id', $user->id)->first();
+            $detail->first_name = $request->input('first_name');
+            $detail->last_name = $request->input('last_name');
+            $detail->gender = $request->input('gender');
+            $detail->phone = $request->input('phone');
+            $detail->address = $request->input('address');
+
+            $detail->facebook_id = $request->input('facebook_id');
+            $detail->twitter_id = $request->input('twitter_id');
+            $detail->instagram_id = $request->input('instagram_id');
+            $detail->linkedin_id = $request->input('linkedin_id');
+
+//            $detail->about = $request->input('about');
+
             // Avatar Upload
             if ($request->hasFile('avatar')) {
-                if(!in_array($user->avatar, ['boy.png', 'boy-1.png', 'girl.png', 'girl-1.png', 'girl-2.png','man.png', 'man-1.png', 'man-2.png', 'man-3.png'])){
-                    Storage::delete('public/avatars/'.$user->avatar);
+                if(!in_array($detail->avatar, ['boy.png', 'boy-1.png', 'girl.png', 'girl-1.png', 'girl-2.png','man.png', 'man-1.png', 'man-2.png', 'man-3.png'])){
+                    Storage::delete('public/avatars/'.$detail->avatar);
                 }
                 $path = $request->file('avatar')->store('','avatar');
-                $user->avatar = $path;
+                $detail->avatar = $path;
             }
 
             $user->save();
+            $detail->save();
+
             Session::flash('flash_title', "Success");
             Session::flash('flash_message', "User profile has been updated.");
             return redirect('/admin/user/administrator');

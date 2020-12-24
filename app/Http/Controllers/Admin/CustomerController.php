@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Customer;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -23,7 +24,7 @@ class CustomerController extends AdminController
      */
     public function index()
     {
-        $users = User::where('role', 'customer')->get();
+        $users = User::where('role', 'Customer')->get();
         return view('admin.user.customer.view')->with('users', $users);
     }
 
@@ -52,7 +53,7 @@ class CustomerController extends AdminController
             'email' => 'required|email|max:50|unique:users',
             'address' => 'max:200',
             'about' => 'max:300',
-            'role' => 'in:customer,company,admin',
+            'role' => 'in:Customer,Company,Admin',
             'status' => 'in:registered,allowed,completed',
             'password' => 'required|min:6',
         ];
@@ -138,8 +139,10 @@ class CustomerController extends AdminController
             'address' => 'max:200',
             'about' => 'max:300',
             'status' => 'in:registered,allowed,completed',
-            'role' => 'in:customer,company,admin'
+            'role' => 'in:Customer,Company,Admin'
         ];
+        $rules['payment_method'] = "required|in:Visa,MasterCard,Square Up,Paypal,Stripe,Venmo";
+
         if (!empty($request->input('phone'))) {
             $rules['phone'] = 'numeric|max:999999999999999';
         }
@@ -160,30 +163,37 @@ class CustomerController extends AdminController
                 ->with('user', $user);
         } else {
             $user = User::find($id);
-            $user->first_name = $request->input('first_name');
-            $user->last_name = $request->input('last_name');
-            $user->gender = $request->input('gender');
-            $user->phone = $request->input('phone');
+            $detail= Customer::where('user_id', $user->id);
+
             $user->email = $request->input('email');
-            $user->address = $request->input('address');
-            $user->about = $request->input('about');
             $user->role = $request->input('role');
-            $user->status = $request->input('status');
+            $user->isActive = $request->input('isActive');
 
             if ($request->input('password')){
                 $user->password = bcrypt($request->input('password'));
             }
 
+            $detail->first_name = $request->input('first_name');
+            $detail->last_name = $request->input('last_name');
+            $detail->gender = $request->input('gender');
+            $detail->phone = $request->input('phone');
+            $detail->address = $request->input('address');
+            $detail->about = $request->input('about');
+            if($request->input('license'))
+                $detail->license = $request->input('license');
+            $detail->payment_method = $request->input('payment_method');
+
             // Avatar Upload
             if ($request->hasFile('avatar')) {
-                if(!in_array($user->avatar, ['boy.png', 'boy-1.png', 'girl.png', 'girl-1.png', 'girl-2.png','man.png', 'man-1.png', 'man-2.png', 'man-3.png'])){
-                    Storage::delete('public/avatars/'.$user->avatar);
+                if(!in_array($detail->avatar, ['boy.png', 'boy-1.png', 'girl.png', 'girl-1.png', 'girl-2.png','man.png', 'man-1.png', 'man-2.png', 'man-3.png'])){
+                    Storage::delete('public/avatars/'.$detail->avatar);
                 }
                 $path = $request->file('avatar')->store('','avatar');
-                $user->avatar = $path;
+                $detail->avatar = $path;
             }
 
             $user->save();
+            $detail->save();
             Session::flash('flash_title', "Success");
             Session::flash('flash_message', "User profile has been updated.");
             return redirect('/admin/user/customer');

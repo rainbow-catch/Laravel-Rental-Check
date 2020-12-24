@@ -34,8 +34,8 @@
         @else
             <div class="header-user-menu">
                 <div class="header-user-name">
-                    <span><img src="{{ asset('storage/avatars/'.Auth::user()->avatar) }}" alt=""></span>
-                    Hello , {{ Auth::user()->first_name." ".Auth::user()->last_name }}
+                    <span><img src="{{ Auth::user()->detail? asset('storage/avatars/'.Auth::user()->detail->avatar): '' }}" alt=""></span>
+                    Hello , {{ Auth::user()->detail? (Auth::user()->fullName()): 'there' }}
                 </div>
                 <ul>
                     <li><a href="{{ route('profile') }}"> Edit profile</a></li>
