@@ -15,7 +15,6 @@ use Faker\Generator as Faker;
 
 $factory->define(App\User::class, function ($faker, $params) {
     $role=$params['role'];
-    $questions = \App\SecurityQuestion::all()->all();
     return [
         'email' => $faker->unique()->safeEmail,
         'password' => bcrypt('password'),
