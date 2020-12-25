@@ -15,11 +15,14 @@ use Faker\Generator as Faker;
 
 $factory->define(App\User::class, function ($faker, $params) {
     $role=$params['role'];
+    $questions = \App\SecurityQuestion::all()->all();
     return [
         'email' => $faker->unique()->safeEmail,
         'password' => bcrypt('password'),
         'role' => $role,
         'isActive' => $faker->boolean,
+        'security_question_id' => array_random($questions)->id,
+        'security_answer' => "answer",
         'remember_token' => str_random(10),
     ];
 });
@@ -40,9 +43,9 @@ $factory->define(App\Customer::class, function (Faker $faker) {
         'gender' => $gender,
         'phone' => $faker->isbn10(),
         'address' => $faker->address,
-        'avatar' => $avatar,
+        'avatar' => 'default/'.$avatar,
         'about' => $faker->text($maxNbChars = 200),
-        'license' => $license,
+        'license' => 'default/'.$license,
         'facebook_id' => $faker->url,
         'twitter_id' => $faker->url,
         'linkedin_id' => $faker->url,

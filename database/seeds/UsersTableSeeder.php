@@ -22,6 +22,8 @@ class UsersTableSeeder  extends Seeder
             'role' => 'admin',
             'super_admin' => true,
             'isActive' => true,
+            'security_question_id' => 1,
+            'security_answer' => "answer",
             'remember_token' => str_random(10),
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
         ]);
@@ -32,7 +34,7 @@ class UsersTableSeeder  extends Seeder
             'gender' => "male",
             'phone' => "123456789",
             'address' => "admin's address",
-            'avatar' => 'girl-1.png',
+            'avatar' => 'default/girl-1.png',
         ]);
         factory(Customer::class, 10)->create();
         factory(Company::class, 10)->create();
