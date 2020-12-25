@@ -57,9 +57,12 @@ class Kernel extends HttpKernel
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
-        'password.confirm' => \App\Http\Middleware\RequirePassword::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+
         'admin' => \App\Http\Middleware\IsAdmin::class,
         'company' => \App\Http\Middleware\IsCompany::class,
+
+        'password.confirm' => \App\Http\Middleware\RequirePassword::class,
+        'isVerified' => \App\Http\Middleware\IsVerified::class,
     ];
 }

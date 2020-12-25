@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cdff28e9c775f8fc314d924ed7dd0957",
+    "content-hash": "e64e804908fe60e81462bc37826240e8",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -831,6 +831,73 @@
             },
             "abandoned": "php-parallel-lint/php-console-highlighter",
             "time": "2018-09-29T18:48:56+00:00"
+        },
+        {
+            "name": "jrean/laravel-user-verification",
+            "version": "v6.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jrean/laravel-user-verification.git",
+                "reference": "aa5ee7a9cc21597b6166ab49034e3cff9eb96115"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jrean/laravel-user-verification/zipball/aa5ee7a9cc21597b6166ab49034e3cff9eb96115",
+                "reference": "aa5ee7a9cc21597b6166ab49034e3cff9eb96115",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "5.6.*",
+                "php": ">=7.1.3"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^1.12",
+                "fzaninotto/faker": "^1.6",
+                "mockery/mockery": "^0.9.5",
+                "phpunit/phpunit": "^5.5",
+                "satooshi/php-coveralls": "^1.0",
+                "sllh/php-cs-fixer-styleci-bridge": "^2.1"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Jrean\\UserVerification\\UserVerificationServiceProvider"
+                    ],
+                    "aliases": {
+                        "UserVerification": "Jrean\\UserVerification\\Facades\\UserVerification"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Jrean\\UserVerification\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jean Ragouin",
+                    "email": "go@askjong.com"
+                }
+            ],
+            "description": "User Email Verification For Laravel 5.*",
+            "keywords": [
+                "email activation",
+                "email verification",
+                "framework",
+                "laravel",
+                "user activation",
+                "user verification"
+            ],
+            "support": {
+                "issues": "https://github.com/jrean/laravel-user-verification/issues",
+                "source": "https://github.com/jrean/laravel-user-verification/tree/6.0"
+            },
+            "time": "2018-10-26T01:45:11+00:00"
         },
         {
             "name": "kylekatarnls/update-helper",
@@ -4390,87 +4457,6 @@
                 }
             ],
             "time": "2020-07-14T17:54:18+00:00"
-        },
-        {
-            "name": "yoeunes/toastr",
-            "version": "v1.2.5",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/yoeunes/toastr.git",
-                "reference": "49bf0e8ade88a1ab4865c01a840ab782d6710719"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/yoeunes/toastr/zipball/49bf0e8ade88a1ab4865c01a840ab782d6710719",
-                "reference": "49bf0e8ade88a1ab4865c01a840ab782d6710719",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/session": "^5.5 || ^6.0 || ^7.0 || ^8.0",
-                "illuminate/support": "^5.5 || ^6.0 || ^7.0 || ^8.0",
-                "php": ">=7.0"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Yoeunes\\Toastr\\ToastrServiceProvider"
-                    ],
-                    "aliases": {
-                        "Toastr": "Yoeunes\\Toastr\\Facades\\Toastr"
-                    }
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Yoeunes\\Toastr\\": "src"
-                },
-                "files": [
-                    "src/helpers.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Younes Khoubza",
-                    "email": "younes.khoubza@gmail.com",
-                    "homepage": "https://github.com/yoeunes",
-                    "role": "Developer"
-                }
-            ],
-            "description": "toastr.js flush notifications for Laravel 5, 6, 7 and Lumen",
-            "homepage": "https://github.com/yoeunes/toastr",
-            "keywords": [
-                "alerts",
-                "flush",
-                "flush messages",
-                "flush notifications",
-                "laravel",
-                "laravel 5",
-                "laravel 6",
-                "laravel 7",
-                "laravel flush notifications",
-                "laravel notification",
-                "laravel notify",
-                "laravel toastr",
-                "lumen",
-                "messages",
-                "notification",
-                "php",
-                "toastr",
-                "toastr js",
-                "yoeunes"
-            ],
-            "support": {
-                "docs": "https://github.com/yoeunes/toastr/README.md",
-                "email": "younes.khoubza@gmail.com",
-                "issues": "https://github.com/yoeunes/toastr/issues",
-                "source": "https://github.com/yoeunes/toastr"
-            },
-            "time": "2020-10-27T13:04:08+00:00"
         }
     ],
     "packages-dev": [

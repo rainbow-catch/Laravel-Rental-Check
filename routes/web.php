@@ -24,15 +24,20 @@ Route::get('logout', 'Auth\LoginController@logout', function () {
 });
 
 Route::get('/', 'HomeController@index')->name('home');
-Route::get('/profile', 'HomeController@profile')->middleware('password.confirm')->name('profile');
+Route::get('/profile', 'HomeController@profile')->middleware(['password.confirm', 'isVerified'])->name('profile');
 Route::post('/profile/update', 'HomeController@updateProfile')->name('profile.update');
+
+// Security Questions
 Route::get('/password/confirm', 'Auth\ConfirmPasswordController@showConfirmForm')->name('password.confirm');
 Route::post('/password/confirm', 'Auth\ConfirmPasswordController@confirm')->name('password.confirm');
 
+// Email Verification
+Route::get('email-verification/error', 'Auth\RegisterController@getVerificationError')->name('email-verification.error');
+Route::get('email-verification/check/{token}', 'Auth\RegisterController@getVerification')->name('email-verification.check');
 /*
  * Dashboard
  */
-Route::group(['prefix' => 'dashboard', 'middleware'=>'company'], function () {
+Route::group(['prefix' => 'dashboard', 'middleware'=>['company','isVerified']], function () {
     Route::get('/', 'DashboardController@index')->name('dashboard');
 });
 

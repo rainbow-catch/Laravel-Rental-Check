@@ -160,6 +160,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        Jrean\UserVerification\UserVerificationServiceProvider::class,
     ],
 
     /*
@@ -215,6 +216,7 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
         'Input' => Illuminate\Support\Facades\Input::class,
 
-    ],
+        'UserVerification' => Jrean\UserVerification\Facades\UserVerification::class,
+        ],
 
 ];

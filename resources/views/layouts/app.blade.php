@@ -21,7 +21,7 @@
     <link type="text/css" rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link type="text/css" rel="stylesheet" href="{{ asset('css/color.css') }}">
     {{--<link type="text/css" rel="stylesheet" href="{{ asset('css/custom.css') }}">--}}
-    {{--<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet" />--}}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet" />
     <!--=============== favicons ===============-->
     <link rel="shortcut icon" href="{{ asset('images/favicon.ico') }}">
 </head>
@@ -192,7 +192,7 @@
 <script type="text/javascript" src="{{ asset('js/jquery.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/plugins.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/scripts.js') }}"></script>
-{{--<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>--}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
 @yield('scripts')
 {{--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqifuyms9Dcg68sKoOokZQZkl9l3IZUKY&libraries=places&callback=initAutocomplete"></script>--}}
 <script>
