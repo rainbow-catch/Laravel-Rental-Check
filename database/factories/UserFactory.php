@@ -23,6 +23,7 @@ $factory->define(App\User::class, function ($faker, $params) {
         'isActive' => $faker->boolean,
         'security_question_id' => array_random($questions)->id,
         'security_answer' => "answer",
+        'verified' => 1,
         'remember_token' => str_random(10),
     ];
 });
