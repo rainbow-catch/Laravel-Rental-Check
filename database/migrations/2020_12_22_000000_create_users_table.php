@@ -56,7 +56,7 @@ class CreateUsersTable extends Migration
         Schema::create('companies', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('user_id');
-            $table->string('company_name', 25);
+            $table->string('company_name', 50);
             $table->string('manager_name', 50);
             $table->enum('gender', ['male', 'female', 'others']);
             $table->string('phone', 15);

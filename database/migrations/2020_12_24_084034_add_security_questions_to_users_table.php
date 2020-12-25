@@ -14,9 +14,9 @@ class AddSecurityQuestionsToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->unsignedInteger('security_question_id');
+            $table->unsignedInteger('security_question_id')->nullable();
             $table->foreign('security_question_id')->references('id')->on('security_questions');
-            $table->string('security_answer', 50);
+            $table->string('security_answer', 50)->nullable();
         });
     }
 

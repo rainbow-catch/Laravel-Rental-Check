@@ -138,7 +138,6 @@ class CustomerController extends AdminController
             'address' => 'max:200',
             'about' => 'max:300',
             'status' => 'in:registered,allowed,completed',
-            'role' => 'in:Customer,Company,Admin',
 
             'security_question_id' => 'required|integer',
             'security_answer' => 'required|max:50',
@@ -168,7 +167,7 @@ class CustomerController extends AdminController
             $detail= Customer::where('user_id', $user->id)->first();
 
             $user->email = $request->input('email');
-            $user->role = $request->input('role');
+//            $user->role = $request->input('role');
             $user->isActive = $request->input('isActive');
             $user->security_question_id = $request->input('security_question_id');
             $user->security_answer = $request->input('security_answer');
@@ -189,11 +188,18 @@ class CustomerController extends AdminController
 
             // Avatar Upload
             if ($request->hasFile('avatar')) {
-                if(!in_array($detail->avatar, ['boy.png', 'boy-1.png', 'girl.png', 'girl-1.png', 'girl-2.png','man.png', 'man-1.png', 'man-2.png', 'man-3.png'])){
+                if (strpos($detail->avatar, "default/") !== 0) {
                     Storage::delete('public/avatars/'.$detail->avatar);
                 }
                 $path = $request->file('avatar')->store('','avatar');
                 $detail->avatar = $path;
+            }
+            if ($request->hasFile('license')) {
+                if (strpos($detail->license, "default/") !== 0) {
+                    Storage::delete('public/licenses/'.$detail->license);
+                }
+                $path = $request->file('license')->store('','license');
+                $detail->license = $path;
             }
 
             $user->save();
@@ -285,14 +291,23 @@ class CustomerController extends AdminController
     public function destroy($id)
     {
         $user = User::find($id);
-        $user_name = $user->first_name . " " . $user->last_name;
-        $error_message = '';
+        $detail = Customer::where('user_id', $id)->first();
+
+        $user_name = $user->fullname();
+
         if ($user->id !== 1) {
             if ($user->id !== Auth::user()->id) {
                 if ($user->delete()) {
-                    if(Storage::disk('avatar')->exists($user->avatar)){
-                        if(!in_array($user->avatar, ['boy.png', 'boy-1.png', 'girl.png', 'girl-1.png', 'girl-2.png','man.png', 'man-1.png', 'man-2.png', 'man-3.png'])){
-                            Storage::delete('public/avatars/'.$user->avatar);
+                    if($detail->delete()) {
+                        if (Storage::disk('avatar')->exists($detail->avatar)) {
+                            if (strpos($detail->avatar, "default/") !== 0) {
+                                Storage::delete('public/avatars/' . $detail->avatar);
+                            }
+                        }
+                        if (Storage::disk('license')->exists($detail->license)) {
+                            if (strpos($detail->license, "default/") !== 0) {
+                                Storage::delete('public/licenses/' . $detail->license);
+                            }
                         }
                     }
                     Session::flash('flash_title', 'Success');

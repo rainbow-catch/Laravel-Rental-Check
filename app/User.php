@@ -38,10 +38,14 @@ class User extends Authenticatable
 
 
     public function fullName() {
-        if(!$this->detail) return 'ABC';
+        if(!$this->detail) return 'Anonymouse User';
         if($this->role != 'Company')
             return $this->detail->first_name.' '.$this->detail->last_name;
         else
             return $this->detail->manager_name;
+    }
+
+    public function securityQuestion() {
+        return $this->belongsTo('App\SecurityQuestion');
     }
 }

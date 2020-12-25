@@ -63,7 +63,7 @@
                                                         </a>
                                                         <button rel="tooltip" title="Remove"
                                                                 class="btn btn-simple btn-danger btn-icon table-action"
-                                                                onclick="delete_button()">
+                                                                onclick="delete_button(this)">
                                                             <i class="ti-close"></i>
                                                         </button>
                                                         <div class="collapse">
@@ -96,7 +96,7 @@
     <script src="{{ asset('backend/js/bootstrap-table.js') }}"></script>
     <script type="text/javascript">
 
-        var delete_button = function(){
+        var delete_button = function(e){
             swal({  title: "Are you sure?",
                 text: "After you delete the user, all user room and events bookings will also be deleted.",
                 type: "warning",
@@ -106,9 +106,10 @@
                 cancelButtonClass: "btn btn-danger btn-fill",
                 closeOnConfirm: false,
             },function(){
-                $('form#delete-user').submit();
+                var item = $(e).parent('div').find('form')[0];
+                item.submit();
             });
-        }
+        };
 
         var $table = $('#bootstrap-table');
         $().ready(function () {

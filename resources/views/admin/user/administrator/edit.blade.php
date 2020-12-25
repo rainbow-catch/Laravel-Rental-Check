@@ -133,7 +133,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Role</label>
-                                        <select name="role" id="role" class="form-control">
+                                        <select name="role" id="role" class="form-control" disabled>
                                             <option value="" disabled selected>- Select Role -</option>
                                             @foreach(config('var.role') as $role)
                                                 <option @if($user->role == $role) selected="selected" @endif>{{ $role }}</option>

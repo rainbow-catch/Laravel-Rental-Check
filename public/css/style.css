@@ -37,7 +37,7 @@
 ++ Coming Soon ++
 ++ Responsive ++
 /*-------------Fonts---------------------------------------*/
-@import url('https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700,800,800i,900|Quicksand:300,400,500,700&subset=cyrillic,cyrillic-ext,latin-ext,vietnamese');
+/*@import url('https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700,800,800i,900|Quicksand:300,400,500,700&subset=cyrillic,cyrillic-ext,latin-ext,vietnamese');*/
 /*-------------General Style---------------------------------------*/
 html{
 	overflow-x:hidden !important;

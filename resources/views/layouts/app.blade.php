@@ -21,7 +21,7 @@
     <link type="text/css" rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link type="text/css" rel="stylesheet" href="{{ asset('css/color.css') }}">
     {{--<link type="text/css" rel="stylesheet" href="{{ asset('css/custom.css') }}">--}}
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet" />
+    {{--<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet" />--}}
     <!--=============== favicons ===============-->
     <link rel="shortcut icon" href="{{ asset('images/favicon.ico') }}">
 </head>
@@ -145,8 +145,8 @@
                                                 </span>
                                                 @endif
 
-                                                <label>Security Question *</label>
-                                                <select name="security_question_id" required>
+                                                <label>Security Question</label>
+                                                <select name="security_question_id">
                                                     <option value="" disabled selected>- Select Question -</option>
                                                     @foreach($questions as $question)
                                                         <option value="{{ $question->id }}" {{ old('security_question_id')==$question->id? 'selected': ''  }} >
@@ -160,10 +160,10 @@
                                                 </span>
                                                 @endif
 
-                                                <label>Answer *</label>
+                                                <label>Answer</label>
                                                 <input name="security_answer" type="text" onClick="this.select()"
                                                        class="{{ $errors->has('security_answer') ? ' is-invalid' : '' }}"
-                                                       value="{{ old('security_answer') }}" required>
+                                                       value="{{ old('security_answer') }}">
                                                 @if ($errors->has('security_answer'))
                                                     <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $errors->first('security_answer') }}</strong>
@@ -192,11 +192,9 @@
 <script type="text/javascript" src="{{ asset('js/jquery.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/plugins.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/scripts.js') }}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
+{{--<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>--}}
 @yield('scripts')
-<script
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqifuyms9Dcg68sKoOokZQZkl9l3IZUKY&libraries=places&callback=initAutocomplete">
-</script>
+{{--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqifuyms9Dcg68sKoOokZQZkl9l3IZUKY&libraries=places&callback=initAutocomplete"></script>--}}
 <script>
     $(document).ready(function() {
         @if($errors -> all())

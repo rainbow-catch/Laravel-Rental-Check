@@ -20,10 +20,10 @@
                                 <thead>
                                 <th data-field="sn" class="text-center">S.N.</th>
                                 <th data-field="id" class="text-center">User ID</th>
+                                <th data-field="email" data-sortable="true">Email</th>
                                 <th data-field="company_name" data-sortable="true">Company Name</th>
                                 <th data-field="name" data-sortable="true">Name</th>
                                 <th data-field="phone" data-sortable="true">Phone</th>
-                                <th data-field="email" data-sortable="true">Email</th>
                                 <th data-field="address" data-sortable="true">Address</th>
                                 <th data-field="roles" data-sortable="true">Role</th>
                                 <th data-field="isActive" data-sortable="true">IsActive</th>
@@ -38,11 +38,11 @@
                                             <tr>
                                                 <td>{{$index+1}}</td>
                                                 <td>{{ $user->id }}</td>
-                                                <td>{{ $user->detail->company_name }}</td>
-                                                <td>{{ $user->detail->manager_name }}</td>
-                                                <td>{{ $user->detail->phone }}</td>
                                                 <td>{{ $user->email }}</td>
-                                                <td>{{ $user->detail->address }}</td>
+                                                <td>{{ $user->detail->company_name?? "" }}</td>
+                                                <td>{{ $user->detail->manager_name?? "" }}</td>
+                                                <td>{{ $user->detail->phone?? "" }}</td>
+                                                <td>{{ $user->detail->address?? "" }}</td>
                                                 <td>
                                                     <button class="btn btn-default btn-xs btn-fill">{{ $user->role }}</button>
                                                 </td>
@@ -59,13 +59,15 @@
                                                 <td>
                                                     <div class="table-icons">
                                                         <a rel="tooltip" title="Edit"
-                                                           class="btn btn-simple btn-warning btn-icon table-action edit"
-                                                           href="{{url('admin/user/company/'.$user->id.'/edit')}}">
+                                                            class="btn btn-simple btn-warning btn-icon table-action edit"
+                                                            @if($user->detail) href="{{url('admin/user/company/'.$user->id.'/edit')}}"
+                                                            @else disabled
+                                                            @endif>
                                                             <i class="ti-pencil-alt"></i>
                                                         </a>
                                                         <button rel="tooltip" title="Remove"
                                                                 class="btn btn-simple btn-danger btn-icon table-action"
-                                                                onclick="delete_button()">
+                                                                onclick="delete_button(this)">
                                                             <i class="ti-close"></i>
                                                         </button>
                                                         <div class="collapse">
@@ -98,7 +100,7 @@
     <script src="{{ asset('backend/js/bootstrap-table.js') }}"></script>
     <script type="text/javascript">
 
-        var delete_button = function(){
+        var delete_button = function(e){
             swal({  title: "Are you sure?",
                 text: "After you delete the user, all user room and events bookings will also be deleted.",
                 type: "warning",
@@ -108,9 +110,10 @@
                 cancelButtonClass: "btn btn-danger btn-fill",
                 closeOnConfirm: false,
             },function(){
-                $('form#delete-user').submit();
+                var item = $(e).parent('div').find('form')[0];
+                item.submit();
             });
-        }
+        };
 
         var $table = $('#bootstrap-table');
         $().ready(function () {

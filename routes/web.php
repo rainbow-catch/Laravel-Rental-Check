@@ -24,8 +24,8 @@ Route::get('logout', 'Auth\LoginController@logout', function () {
 });
 
 Route::get('/', 'HomeController@index')->name('home');
-Route::get('/profile', 'HomeController@profile')->name('profile');
-Route::post('/profile/update', 'HomeController@updateProfile')->middleware('password.confirm')->name('profile.update');
+Route::get('/profile', 'HomeController@profile')->middleware('password.confirm')->name('profile');
+Route::post('/profile/update', 'HomeController@updateProfile')->name('profile.update');
 Route::get('/password/confirm', 'Auth\ConfirmPasswordController@showConfirmForm')->name('password.confirm');
 Route::post('/password/confirm', 'Auth\ConfirmPasswordController@confirm')->name('password.confirm');
 

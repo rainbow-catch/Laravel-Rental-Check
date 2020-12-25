@@ -55,51 +55,6 @@
                             <form action="{{ route('register') }}" method="post" name="registerform"
                                   class="main-register-form" id="main-register-form2">
                                 @csrf
-                                <label>First Name * </label>
-                                <input name="first_name" type="text"
-                                       class="{{ $errors->has('first_name') ? ' is-invalid' : '' }}"
-                                       value="{{ old('first_name') }}" required onClick="this.select()">
-                                @if ($errors->has('first_name'))
-                                    <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $errors->first('first_name') }}</strong>
-                                            </span>
-                                @endif
-
-                                <label>Last Name *</label>
-                                <input name="last_name" type="text" onClick="this.select()"
-                                       class="{{ $errors->has('last_name') ? ' is-invalid' : '' }}"
-                                       value="{{ old('last_name') }}" required>
-                                @if ($errors->has('last_name'))
-                                    <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $errors->first('last_name') }}</strong>
-                                            </span>
-                                @endif
-
-                                <label>Select Role *</label>
-                                <select name="role">
-                                    <option value="" disabled selected>- Select Role -</option>
-                                    <option value="company" @if(old('role')=="company" ) selected="selected"
-                                            @endif>Company
-                                    </option>
-                                    <option value="customer" @if(old('role')=="customer" ) selected="selected"
-                                            @endif>Customer
-                                    </option>
-                                </select>
-                                @if ($errors->has('role'))
-                                    <span class="help-block">
-                                                <strong>{{ $errors->first('role') }}</strong>
-                                            </span>
-                                @endif
-
-                                <label>Mobile Phone *</label>
-                                <input name="phone" type="text" onClick="this.select()"
-                                       class="{{ $errors->has('phone') ? ' is-invalid' : '' }}"
-                                       value="{{ old('phone') }}" required>
-                                @if ($errors->has('phone'))
-                                    <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $errors->first('phone') }}</strong>
-                                            </span>
-                                @endif
 
                                 <label>Email Address *</label>
                                 <input name="email" type="email" onClick="this.select()"
@@ -107,8 +62,8 @@
                                        value="{{ old('email') }}" required>
                                 @if ($errors->has('email'))
                                     <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $errors->first('email') }}</strong>
-                                            </span>
+                                                    <strong>{{ $errors->first('email') }}</strong>
+                                                </span>
                                 @endif
 
                                 <label>Password *</label>
@@ -117,14 +72,58 @@
                                        value="{{ old('Password') }}" required>
                                 @if ($errors->has('Password'))
                                     <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $errors->first('Password') }}</strong>
-                                            </span>
+                                                    <strong>{{ $errors->first('Password') }}</strong>
+                                                </span>
                                 @endif
                                 <label>Password Confirmation*</label>
                                 <input name="password_confirmation" type="password" onClick="this.select()"
                                        required>
 
-                                <!--Repeat Password-->
+                                <label>Select Role *</label>
+                                <select name="role">
+                                    <option value="" disabled selected>- Select Role -</option>
+                                    <option value="Admin" @if(old('role')=="Admin" ) selected="selected"
+                                            @endif>Admin
+                                    </option>
+                                    <option value="Company" @if(old('role')=="company" ) selected="selected"
+                                            @endif>Company
+                                    </option>
+                                    <option value="Customer" @if(old('role')=="customer" ) selected="selected"
+                                            @endif>Customer
+                                    </option>
+                                </select>
+                                @if ($errors->has('role'))
+                                    <span class="help-block">
+                                                    <strong>{{ $errors->first('role') }}</strong>
+                                                </span>
+                                @endif
+
+                                <label>Security Question</label>
+                                <select name="security_question_id">
+                                    <option value="" disabled selected>- Select Question -</option>
+                                    @foreach($questions as $question)
+                                        <option value="{{ $question->id }}" {{ old('security_question_id')==$question->id? 'selected': ''  }} >
+                                            {{ $question->question }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @if ($errors->has('security_question_id'))
+                                    <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $errors->first('security_question_id') }}</strong>
+                                                </span>
+                                @endif
+
+                                <label>Answer</label>
+                                <input name="security_answer" type="text" onClick="this.select()"
+                                       class="{{ $errors->has('security_answer') ? ' is-invalid' : '' }}"
+                                       value="{{ old('security_answer') }}">
+                                @if ($errors->has('security_answer'))
+                                    <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $errors->first('security_answer') }}</strong>
+                                                </span>
+                            @endif
+
+                            <!--Repeat Password-->
                                 <button type="submit" class="log-submit-btn"><span>Register</span></button>
                             </form>
                         </div>

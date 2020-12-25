@@ -34,7 +34,7 @@ class HomeController extends Controller
     }
     public function profile()
     {
-        return view('profile')->with('detail', Auth::user()->detail)->with('categories', Category::all());
+        return view('profile')->with(['detail'=>Auth::user()->detail, 'categories'=>Category::all(), 'questions'=>SecurityQuestion::all()]);
     }
     public function updateProfile(Request $request)
     {
@@ -50,9 +50,6 @@ class HomeController extends Controller
             'twitter_id' => 'nullable|url',
             'instagram_id' => 'nullable|url',
             'linkedin_id' => 'nullable|url',
-
-            'security_question_id' => 'required|integer',
-            'security_answer' => 'required|max:50',
         ];
 
         switch (Auth::user()->role) {

@@ -7,6 +7,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\RedirectsUsers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 
 class ConfirmPasswordController extends Controller
 {
@@ -64,7 +65,8 @@ class ConfirmPasswordController extends Controller
                 return back()->withInput()->withErrors(['security_answer' => 'Sorry, wrong answer']);
             }
         } else {
-            $request->validate($this->rules(), $this->validationErrorMessages());
+            if( !password_verify($request->password, Auth::user()->password ))
+                return back()->withInput()->withErrors(['security_answer' => 'Sorry, wrong password']);
         }
 
         $this->resetPasswordConfirmationTimeout($request);
