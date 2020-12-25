@@ -34,7 +34,7 @@ class UsersTableSeeder  extends Seeder
             'gender' => "male",
             'phone' => "123456789",
             'address' => "admin's address",
-            'avatar' => 'girl-1.png',
+            'avatar' => 'default/girl-1.png',
         ]);
         factory(Customer::class, 10)->create();
         factory(Company::class, 10)->create();
