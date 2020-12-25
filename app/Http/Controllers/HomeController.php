@@ -6,6 +6,7 @@ use App\Admin;
 use App\Category;
 use App\Company;
 use App\Customer;
+use App\SecurityQuestion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -29,7 +30,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        return view('home')->with('questions', SecurityQuestion::all());
     }
     public function profile()
     {
@@ -44,10 +45,14 @@ class HomeController extends Controller
             'address' => 'required|string',
             'phone' => 'required|string',
             'avatar' => 'file|mimes:jpeg,jpg,png',
+
             'facebook_id' => 'nullable|url',
             'twitter_id' => 'nullable|url',
             'instagram_id' => 'nullable|url',
             'linkedin_id' => 'nullable|url',
+
+            'security_question_id' => 'required|integer',
+            'security_answer' => 'required|max:50',
         ];
 
         switch (Auth::user()->role) {

@@ -104,6 +104,30 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Security Question</label>
+                                        <select name="security_question_id" class="form-control" required>
+                                            <option value="" disabled selected>- Select Question -</option>
+                                            @foreach($questions as $question)
+                                                <option value="{{ $question->id }}" {{ $user->security_question_id==$question->id? 'selected': ''  }} >
+                                                    {{ $question->question }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Answer</label>
+                                        <input name="security_answer" class="form-control border-input" type="text" onClick="this.select()"
+                                               value="{{ $user->security_answer }}" required>
+                                    </div>
+                                </div>
+                            </div>
 
                             <div class="row">
                                 <div class="col-md-12">

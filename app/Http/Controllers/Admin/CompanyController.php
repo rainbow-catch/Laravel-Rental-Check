@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Category;
 use App\Company;
+use App\SecurityQuestion;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -117,7 +118,7 @@ class CompanyController extends AdminController
     public function edit($id)
     {
         $user = User::find($id);
-        return view('admin.user.company.edit')->with(['user' => $user, 'categories'=>Category::all()]);
+        return view('admin.user.company.edit')->with(['user' => $user, 'categories'=>Category::all(), 'questions'=>SecurityQuestion::all()]);
     }
 
     /**
@@ -139,6 +140,8 @@ class CompanyController extends AdminController
             'about' => 'max:300',
             'role' => 'in:Customer,Company,Admin',
 
+            'security_question_id' => 'required|integer',
+            'security_answer' => 'required|max:50',
         ];
         $rules['payment_method'] = "required|in:Visa,MasterCard,Square Up,Paypal,Stripe,Venmo";
         $rules['fed_id'] = "required|numeric";
@@ -168,6 +171,8 @@ class CompanyController extends AdminController
             $user->email = $request->input('email');
             $user->role = $request->input('role');
             $user->isActive = $request->input('isActive');
+            $user->security_question_id = $request->input('security_question_id');
+            $user->security_answer = $request->input('security_answer');
 
             if ($request->input('password')){
                 $user->password = bcrypt($request->input('password'));

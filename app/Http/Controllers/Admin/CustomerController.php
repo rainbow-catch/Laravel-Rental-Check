@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Customer;
+use App\SecurityQuestion;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -116,9 +117,7 @@ class CustomerController extends AdminController
     public function edit($id)
     {
         $user = User::find($id);
-        return view('admin.user.customer.edit')->with([
-            'user' => $user
-        ]);
+        return view('admin.user.customer.edit')->with(['user' => $user, 'questions'=>SecurityQuestion::all()]);
     }
 
     /**
@@ -139,7 +138,10 @@ class CustomerController extends AdminController
             'address' => 'max:200',
             'about' => 'max:300',
             'status' => 'in:registered,allowed,completed',
-            'role' => 'in:Customer,Company,Admin'
+            'role' => 'in:Customer,Company,Admin',
+
+            'security_question_id' => 'required|integer',
+            'security_answer' => 'required|max:50',
         ];
         $rules['payment_method'] = "required|in:Visa,MasterCard,Square Up,Paypal,Stripe,Venmo";
 
@@ -163,11 +165,13 @@ class CustomerController extends AdminController
                 ->with('user', $user);
         } else {
             $user = User::find($id);
-            $detail= Customer::where('user_id', $user->id);
+            $detail= Customer::where('user_id', $user->id)->first();
 
             $user->email = $request->input('email');
             $user->role = $request->input('role');
             $user->isActive = $request->input('isActive');
+            $user->security_question_id = $request->input('security_question_id');
+            $user->security_answer = $request->input('security_answer');
 
             if ($request->input('password')){
                 $user->password = bcrypt($request->input('password'));

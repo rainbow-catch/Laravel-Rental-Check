@@ -103,25 +103,6 @@
                                                   class="main-register-form" id="main-register-form2">
                                                 @csrf
 
-                                                <label>Select Role *</label>
-                                                <select name="role">
-                                                    <option value="" disabled selected>- Select Role -</option>
-                                                    <option value="Admin" @if(old('role')=="Admin" ) selected="selected"
-                                                            @endif>Admin
-                                                    </option>
-                                                    <option value="Company" @if(old('role')=="company" ) selected="selected"
-                                                            @endif>Company
-                                                    </option>
-                                                    <option value="Customer" @if(old('role')=="customer" ) selected="selected"
-                                                            @endif>Customer
-                                                    </option>
-                                                </select>
-                                                @if ($errors->has('role'))
-                                                    <span class="help-block">
-                                                    <strong>{{ $errors->first('role') }}</strong>
-                                                </span>
-                                                @endif
-
                                                 <label>Email Address *</label>
                                                 <input name="email" type="email" onClick="this.select()"
                                                        class="{{ $errors->has('email') ? ' is-invalid' : '' }}"
@@ -144,6 +125,50 @@
                                                 <label>Password Confirmation*</label>
                                                 <input name="password_confirmation" type="password" onClick="this.select()"
                                                        required>
+
+                                                <label>Select Role *</label>
+                                                <select name="role">
+                                                    <option value="" disabled selected>- Select Role -</option>
+                                                    <option value="Admin" @if(old('role')=="Admin" ) selected="selected"
+                                                            @endif>Admin
+                                                    </option>
+                                                    <option value="Company" @if(old('role')=="company" ) selected="selected"
+                                                            @endif>Company
+                                                    </option>
+                                                    <option value="Customer" @if(old('role')=="customer" ) selected="selected"
+                                                            @endif>Customer
+                                                    </option>
+                                                </select>
+                                                @if ($errors->has('role'))
+                                                    <span class="help-block">
+                                                    <strong>{{ $errors->first('role') }}</strong>
+                                                </span>
+                                                @endif
+
+                                                <label>Security Question *</label>
+                                                <select name="security_question_id" required>
+                                                    <option value="" disabled selected>- Select Question -</option>
+                                                    @foreach($questions as $question)
+                                                        <option value="{{ $question->id }}" {{ old('security_question_id')==$question->id? 'selected': ''  }} >
+                                                            {{ $question->question }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                                @if ($errors->has('security_question_id'))
+                                                    <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $errors->first('security_question_id') }}</strong>
+                                                </span>
+                                                @endif
+
+                                                <label>Answer *</label>
+                                                <input name="security_answer" type="text" onClick="this.select()"
+                                                       class="{{ $errors->has('security_answer') ? ' is-invalid' : '' }}"
+                                                       value="{{ old('security_answer') }}" required>
+                                                @if ($errors->has('security_answer'))
+                                                    <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $errors->first('security_answer') }}</strong>
+                                                </span>
+                                                @endif
 
                                                 <!--Repeat Password-->
                                                 <button type="submit" class="log-submit-btn"><span>Register</span></button>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Admin;
+use App\SecurityQuestion;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -116,9 +117,7 @@ class AdministratorController extends AdminController
     public function edit($id)
     {
         $user = User::find($id);
-        return view('admin.user.administrator.edit')->with([
-            'user' => $user
-        ]);
+        return view('admin.user.administrator.edit')->with(['user' => $user, 'questions'=>SecurityQuestion::all()]);
     }
 
     /**
@@ -144,7 +143,10 @@ class AdministratorController extends AdminController
             'email' => 'required|email|max:255|unique:users,email,' . $id,
             'about' => 'max:300',
             'role' => 'in:Customer,Company,Admin',
-            'isActive'=> 'required|boolean'
+            'isActive'=> 'required|boolean',
+
+            'security_question_id' => 'required|integer',
+            'security_answer' => 'required|max:50',
         ];
 
         if ($request->hasFile('avatar')) {
@@ -166,6 +168,8 @@ class AdministratorController extends AdminController
             $user->email = $request->input('email');
             $user->role = $request->input('role');
             $user->isActive = $request->input('isActive');
+            $user->security_question_id = $request->input('security_question_id');
+            $user->security_answer = $request->input('security_answer');
 
             if ($request->input('password')){
                 $user->password = bcrypt($request->input('password'));
