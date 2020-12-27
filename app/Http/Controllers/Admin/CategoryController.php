@@ -54,7 +54,7 @@ class CategoryController extends AdminController
             'category' => 'required|string|unique:categories,category',
             'incidents' => 'required|array',
             'scores' => 'required|array',
-            'status' => 'required|in:active,inactive'
+            'isActive' => 'required|boolean'
         ];
 
         $incidents = $request->incidents;
@@ -76,7 +76,7 @@ class CategoryController extends AdminController
             $category = Category::create([
                 'category' => $request->category,
                 'order' => $order,
-                'isActive' => $request->status
+                'isActive' => $request->isActive
             ]);
 
             $data = [];
@@ -132,7 +132,7 @@ class CategoryController extends AdminController
             'incidents' => 'required|array',
             'scores' => 'required|array',
             'order' => 'required|integer',
-            'status' => 'required|in:active,inactive'
+            'isActive' => 'required|boolean'
         ];
 
         $validator = Validator::make($request->all(), $rules);
@@ -153,7 +153,7 @@ class CategoryController extends AdminController
         else {
             $category = Category::find($id);
             $category->category = $request->category;
-            $category->isActive = $request->status;
+            $category->isActive = $request->isActive;
             $category->save();
 
             $data = [];

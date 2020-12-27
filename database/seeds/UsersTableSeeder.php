@@ -24,6 +24,7 @@ class UsersTableSeeder  extends Seeder
             'isActive' => true,
             'security_question_id' => 1,
             'security_answer' => "answer",
+            'verified' => 1,
             'remember_token' => str_random(10),
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
         ]);

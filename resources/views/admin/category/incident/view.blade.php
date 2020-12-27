@@ -34,7 +34,7 @@
                                                 <td>{{ $incident->id }}</td>
                                                 <td>{{ $incident->incident }}</td>
                                                 <td>
-                                                    @if($incident->isActive == 'active')
+                                                    @if($incident->isActive)
                                                         <button class="btn btn-success btn-xs btn-fill">Active</button>
                                                     @else
                                                         <button class="btn btn-default btn-xs btn-fill">Inactive</button>

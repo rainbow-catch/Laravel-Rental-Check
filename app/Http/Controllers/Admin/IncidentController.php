@@ -46,7 +46,7 @@ class IncidentController extends AdminController
     {
         $rules = [
             'incident' => 'required|max:50|unique:incidents,incident',
-            'status' => 'required|in:active,inactive'
+            'isActive' => 'required|boolean'
         ];
 
         $validator = Validator::make($request->all(), $rules);
@@ -58,7 +58,7 @@ class IncidentController extends AdminController
 
         Incident::create([
             'incident' => $request->incident,
-            'isActive' => $request->status,
+            'isActive' => $request->isActive,
         ]);
 
 
@@ -90,7 +90,7 @@ class IncidentController extends AdminController
     {
         $rules = [
             'incident' => 'required|max:50|unique:incidents,incident,'.$id,
-            'status' => 'required|in:active,inactive'
+            'isActive' => 'required|boolean'
         ];
 
         $validator = Validator::make($request->all(), $rules);
@@ -102,7 +102,7 @@ class IncidentController extends AdminController
 
         Incident::find($id)->update([
             'incident' => $request->incident,
-            'isActive' => $request->status,
+            'isActive' => $request->isActive,
         ]);
 
         Session::flash('flash_title', 'Success');

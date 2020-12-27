@@ -11,10 +11,6 @@ return [
         'registered',
         'completed',
     ],
-    'status1'=> [
-        'Active',
-        'Inactive',
-    ],
     'role'=>[
         'Customer',
         'Company',

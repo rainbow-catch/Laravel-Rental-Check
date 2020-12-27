@@ -29,11 +29,10 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Status</label>
-                                        <select name="status" id="status" class="form-control">
+                                        <select name="isActive" id="status" class="form-control">
                                             <option value="" disabled selected>- Select Status -</option>
-                                            @foreach(config('var.status1') as $status)
-                                                <option @if($incident->isActive == $status) selected="selected" @endif>{{ $status }}</option>
-                                            @endforeach
+                                            <option value="1" @if($incident->isActive) selected="selected" @endif>Active</option>
+                                            <option value="0" @if(!$incident->isActive) selected="selected" @endif>Inactive</option>
                                         </select>
                                     </div>
                                 </div>

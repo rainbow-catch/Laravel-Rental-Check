@@ -16,7 +16,7 @@ class CreateIncidentsTable extends Migration
         Schema::create('incidents', function (Blueprint $table) {
             $table->increments('id');
             $table->string('incident')->unique();
-            $table->enum('isActive', ['active', 'inactive'])->default("active");
+            $table->boolean('isActive')->default(true);
             $table->timestamps();
         });
     }
