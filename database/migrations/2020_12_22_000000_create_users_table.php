@@ -74,7 +74,6 @@ class CreateUsersTable extends Migration
 
             $table->unsignedInteger('category_id');
             $table->string('fed_id');
-            $table->enum('membership', ['basic', 'extended', 'premium']);
 
             $table->foreign('user_id')
                 ->references('id')->on('users')

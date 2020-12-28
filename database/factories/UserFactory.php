@@ -60,6 +60,7 @@ $factory->define(App\Company::class, function (Faker $faker) {
     static $password;
     $gender = $faker->randomElement(['male', 'female', 'others']);
     $categories = \App\Category::all();
+    $memberships = \App\Membership::all();
     if($gender == "female")
         $avatar = $faker->randomElement(['girl.png', 'girl-1.png', 'girl-2.png']);
     else
@@ -81,7 +82,8 @@ $factory->define(App\Company::class, function (Faker $faker) {
         'instagram_id' => $faker->url,
         'payment_method' => $faker->randomElement(config('var.payment_method')),
         'fed_id' => $faker->randomNumber(6),
-        'category_id' => $faker->randomElement($categories)->id
+        'category_id' => $faker->randomElement($categories)->id,
+        'membership_id'=>$faker->randomElement($memberships)->id
     ];
 });
 $factory->define(App\Admin::class, function (Faker $faker) {

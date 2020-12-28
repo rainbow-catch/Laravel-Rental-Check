@@ -29,8 +29,22 @@ return [
                 'category' => 'admin/category',
                 'incident' => 'admin/category/incident',
             ],
-            'icon' => 'ti-pencil-alt'
+            'icon' => 'ti-ticket'
         ],
+        'membership' => [
+            'name' => 'membership',
+            'actions' => [
+                'view'=>'admin/membership'
+            ],
+            'icon' => 'ti-control-forward'
+        ],
+        'complaint' => [
+            'name' => 'complaint',
+            'actions' => [
+                'view'=>'admin/complaint'
+            ],
+            'icon' => 'ti-pencil-alt'
+        ]
 //        'booking' => [
 //            'name' =>  'Booking',
 //            'actions' => [

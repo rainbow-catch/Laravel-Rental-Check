@@ -88,6 +88,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
         Route::resource('incident', "Admin\IncidentController");
     });
 
+    Route::resource('membership', "Admin\MembershipController");
+
     //Routes for RoomBookings
     Route::get('/room_booking', 'Admin\RoomBookingController@index');
     Route::get('/room_booking/{id}/edit', 'Admin\RoomBookingController@edit');
