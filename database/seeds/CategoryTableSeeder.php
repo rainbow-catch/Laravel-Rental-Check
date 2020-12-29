@@ -47,26 +47,31 @@ class CategoryTableSeeder extends seeder
 
         $autoRental = Category::create([
             'category' => 'Auto Rental',
+            'detail' => json_encode(['vehicle info']),
             'order' => 0
         ]);
 
         $apartmentRental = Category::create([
             'category' => 'Apartment Rental',
+            'detail' => json_encode(['rooms', 'bathrooms', 'kitchen']),
             'order' => 1
         ]);
 
         $eventRental = Category::create([
             'category' => 'Event Rental',
+            'detail' => json_encode(['meeting', 'party']),
             'order' => 2
         ]);
 
         $equipmentRental = Category::create([
             'category' => 'Equipment Rental',
+            'detail' => json_encode(['equipment info']),
             'order' => 3
         ]);
 
         $furnitureRental = Category::create([
             'category' => 'Furniture Rental',
+            'detail' => json_encode(['sofa', 'loveseat', 'tv', 'appliances']),
             'order' => 4
         ]);
 

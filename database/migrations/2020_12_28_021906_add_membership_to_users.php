@@ -14,7 +14,7 @@ class AddMembershipToUsers extends Migration
     public function up()
     {
         Schema::table('companies', function (Blueprint $table) {
-            $table->unsignedInteger('membership_id')->nullable();
+            $table->unsignedInteger('membership_id')->default(1);
             $table->foreign('membership_id')->references('id')->on('memberships');
         });
     }

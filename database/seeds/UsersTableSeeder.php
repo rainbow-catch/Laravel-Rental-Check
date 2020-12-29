@@ -60,7 +60,7 @@ class UsersTableSeeder  extends Seeder
             'record'=>50
         ]);
         Membership::create([
-            'name'=>'basic',
+            'name'=>'premium',
             'price'=>5,
             'state'=>-1,
             'search'=>-1,

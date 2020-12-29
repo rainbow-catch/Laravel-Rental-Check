@@ -9,7 +9,7 @@
                 <div class="col-md-10 col-md-offset-1">
                     <div class="card">
                         <div class="header">
-                            <h4 class="title">Update User</h4>
+                            <h2 class="title">Update User</h2><br/>
                         </div>
                         <div class="content">
                             {!! Form::open(array('url' => 'admin/user/company/'.$user->id, 'files' => true)) !!}
@@ -182,11 +182,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Membership</label>
-                                        <select name="membership" id="role" class="form-control" disabled>
-                                            @foreach(['basic', 'extended', 'premium'] as $item)
-                                                <option @if($user->detail->membership == $item) selected="selected" @endif>{{ $item }}</option>
-                                            @endforeach
-                                        </select>
+                                        <input class="form-control" disabled value="{{ $user->detail->membership->name }}">
                                     </div>
                                 </div>
                             </div>
@@ -195,12 +191,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Role</label>
-                                        <select name="role" id="role" class="form-control" disabled>
-                                            <option value="" disabled selected>- Select Role -</option>
-                                            @foreach(config('var.role') as $role)
-                                                <option @if($user->role == $role) selected="selected" @endif>{{ $role }}</option>
-                                            @endforeach
-                                        </select>
+                                        <input class="form-control" disabled value="{{ $user->role }}">
                                     </div>
                                 </div>
                             </div>

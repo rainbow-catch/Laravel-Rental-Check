@@ -1,6 +1,7 @@
 @extends('layouts.admin')
-@section('style')
+@section('styles')
     @parent
+    <link type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tokenfield/0.12.0/css/bootstrap-tokenfield.css" rel="stylesheet"/>
 @endsection
 @section('content')
     <div class="content">
@@ -12,7 +13,7 @@
                             <h4 class="title">Edit Category</h4>
                         </div>
                         <div class="content">
-                            <form action="{{ url('admin/category/'.$category->id.'/update') }}" method="post">
+                            <form action="{{ url('admin/category/'.$category->id.'/update') }}" method="post" id="editCategory">
                                 {{ csrf_field() }}
 
                                 <div class="row">
@@ -23,9 +24,7 @@
                                                    placeholder="Ex: AC Night Bus" value="{{ $category->category }}">
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
+                                    <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Status<star>*</star></label>
                                             <select name="isActive" id="status" class="form-control">
@@ -35,9 +34,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
+                                    <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Order<star>*</star></label>
                                             <select name="order" id="status" class="form-control">
@@ -45,6 +42,17 @@
                                                     <option value="{{ $i }}" @if($category->order == $i) selected @endif>{{ $i + 1 }}</option>
                                                 @endfor
                                             </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>Detail Fields</label>
+                                            <?php
+                                            $value = "";
+                                            foreach(json_decode($category->detail) as $item)
+                                                $value .= $item.", ";
+                                            ?>
+                                            <input name="detail" id="detail" value="{{ $value }}" class="form-control" placeholder="Type detail field"/>
                                         </div>
                                     </div>
                                 </div>
@@ -100,6 +108,8 @@
 
     <!--  Date Time Picker Plugin is included in this js file -->
     <script src="{{asset('/backend/js/bootstrap-datetimepicker.js')}}"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tokenfield/0.12.0/bootstrap-tokenfield.min.js"></script>
     <script>
         function addIncidentForm() {
             $input_form = '<div class="col-xs-7">\n' +
@@ -125,11 +135,15 @@
         }
         // Init DatetimePicker
         demo.initFormExtendedDatetimepickers();
-    </script>
-
-    <script>
         $().ready(function () {
-
+            $('#editCategory').on('keyup keypress', function(e) {
+                var keyCode = e.keyCode || e.which;
+                if (keyCode === 13) {
+                    e.preventDefault();
+                    return false;
+                }
+            });
+            $("#detail").tokenfield();
             var $validator = $("#category-add-form").validate({
                 rules: {
                     name: {

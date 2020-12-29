@@ -131,6 +131,7 @@ class CategoryController extends AdminController
             'category' => 'required|string|unique:categories,category,'.$id,
             'incidents' => 'required|array',
             'scores' => 'required|array',
+            'detail' => 'nullable|string',
             'order' => 'required|integer',
             'isActive' => 'required|boolean'
         ];
@@ -139,6 +140,7 @@ class CategoryController extends AdminController
         $incidents = $request->incidents;
         $scores = $request->scores;
         $order = $request->order;
+        $detail = $request->detail ? explode(", ", $request->detail): [];
 
         if ($validator->fails()) {
             return redirect()->back()
@@ -150,10 +152,16 @@ class CategoryController extends AdminController
                 ->withInput($request->all)
                 ->withErrors("Duplicated Incident type");
         }
+        elseif(count($detail) != count(array_unique($detail))) {
+            return redirect()->back()
+                ->withInput($request->all)
+                ->withErrors("Duplicated Detail field");
+        }
         else {
             $category = Category::find($id);
             $category->category = $request->category;
             $category->isActive = $request->isActive;
+            $category->detail = json_encode($detail);
             $category->save();
 
             $data = [];

@@ -106,8 +106,6 @@
         $().ready(function () {
             $table.bootstrapTable({
                 toolbar: ".toolbar",
-                clickToSelect: true,
-                showRefresh: true,
                 search: true,
                 showToggle: true,
                 showColumns: true,
@@ -124,7 +122,6 @@
                     return pageNumber + " rows visible";
                 },
                 icons: {
-                    refresh: 'fa fa-refresh',
                     toggle: 'fa fa-th-list',
                     columns: 'fa fa-columns',
                     detailOpen: 'fa fa-plus-circle',
