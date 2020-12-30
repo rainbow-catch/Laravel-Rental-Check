@@ -16,6 +16,7 @@ The laravel project for rentalCheck
 
 
 ## Update Guide
+- update the repository ( if you are using git, just git pull )
 - composer update
 - php artisan migrate:refresh --seed
 - php artisan storage:link
