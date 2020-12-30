@@ -9,6 +9,15 @@ The laravel project for rentalCheck
 4. run following commands:
 - composer install
 - php artisan key:gen
+- php artisan migrate --seed
+- php artisan storage:link
+- php artisan config:cache
+- php artisan serve
+
+
+## Update Guide
+- composer install
 - php artisan migrate:refresh --seed
 - php artisan storage:link
+- php artisan config:cache
 - php artisan serve
