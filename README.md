@@ -16,7 +16,7 @@ The laravel project for rentalCheck
 
 
 ## Update Guide
-- composer install
+- composer update
 - php artisan migrate:refresh --seed
 - php artisan storage:link
 - php artisan config:cache
