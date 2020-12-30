@@ -17,7 +17,7 @@ class CreateCategoriesTable extends Migration
             $table->increments('id');
             $table->string('category')->unique();
             $table->boolean('isActive')->default(true);
-            $table->array('detail')->nullable();
+            $table->json('detail')->nullable();
             $table->integer('order');
             $table->timestamps();
         });

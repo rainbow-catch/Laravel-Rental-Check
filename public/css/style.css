@@ -54,9 +54,9 @@ body{
 	color:#000;
 	font-family: 'Quicksand', sans-serif;
 }
-@-o-viewport {width: device-width;}
-@-ms-viewport {width: device-width;}
-@viewport {width: device-width;}
+@-o-viewport {width: 100vw;}
+@-ms-viewport {width: 100vw;}
+@viewport {width: 100vw;}
 /*--------------Typography--------------------------------------*/
 p {
     font-size: 12px;
@@ -270,7 +270,7 @@ blockquote p {
 }
 .box-item:before {
 	content:'';
-	position:absolute;l
+	position:absolute;
 	top:0;
 	left:0;
 	width:100%;
@@ -456,7 +456,7 @@ blockquote p {
 	border:none;
 	color:#fff;
 	line-height:40px;
-	border-radius:none;
+	border-radius:0;
 	border-top-right-radius:20px;
 	border-bottom-right-radius:20px;
 	padding:0 30px;
@@ -2203,7 +2203,7 @@ section.gray-section .section-separator {
 	line-height:38px!important;
 	box-shadow: 0px 0px 0px 4px rgba(0,0,0,0.1);
 	border:2px solid  #fff;
-    transition: all 100ms 3inear;
+    transition: all 100ms 3 linear;
 	animation:cluster-animation 1.5s infinite;
 }
 .cluster div:hover {
@@ -3948,7 +3948,7 @@ article .list-single-main-item {
 	color:#fff;
 	border-radius:100%;
 	text-align:center;
-	font-weight:300px;
+	font-weight:300;
 	font-size:10px;
 }
 .user-profile-menu li a:hover i , .user-profile-menu li a.user-profile-act i {

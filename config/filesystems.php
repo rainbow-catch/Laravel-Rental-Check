@@ -75,6 +75,12 @@ return [
             'url' => env('APP_URL').'/storage/licenses',
             'visibility' => 'public',
         ],
+        'complaint' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/complaints'),
+            'url' => env('APP_URL').'/storage/complaints',
+            'visibility' => 'public',
+        ],
     ],
 
 ];

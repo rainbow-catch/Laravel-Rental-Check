@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('style')
+@section('styles')
     @parent
 {{--
     <!--  CSS for Demo Purpose, don't include it in your project     -->

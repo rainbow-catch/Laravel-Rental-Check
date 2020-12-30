@@ -71,7 +71,7 @@ class CategoryTableSeeder extends seeder
 
         $furnitureRental = Category::create([
             'category' => 'Furniture Rental',
-            'detail' => json_encode(['sofa', 'loveseat', 'tv', 'appliances']),
+            'detail' => json_encode(['sofa', 'loveseat', 'TV', 'appliances']),
             'order' => 4
         ]);
 

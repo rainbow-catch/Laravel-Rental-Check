@@ -78,7 +78,7 @@
                                 </div>
                             </li>
                         @else
-                            <li @if (Request::is('admin/'.strtolower($item['name']).'/*')) class="active" @endif>
+                            <li @if (Request::is('admin/'.strtolower($item['name']).'*')) class="active" @endif>
                                 <a href="{{ url($item['actions']['view'])}}">
                                     <i class="{{$item['icon']}}"></i>
                                     <p>{{$item['name']}}</p>

@@ -10,73 +10,58 @@
                     <div class="card">
                         <div class="content">
                             <div class="toolbar">
-                            {{--<a href="{{url('admin/user/administrator/create')}}" rel="tooltip" title="Add New User"--}}
-                            {{--class="btn btn-danger" style="margin-right: 20px">--}}
-                            {{--<i class="ti-plus"></i>--}}
-                            {{--</a>--}}
-                            <!--Here you can write extra buttons/actions for the toolbar-->
+                                {{--<a href="{{url('admin/complaint/create')}}" rel="tooltip" title="Add New Incident"--}}
+                                   {{--class="btn btn-danger" style="margin-right: 20px">--}}
+                                    {{--<i class="ti-plus"></i>--}}
+                                {{--</a>--}}
+                                <!--Here you can write extra buttons/actions for the toolbar-->
                             </div>
                             <table id="bootstrap-table" class="table">
                                 <thead>
                                 <th data-field="sn" class="text-center">S.N.</th>
-                                <th data-field="id" class="text-center">User ID</th>
-                                <th data-field="name" data-sortable="true">Name</th>
-                                <th data-field="phone" data-sortable="true">Phone</th>
-                                <th data-field="email" data-sortable="true">Email</th>
-                                <th data-field="address" data-sortable="true">Address</th>
-                                <th data-field="roles" data-sortable="true">Role</th>
-                                <th data-field="isActive" data-sortable="true">isActive</th>
-                                <th data-field="status" data-sortable="true">Status</th>
+                                <th data-field="company">Company Name</th>
+                                <th data-field="customer">Customer Name</th>
+                                <th data-field="category">Category</th>
+                                <th data-field="zipcode">Zipcode</th>
+                                <th data-field="incident_date">IncidentDate</th>
                                 <th data-field="actions" class="td-actions text-right">Actions
                                 </th>
                                 </thead>
                                 <tbody>
-                                @unless($users->count())
+                                @unless($complaints->count())
                                 @else
-                                    @foreach($users as $index => $user)
+                                    @foreach($complaints as $index => $complaint)
                                         <tr>
                                             <td>{{$index+1}}</td>
-                                            <td>{{ $user->id }}</td>
-                                            <td>{{ $user->detail->first_name." ".$user->detail->last_name }}</td>
-                                            <td>{{ $user->detail->phone }}</td>
-                                            <td>{{ $user->email }}</td>
-                                            <td>{{ $user->detail->address }}</td>
-                                            <td>
-                                                <button class="btn btn-default btn-xs btn-fill">{{ $user->role }}</button>
-                                            </td>
-                                            <td>
-                                                @if($user->isActive) <button class="btn btn-success btn-xs btn-fill">Active</button>
-                                                @else <button class="btn btn-default btn-xs btn-fill">Inactive</button>
-                                                @endif
-                                            </td>
-                                            <td>
-                                                @if($user->detail) <button class="btn btn-success btn-xs btn-fill">Completed</button>
-                                                @else <button class="btn btn-default btn-xs btn-fill">Registered</button>
-                                                @endif
-                                            </td>
+                                            <td>{{ $complaint->company->company_name }}</td>
+                                            <td>{{ $complaint->customer->user->fullname() }}</td>
+                                            <td>{{ $complaint->category()->category }}</td>
+                                            <td>{{ $complaint->zipcode }}</td>
+                                            <td>{{ $complaint->incident_date }}</td>
                                             <td>
                                                 <div class="table-icons">
                                                     <a rel="tooltip" title="Edit"
                                                        class="btn btn-simple btn-warning btn-icon table-action edit"
-                                                       href="{{url('admin/user/customer/'.$user->id.'/edit')}}">
+                                                       href="{{url('admin/complaint/'.$complaint->id.'/edit')}}">
                                                         <i class="ti-pencil-alt"></i>
                                                     </a>
                                                     <button rel="tooltip" title="Remove"
                                                             class="btn btn-simple btn-danger btn-icon table-action"
-                                                            onclick="delete_button(this)">
+                                                            onclick="delete_button()">
                                                         <i class="ti-close"></i>
                                                     </button>
                                                     <div class="collapse">
-                                                        {!! Form::open(array('id' => 'delete-user', 'url' => 'admin/user/customer/'.$user->id)) !!}
+                                                        {!! Form::open(array('id' => 'delete-complaint', 'url' => 'admin/complaint/'.$complaint->id)) !!}
                                                         {{ Form::hidden('_method', 'DELETE') }}
                                                         <button type="submit" class="btn btn-danger btn-ok">Delete</button>
                                                         {!! Form::close() !!}
                                                     </div>
+
                                                 </div>
                                             </td>
                                         </tr>
-                                        @endforeach
-                                    @endunless
+                                    @endforeach
+                                @endunless
                                 </tbody>
                             </table>
                         </div>
@@ -96,9 +81,9 @@
     <script src="{{ asset('backend/js/bootstrap-table.js') }}"></script>
     <script type="text/javascript">
 
-        var delete_button = function(e){
+        var delete_button = function(){
             swal({  title: "Are you sure?",
-                text: "After you delete the user, all user room and events bookings will also be deleted.",
+                text: "You want to delete the complaint.",
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonClass: "btn btn-info btn-fill",
@@ -106,23 +91,22 @@
                 cancelButtonClass: "btn btn-danger btn-fill",
                 closeOnConfirm: false,
             },function(){
-                var item = $(e).parent('div').find('form')[0];
-                item.submit();
+                $('form#delete-complaint').submit();
             });
-        };
+        }
+
 
         var $table = $('#bootstrap-table');
         $().ready(function () {
             $table.bootstrapTable({
                 toolbar: ".toolbar",
-                clickToSelect: true,
-                // showRefresh: true,
                 search: true,
                 showToggle: true,
                 showColumns: true,
                 pagination: true,
                 searchAlign: 'left',
                 pageSize: 8,
+                clickToSelect: false,
                 pageList: [8, 10, 25, 50, 100],
 
                 formatShowingRows: function (pageFrom, pageTo, totalRows) {
@@ -132,7 +116,6 @@
                     return pageNumber + " rows visible";
                 },
                 icons: {
-                    refresh: 'fa fa-refresh',
                     toggle: 'fa fa-th-list',
                     columns: 'fa fa-columns',
                     detailOpen: 'fa fa-plus-circle',

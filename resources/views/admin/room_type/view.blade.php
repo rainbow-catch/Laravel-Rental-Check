@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('style')
+@section('styles')
     @parent
 @endsection
 @section('content')
