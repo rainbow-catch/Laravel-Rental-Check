@@ -8,6 +8,7 @@ use App\Incident;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
+use Mockery\Exception;
 
 class CategoryController extends AdminController
 {
@@ -196,7 +197,13 @@ class CategoryController extends AdminController
 
         // TO_DO_DEM Clear all Facilities by Eloquent remove pivot records
 
-        $category->delete();
+        try {
+            $category->delete();
+        }
+        catch (\Exception $error){
+            return redirect()->back()
+                ->withErrors("You can't delete this category since it has child companies.");
+        }
 
         Session::flash('flash_title', 'Success');
         Session::flash('flash_message', 'The incident has been deleted successfully');

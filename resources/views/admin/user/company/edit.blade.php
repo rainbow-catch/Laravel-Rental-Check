@@ -152,7 +152,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Payment</label>
-                                        <select name="payment_method" id="category" class="form-control">
+                                        <select name="payment_method" id="payment" class="form-control">
                                             <option value="" disabled selected>- Select Payment Method -</option>
                                             @foreach(config('var.payment_method') as $item)
                                                 <option value="{{ $item }}" {{ old('payment_method')? (Input::old('payment_method')== $item? 'selected':''): ($user->detail? ( $user->detail->payment_method == $item? 'selected':''): '') }} >{{ $item }}
@@ -167,7 +167,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Category</label>
-                                        <select name="category" id="category" class="form-control">
+                                        <select name="category" id="category" class="form-control" disabled>
                                             <option value="" disabled selected>- Select Category -</option>
                                             @foreach($categories as $category)
                                                 <option value="{{ $category->id }}" {{ old('category_id')? (Input::old('category_id')== $category->id? 'selected':''): ($user->detail? ( $user->detail->category_id == $category->id? 'selected':''): '') }} >{{ $category->category }}

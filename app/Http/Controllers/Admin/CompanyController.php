@@ -138,7 +138,6 @@ class CompanyController extends AdminController
             'email' => 'required|email|max:255|unique:users,email,'.$id,
             'address' => 'max:200',
             'about' => 'max:300',
-
             'security_question_id' => 'required|integer',
             'security_answer' => 'required|max:50',
         ];
