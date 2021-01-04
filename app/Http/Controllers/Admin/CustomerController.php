@@ -63,7 +63,7 @@ class CustomerController extends AdminController
         }
 
         if (!empty($request->input('avatar'))) {
-            $rules['avatar'] = 'mimes:jpeg,jpg,png,JPG,JPEG,PNG';
+            $rules['avatar'] = 'mimes:jpeg,jpg,png|max:500';
         }
 
         $validator = Validator::make($request->all(), $rules);
@@ -149,7 +149,7 @@ class CustomerController extends AdminController
         }
 
         if ($request->hasFile('avatar')) {
-            $rules['avatar'] = 'mimes:jpeg,jpg,png,PNG,JPEG,JPG,JPG';
+            $rules['avatar'] = 'mimes:jpeg,jpg,png|max:500';
         }
 
         if (!empty($request->input('password'))) {
@@ -244,7 +244,7 @@ class CustomerController extends AdminController
             'about' => 'max:300'
         ];
         if ($request->hasFile('avatar')) {
-            $rules['avatar'] = 'mimes:jpeg,jpg,png,JPG,JPEG,PNG';
+            $rules['avatar'] = 'mimes:jpeg,jpg,png|max:500';
         }
 
         if (!empty($request->input('phone'))) {

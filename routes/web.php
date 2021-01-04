@@ -24,108 +24,75 @@ Route::get('logout', 'Auth\LoginController@logout', function () {
 });
 
 Route::get('/', 'HomeController@index')->name('home');
-Route::get('/profile', 'HomeController@profile')->middleware(['password.confirm', 'isVerified'])->name('profile');
-Route::post('/profile/update', 'HomeController@updateProfile')->name('profile.update');
-
-// Security Questions
-Route::get('/password/confirm', 'Auth\ConfirmPasswordController@showConfirmForm')->name('password.confirm');
-Route::post('/password/confirm', 'Auth\ConfirmPasswordController@confirm')->name('password.confirm');
 
 // Email Verification
 Route::get('email-verification/error', 'Auth\RegisterController@getVerificationError')->name('email-verification.error');
 Route::get('email-verification/check/{token}', 'Auth\RegisterController@getVerification')->name('email-verification.check');
-/*
- * Dashboard
- */
-Route::group(['prefix' => 'dashboard', 'middleware'=>['company','isVerified']], function () {
-    Route::get('/', 'DashboardController@index')->name('dashboard');
-});
 
-/*
- * Admin
- */
-Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
-    Route::get('/', 'Admin\HomeController@index');
-//    Route::resource('slider', 'Admin\SliderController');
-//    Route::resource('facility', 'Admin\FacilityController');
-//    Route::resource('event', 'Admin\EventController');
-//    Route::resource('food', 'Admin\FoodController');
-//    Route::get('page', 'Admin\PageController@index');
-//    Route::get('page/{id}/edit', 'Admin\PageController@edit');
-//    Route::put('page/{id}', 'Admin\PageController@update');
+Route::group(['middleware' => 'isVerified'], function () {
 
-    Route::group(['prefix' => 'user'], function (){
-        // Customer Routes
-        Route::resource('customer', 'Admin\CustomerController');
-//        Route::get('customer/{id}/profile', 'Admin\CustomerController@profile');
-//        Route::put('customer/{id}/profile', 'Admin\CustomerController@update_profile');
-//        Route::get('customer/{id}/setting', 'Admin\CustomerController@setting');
-//        Route::put('customer/{id}/setting', 'Admin\CustomerController@update_setting');
+    Route::get('/profile', 'HomeController@profile')->middleware(['password.confirm'])->name('profile');
+    Route::post('/profile/update', 'HomeController@updateProfile')->name('profile.update');
+    Route::get('/password', 'HomeController@Password')->middleware(['password.confirm'])->name('password');
+    Route::post('/password/update', 'HomeController@updatePassword')->name('password.update');
 
-        // Company Routes
-        Route::resource('company', 'Admin\CompanyController');
-//        Route::get('company/{id}/profile', 'Admin\CompanyController@profile');
-//        Route::put('company/{id}/profile', 'Admin\CompanyController@update_profile');
-//        Route::get('company/{id}/setting', 'Admin\CompanyController@setting');
-//        Route::put('company/{id}/setting', 'Admin\CompanyController@update_setting');
+    // Security Questions
+    Route::get('/password/confirm', 'Auth\ConfirmPasswordController@showConfirmForm')->name('password.confirm');
+    Route::post('/password/confirm', 'Auth\ConfirmPasswordController@confirm')->name('password.confirm');
 
-        // Admin Routes
-        Route::resource('administrator', 'Admin\AdministratorController');
-//        Route::get('administrator/{id}/profile', 'Admin\AdministratorController@profile');
-//        Route::put('administrator/{id}/profile', 'Admin\AdministratorController@update_profile');
-//        Route::get('administrator/{id}/setting', 'Admin\AdministratorController@setting');
-//        Route::put('administrator/{id}/setting', 'Admin\AdministratorController@update_setting');
-    });
+    /*
+     * Dashboard
+     */
+    Route::get('dashboard/', 'DashboardController@index')->name('dashboard');
 
-    Route::prefix('category')->name('category.')->group(function () {
-        Route::get('/', 'Admin\CategoryController@index');
-        Route::get('/{id}/edit', 'Admin\CategoryController@edit');
-        Route::get('create', 'Admin\CategoryController@create');
-        Route::post('/{id}/update', 'Admin\CategoryController@update');
-        Route::post('/store', 'Admin\CategoryController@store');
-        Route::delete('/{id}', 'Admin\CategoryController@destroy');
+    /*
+     * Admin
+     */
+    Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
+        Route::get('/', 'Admin\HomeController@index');
+        //    Route::resource('slider', 'Admin\SliderController');
+        //    Route::resource('facility', 'Admin\FacilityController');
+        //    Route::resource('event', 'Admin\EventController');
+        //    Route::resource('food', 'Admin\FoodController');
+        //    Route::get('page', 'Admin\PageController@index');
+        //    Route::get('page/{id}/edit', 'Admin\PageController@edit');
+        //    Route::put('page/{id}', 'Admin\PageController@update');
 
-        Route::resource('incident', "Admin\IncidentController");
-    });
+        Route::group(['prefix' => 'user'], function () {
+            // Customer Routes
+            Route::resource('customer', 'Admin\CustomerController');
+            //        Route::get('customer/{id}/profile', 'Admin\CustomerController@profile');
+            //        Route::put('customer/{id}/profile', 'Admin\CustomerController@update_profile');
+            //        Route::get('customer/{id}/setting', 'Admin\CustomerController@setting');
+            //        Route::put('customer/{id}/setting', 'Admin\CustomerController@update_setting');
 
-    Route::resource('membership', "Admin\MembershipController");
-    Route::resource('complaint', "Admin\ComplaintController");
+            // Company Routes
+            Route::resource('company', 'Admin\CompanyController');
+            //        Route::get('company/{id}/profile', 'Admin\CompanyController@profile');
+            //        Route::put('company/{id}/profile', 'Admin\CompanyController@update_profile');
+            //        Route::get('company/{id}/setting', 'Admin\CompanyController@setting');
+            //        Route::put('company/{id}/setting', 'Admin\CompanyController@update_setting');
 
-    //Routes for RoomBookings
-    Route::get('/room_booking', 'Admin\RoomBookingController@index');
-    Route::get('/room_booking/{id}/edit', 'Admin\RoomBookingController@edit');
-    Route::put('/room_booking/{id}/edit', 'Admin\RoomBookingController@update');
+            // Admin Routes
+            Route::resource('administrator', 'Admin\AdministratorController');
+            //        Route::get('administrator/{id}/profile', 'Admin\AdministratorController@profile');
+            //        Route::put('administrator/{id}/profile', 'Admin\AdministratorController@update_profile');
+            //        Route::get('administrator/{id}/setting', 'Admin\AdministratorController@setting');
+            //        Route::put('administrator/{id}/setting', 'Admin\AdministratorController@update_setting');
+        });
 
-    //Routes for EventBookings
-    Route::get('/event_booking', 'Admin\EventBookingController@index');
-    Route::get('/event_booking/{id}/edit', 'Admin\EventBookingController@edit');
-    Route::put('/event_booking/{id}/edit', 'Admin\EventBookingController@update');
+        Route::prefix('category')->name('category.')->group(function () {
+            Route::get('/', 'Admin\CategoryController@index');
+            Route::get('/{id}/edit', 'Admin\CategoryController@edit');
+            Route::get('create', 'Admin\CategoryController@create');
+            Route::post('/{id}/update', 'Admin\CategoryController@update');
+            Route::post('/store', 'Admin\CategoryController@store');
+            Route::delete('/{id}', 'Admin\CategoryController@destroy');
 
+            Route::resource('incident', "Admin\IncidentController");
+        });
 
-    Route::get('/review', 'Admin\ReviewController@index');
-    Route::get('/review/{id}/approve', 'Admin\ReviewController@approve');
-    Route::get('/review/{id}/reject', 'Admin\ReviewController@reject');
-
-    Route::resource('room_type', 'Admin\RoomTypeController');
-    // Route for room types
-    Route::group(['prefix' => 'room_type', 'middleware' => 'auth'], function(){
-        // Rutes for Room Type Images
-        Route::get('/{id}/image', 'Admin\ImageController@index');
-        Route::get('/{id}/image/create', 'Admin\ImageController@create');
-        Route::post('/{id}/image', 'Admin\ImageController@store');
-        Route::get('/{id}/image/{image_id}/edit', 'Admin\ImageController@edit');
-        Route::put('/{id}/image/{image_id}/edit', 'Admin\ImageController@update');
-        Route::get('/{id}/image/create_multiple', 'Admin\ImageController@create_multiple');
-        Route::post('/{id}/image/create_multiple', 'Admin\ImageController@store_multiple');
-        Route::delete('/{id}/image/{image_id}', 'Admin\ImageController@destroy');
-
-        // Routes for Rooms
-        Route::get('/{id}/room', 'Admin\RoomController@index');
-        Route::get('/{id}/room/create', 'Admin\RoomController@create');
-        Route::post('/{id}/room', 'Admin\RoomController@store');
-        Route::get('/{id}/room/{room_id}/edit', 'Admin\RoomController@edit');
-        Route::put('/{id}/room/{room_id}/edit', 'Admin\RoomController@update');
-        Route::delete('/{id}/room/{image_id}', 'Admin\RoomController@destroy');
-
+        Route::resource('membership', "Admin\MembershipController");
+        Route::resource('complaint', "Admin\ComplaintController");
     });
 });

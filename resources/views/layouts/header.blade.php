@@ -38,10 +38,10 @@
                     Hello , {{ Auth::user()->detail? (Auth::user()->fullName()): 'there' }}
                 </div>
                 <ul>
+                    @if(Auth::user()->role=="Admin")<li><a href="{{ url('admin') }}"> Admin Dashboard</a></li>@endif
+                    <li><a href="{{ route('dashboard') }}"> Dashboard</a></li>
                     <li><a href="{{ route('profile') }}"> Edit profile</a></li>
-                    <li><a href="dashboard-add-listing.html"> Add Listing</a></li>
-                    <li><a href="dashboard-bookings.html">  Bookings  </a></li>
-                    <li><a href="dashboard-review.html"> Reviews </a></li>
+                    <li><a href="{{ route('password') }}"> Change Password</a></li>
                     <li><a href="{{ route('logout') }}">Log Out</a></li>
                 </ul>
             </div>

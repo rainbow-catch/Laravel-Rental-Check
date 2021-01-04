@@ -28,7 +28,7 @@ $factory->define(App\Complaint::class, function (Faker $faker) {
         'return_date' => $faker->dateTimeBetween('-3 months', '-1 months'),
         'description' => $faker->sentence(),
         'incident_types' => json_encode($incident_types, JSON_UNESCAPED_SLASHES),
-        'media_type' => array_random(['background', 'carousel', 'video', 'none']),
+        'media_type' => array_random(['background', 'carousel', 'video']),
         'pathOrUrl' => json_encode([array_random([ ['type'=>'path','src'=>$image_path], ['type'=>'url','src'=>$faker->imageUrl()] ])],JSON_UNESCAPED_SLASHES),
     ];
 });

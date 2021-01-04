@@ -32,13 +32,13 @@
                                         <div class="user-profile-menu">
                                             <h3>Main</h3>
                                             <ul>
-                                                <li><a href="dashboard.html"><i class="fa fa-gears"></i>Dashboard</a>
+                                                <li><a href="{{ route('dashboard') }}"><i class="fa fa-gears"></i>Dashboard</a>
                                                 </li>
-                                                <li><a href="dashboard-myprofile.html" class="user-profile-act"><i
+                                                <li><a href="{{ route('profile') }}" class="user-profile-act"><i
                                                                 class="fa fa-user-o"></i> Edit profile</a></li>
-                                                <li><a href="dashboard-messages.html"><i class="fa fa-envelope-o"></i>
+                                                <li><a href="#"><i class="fa fa-envelope-o"></i>
                                                         Messages <span>3</span></a></li>
-                                                <li><a href="dashboard-password.html"><i class="fa fa-unlock-alt"></i>Change
+                                                <li><a href="{{ route('password') }}"><i class="fa fa-unlock-alt"></i>Change
                                                         Password</a></li>
                                             </ul>
                                         </div>

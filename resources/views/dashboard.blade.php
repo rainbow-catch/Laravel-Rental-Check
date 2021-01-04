@@ -28,10 +28,14 @@
                                         <div class="user-profile-menu">
                                             <h3>Main</h3>
                                             <ul>
-                                                <li><a href="dashboard.html" class="user-profile-act"><i class="fa fa-gears"></i>Dashboard</a></li>
-                                                <li><a href="dashboard-myprofile.html"><i class="fa fa-user-o"></i> Edit profile</a></li>
-                                                <li><a href="dashboard-messages.html"><i class="fa fa-envelope-o"></i> Messages <span>3</span></a></li>
-                                                <li><a href="dashboard-password.html"><i class="fa fa-unlock-alt"></i>Change Password</a></li>
+                                                <li><a href="{{ route('dashboard') }}"  class="user-profile-act"><i class="fa fa-gears"></i>Dashboard</a>
+                                                </li>
+                                                <li><a href="{{ route('profile') }}"><i
+                                                                class="fa fa-user-o"></i> Edit profile</a></li>
+                                                <li><a href="#"><i class="fa fa-envelope-o"></i>
+                                                        Messages <span>3</span></a></li>
+                                                <li><a href="{{ route('password') }}"><i class="fa fa-unlock-alt"></i>Change
+                                                        Password</a></li>
                                             </ul>
                                         </div>
                                         <!-- user-profile-menu end-->

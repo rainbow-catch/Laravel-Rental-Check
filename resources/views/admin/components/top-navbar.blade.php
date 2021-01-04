@@ -35,7 +35,7 @@
                         </p>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="{{ url('admin/user/'.Auth::user()->id.'/profile') }}">Edit Profile</a></li>
+                        <li><a href="{{ url('profile') }}">Edit Profile</a></li>
                         <li><a href="{{ url('/') }}">Visit App</a></li>
                         <li>
                             <a href="{{ route('logout') }}"

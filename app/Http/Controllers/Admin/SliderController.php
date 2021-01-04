@@ -56,7 +56,7 @@ class SliderController extends AdminController
         ];
 
         if (!empty($request->input('image'))) {
-            $rules['image'] = 'mimes:jpeg,jpg,png';
+            $rules['image'] = 'mimes:jpeg,jpg,png|max:500';
         }
 
         $validator = Validator::make($request->all(), $rules);
@@ -136,7 +136,7 @@ class SliderController extends AdminController
         ];
 
         if(!empty($request->input('image'))){
-            $rules['image'] = 'mimes:jpeg,jpg,png';
+            $rules['image'] = 'mimes:jpeg,jpg,png|max:500';
         }
 
         $validator = Validator::make($request->all(), $rules);

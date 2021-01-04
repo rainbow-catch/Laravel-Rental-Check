@@ -149,11 +149,11 @@
                                     <label>File(s)</label>
                                     <input id="filepath" type="file" onchange="readURL(this);" class="form-control" {{ $complaint->media_type=='carousel'? "multiple": "" }} name="paths[]">
                                 </div>
-                                <div class="col-md-6" id="url_input_div" {{ $complaint->media_type!='video' && $complaint->media_type=='none'? "hidden": "" }}>
+                                <div class="col-md-6" id="url_input_div" {{ $complaint->media_type!='video' || $complaint->media_type=='none'? "hidden": "" }}>
                                     <label>URL of video</label>
-                                    <input id="url" type="url" class="form-control" name="url">
+                                    <input id="url" type="url" class="form-control" name="url" value="{{ json_decode($complaint->pathOrUrl)[0]->type=='url'? json_decode($complaint->pathOrUrl)[0]->src: '' }}">
                                 </div>
-                                <div class="col-md-12">
+                                <div class="col-md-12" {{ $complaint->media_type=='none'? "hidden": "" }}>
                                     <div class="media_preview">
                                         @foreach(json_decode($complaint->pathOrUrl) as $item)
                                             <img id="blah" src="{{ $item->type=='path'? asset("storage/complaints/".$item->src): $item->src }}" style="width:30%; padding:1.6%">

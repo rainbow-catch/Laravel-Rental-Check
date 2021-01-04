@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\SecurityQuestion;
 use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Auth\Events\Registered;
@@ -33,6 +34,16 @@ class RegisterController extends Controller
      * @var string
      */
     protected $redirectTo = '/profile';
+
+    /**
+     * Show the application registration form.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showRegistrationForm()
+    {
+        return view('auth.register')->with(['questions'=>SecurityQuestion::all()]);
+    }
 
     /**
      * Create a new controller instance.

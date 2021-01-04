@@ -26,8 +26,8 @@
                     </a>
                     <div class="collapse" id="collapseExample">
                         <ul class="nav">
-                            <li><a href="{{ url('admin/user/'.Auth::user()->id.'/profile') }}">Edit Profile</a></li>
-                            <li><a href="{{ url('admin/user/'.Auth::user()->id.'/setting') }}">Change Password</a></li>
+                            <li><a href="{{ route('profile') }}">Edit Profile</a></li>
+                            <li><a href="{{ route('password') }}">Change Password</a></li>
                             <li>
                                 <a href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
