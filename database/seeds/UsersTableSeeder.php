@@ -17,6 +17,9 @@ use Illuminate\Support\Carbon;
 class UsersTableSeeder  extends Seeder
 {
     public function run(){
+        \App\AutoApprove::create([
+            'isAuto' => false
+        ]);
         User::create([
             'email' => "admin@gmail.com",
             'password' => bcrypt('asdfasdf'),

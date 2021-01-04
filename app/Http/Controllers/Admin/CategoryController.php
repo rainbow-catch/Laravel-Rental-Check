@@ -54,6 +54,7 @@ class CategoryController extends AdminController
             'category' => 'required|string|unique:categories,category',
             'incidents' => 'required|array',
             'scores' => 'required|array',
+            'detail' => 'nullable|string',
             'isActive' => 'required|boolean'
         ];
 
@@ -73,10 +74,12 @@ class CategoryController extends AdminController
         }
         else{
             $order = Category::count();
+            $detail = $request->detail ? explode(", ", $request->detail): [];
             $category = Category::create([
                 'category' => $request->category,
                 'order' => $order,
-                'isActive' => $request->isActive
+                'isActive' => $request->isActive,
+                'detail' => json_encode($detail)
             ]);
 
             $data = [];

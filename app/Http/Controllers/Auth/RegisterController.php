@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\AutoApprove;
 use App\SecurityQuestion;
 use App\User;
 use App\Http\Controllers\Controller;
@@ -110,6 +111,7 @@ class RegisterController extends Controller
             'password' => bcrypt($data['password']),
             'security_question_id' => $data['security_answer']? ($data['security_question_id'] ?? NULL): NULL,
             'security_answer' => $data['security_answer'] ?? NULL,
+            'isActive' => AutoApprove::find(1)->isAuto
         ]);
     }
 }

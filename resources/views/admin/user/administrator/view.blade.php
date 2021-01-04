@@ -80,7 +80,17 @@
                                 </tbody>
                             </table>
                         </div>
+                        <div class="container" style="padding-bottom: 30px">
+                            @if(\App\AutoApprove::find(1)->isAuto)
+                                <p>If you want to disable auto-approve new registrations please click the following button.</p>
+                                <a class="btn btn-danger" href="{{ route('autoApprove') }}">Disable Auto</a>
+                            @else
+                                <p>If you want to enable auto-approve new registrations please click the following button.</p>
+                                <a class="btn btn-success" href="{{ route('autoApprove') }}">Enable Auto</a>
+                            @endif
+                        </div>
                     </div><!--  end card  -->
+
                 </div> <!-- end col-md-12 -->
             </div> <!-- end row -->
         </div>

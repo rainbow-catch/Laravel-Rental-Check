@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 class Category extends Model
 {
-    protected $fillable = ['category', 'order', 'isActive'];
+    protected $fillable = ['category', 'order', 'isActive', 'detail'];
     //
     public function incidents($ids=null) {
         $incidents = $this->belongsToMany('App\Incident', 'category_has_incidents', 'category_id', 'incident_id');

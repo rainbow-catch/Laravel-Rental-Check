@@ -11,22 +11,26 @@
         <div class="logo-holder">
             <a href="{{ url('/') }}"><img src="{{ asset('images/logo.png') }}" alt=""></a>
         </div>
-        <div class="header-search vis-header-search">
-            <div class="header-search-input-item">
-                <input type="text" placeholder="Keywords" value=""/>
-            </div>
-            <div class="header-search-select-item">
-                <select data-placeholder="All Categories" class="chosen-select" >
-                    <option>Categories</option>
-                    <option>Auto Rental</option>
-                    <option>Apartments Rental</option>
-                    <option>Equipments Rental</option>
-                    <option>Furniture Rental</option>
-                    <option>Events Rental</option>
-                </select>
-            </div>
-            <button class="header-search-button" onclick="window.location.href='listing.html'">Search</button>
-        </div>
+        @auth()
+            @if(Auth::user()->isVerifiedCompany())
+                <div class="header-search vis-header-search">
+                    <div class="header-search-input-item">
+                        <input type="text" placeholder="Keywords" value=""/>
+                    </div>
+                    <div class="header-search-select-item">
+                        <select data-placeholder="All Categories" class="chosen-select" >
+                            <option>Categories</option>
+                            <option>Auto Rental</option>
+                            <option>Apartments Rental</option>
+                            <option>Equipments Rental</option>
+                            <option>Furniture Rental</option>
+                            <option>Events Rental</option>
+                        </select>
+                    </div>
+                    <button class="header-search-button" onclick="window.location.href='listing.html'">Search</button>
+                </div>
+            @endif
+        @endauth
         <div class="show-search-button"><i class="fa fa-search"></i> <span>Search</span></div>
         <a href="dashboard-add-listing.html" class="add-list">Make A Complaint<span><i class="fa fa-plus"></i></span></a>
         @guest()

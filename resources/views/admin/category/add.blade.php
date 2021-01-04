@@ -1,6 +1,8 @@
 @extends('layouts.admin')
 @section('styles')
     @parent
+    <link type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tokenfield/0.12.0/css/bootstrap-tokenfield.css" rel="stylesheet"/>
+
 @endsection
 @section('content')
     <div class="content">
@@ -38,6 +40,14 @@
                                     </div>
                                 </div>
                                 <br>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>Detail Fields</label>
+                                            <input name="detail" id="detail" value="{{ Input::old('detail') }}" class="form-control" placeholder="Type detail field"/>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="row input-incident">
                                     <div class="col-xs-7">
                                         <div class="form-group">
@@ -92,6 +102,7 @@
 
     <!--  Date Time Picker Plugin is included in this js file -->
     <script src="{{asset('/backend/js/bootstrap-datetimepicker.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tokenfield/0.12.0/bootstrap-tokenfield.min.js"></script>
     <script>
         function addIncidentForm() {
             $input_form = '<div class="col-xs-7">\n' +
@@ -122,6 +133,7 @@
 
     <script>
         $().ready(function () {
+            $("#detail").tokenfield();
 
             var $validator = $("#category-add-form").validate({
                 rules: {

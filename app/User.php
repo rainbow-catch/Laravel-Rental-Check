@@ -48,4 +48,8 @@ class User extends Authenticatable
     public function securityQuestion() {
         return $this->belongsTo('App\SecurityQuestion');
     }
+
+    public function isVerifiedCompany() {
+        return $this->role == "Company" && $this->isVerified();
+    }
 }

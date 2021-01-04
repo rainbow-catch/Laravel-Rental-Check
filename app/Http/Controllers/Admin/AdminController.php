@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\AutoApprove;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -19,5 +20,13 @@ class AdminController extends BaseController
         $this->middleware('auth');
         $admin_nav = config('nav.admin');
         View::share('admin_nav', $admin_nav);
+    }
+
+    public function toggleAutoApprove(){
+        $temp = AutoApprove::find(1);
+        $temp->update([
+            'isAuto'=> !$temp->isAuto
+        ]);
+        return redirect()->back();
     }
 }
