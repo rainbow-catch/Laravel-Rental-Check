@@ -299,26 +299,32 @@ class CompanyController extends AdminController
 
         if ($user->id !== 1) {
             if ($user->id !== Auth::user()->id) {
-                if ($user->delete()) {
-                    if($detail->delete()) {
-                        if (Storage::disk('avatar')->exists($detail->avatar)) {
-                            if (strpos($detail->avatar, "default/") !== 0) {
-                                Storage::delete('public/avatars/' . $detail->avatar);
+                try {
+                    if ($user->delete()) {
+                        if($detail->delete()) {
+                            if (Storage::disk('avatar')->exists($detail->avatar)) {
+                                if (strpos($detail->avatar, "default/") !== 0) {
+                                    Storage::delete('public/avatars/' . $detail->avatar);
+                                }
+                            }
+                            if (Storage::disk('license')->exists($detail->license)) {
+                                if (strpos($detail->license, "default/") !== 0) {
+                                    Storage::delete('public/licenses/' . $detail->license);
+                                }
                             }
                         }
-                        if (Storage::disk('license')->exists($detail->license)) {
-                            if (strpos($detail->license, "default/") !== 0) {
-                                Storage::delete('public/licenses/' . $detail->license);
-                            }
-                        }
+
+                        Session::flash('flash_title', 'Success');
+                        Session::flash('flash_message', 'The user, ' . $user_name . ' has been deleted');
+
+                        return redirect('/admin/user/company');
+                    } else {
+                        $error_message = "Sorry, user could not be deleted.";
                     }
-
-                    Session::flash('flash_title', 'Success');
-                    Session::flash('flash_message', 'The user, ' . $user_name . ' has been deleted');
-
-                    return redirect('/admin/user/company');
-                } else {
-                    $error_message = "Sorry, user could not be deleted.";
+                }
+                catch (\Exception $error){
+                    return redirect()->back()
+                        ->withErrors("You can't delete this company since it has child complaints.");
                 }
             } else {
                 $error_message = "Sorry, you cannot delete yourself.";
