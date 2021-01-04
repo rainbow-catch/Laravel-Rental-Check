@@ -89,7 +89,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     });
 
     Route::resource('membership', "Admin\MembershipController");
-    Route::resource('complaint', "Admin\complaintController");
+    Route::resource('complaint', "Admin\ComplaintController");
 
     //Routes for RoomBookings
     Route::get('/room_booking', 'Admin\RoomBookingController@index');

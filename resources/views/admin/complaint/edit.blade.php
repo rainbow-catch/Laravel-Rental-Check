@@ -80,11 +80,13 @@
                             <h3 class="text-center">Details</h3>
                             <div class="row">
                                 <div class="col-md-12">
-                                    @unless($complaint->detail)
+                                    @unless($complaint->category()->detail)
                                     @else
-                                        @foreach(json_decode($complaint->detail) as $key=>$value)
-                                        <label>{{ ucfirst($key) }} <star>*</star></label>
-                                        <input type='text' name='detail[{{ $key }}]' class="form-control input-group" value="{{ $value }}"/>
+                                        @foreach(json_decode($complaint->category()->detail) as $item)
+                                            <?php $detail = json_decode($complaint->detail) ?>
+                                            {{--@foreach( as $key=>$value)--}}
+                                            <label>{{ ucfirst($item) }} <star>*</star></label>
+                                            <input type='text' name='detail[{{ $item }}]' class="form-control input-group" value="{{ $detail->$item?? NULL }}"/>
                                         @endforeach
                                     @endunless
                                 </div>
