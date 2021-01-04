@@ -150,7 +150,7 @@
                                 @if(Auth::user()->role == "Company")
                                     <div class="profile-edit-container add-list-container">
                                         <div class="profile-edit-header fl-wrap">
-                                            <h4>Membership</h4>
+                                            <h4>Membership (Read only)</h4>
                                         </div>
                                         <div class="custom-form">
                                             <div class="row">
@@ -158,7 +158,7 @@
                                                 <div class="col-md-4">
                                                     <div class="add-list-media-header">
                                                         <label class="radio inline">
-                                                            <input type="radio" readonly value="basic" name="membership" {{ $detail? ($detail->membership=='basic'? 'selected': ''): '' }}>
+                                                            <input type="radio" disabled value="1" {{ $detail? ($detail->membership_id==1 ? 'checked': ''): 'checked' }}>
                                                             <span>Basic 99$</span>
                                                         </label>
                                                     </div>
@@ -168,7 +168,7 @@
                                                 <div class="col-md-4">
                                                     <div class="add-list-media-header">
                                                         <label class="radio inline">
-                                                            <input type="radio" readonly value='extended' name="membership" {{ $detail? ($detail->membership=='extended'? 'selected': ''): '' }}>
+                                                            <input type="radio" disabled value='2' {{ $detail? ($detail->membership_id==2? 'checked': ''): '' }}>
                                                             <span>Extended 99$</span>
                                                         </label>
                                                     </div>
@@ -178,7 +178,7 @@
                                                 <div class="col-md-4">
                                                     <div class="add-list-media-header">
                                                         <label class="radio inline">
-                                                            <input type="radio" readonly value="premium" name="membership" {{ $detail? ($detail->membership=='premium'? 'selected': ''): '' }}>
+                                                            <input type="radio" disabled value="3" {{ $detail? ($detail->membership_id==3? 'checked': ''): '' }}>
                                                             <span>Professional 149$</span>
                                                         </label>
                                                     </div>
@@ -216,7 +216,7 @@
                             </div>
                             <div class="col-md-2">
                                 <div class="edit-profile-photo fl-wrap">
-                                    <img id="blah" src="{{'/storage/avatars/'. ($detail? $detail->avatar: 'boy.png')}}" alt="your image" class="respimg">
+                                    <img id="blah" src="{{'/storage/avatars/'. ($detail? $detail->avatar: 'boy.png')}}" alt="your image here" class="respimg">
                                     <div class="change-photo-btn">
                                         <div class="photoUpload">
                                             <span><i class="fa fa-upload"></i> Upload Photo</span>
