@@ -50,7 +50,14 @@
                                         <div class="col-xs-4 text-right">FullName:</div>
                                         <div class="col-xs-8 text-left">{{ $complaint->company->user->fullname() }}</div>
                                         <div class="col-xs-4 text-right" style="background-color: lightblue">Category:</div>
-                                        <div class="col-xs-8 text-left" style="background-color: lightblue"><strong style="color: #3e79ff">{{ $complaint->category()->category }}</strong></div>
+                                        <div class="col-xs-8 text-left" style="background-color: lightblue">
+                                            <strong style="color: #3e79ff">
+                                                @foreach($complaint->company->categories() as $category)
+                                                    <span style="{{ $category->id == $complaint->category_id? 'color: #FF3831': '' }}">{{ $category->category }}</span>
+                                                    {{ !$loop->last? ", ": "" }}
+                                                @endforeach
+                                            </strong>
+                                        </div>
                                         <div class="col-xs-4 text-right">Gender:</div>
                                         <div class="col-xs-8 text-left">{{ $complaint->company->gender }}</div>
                                         <div class="col-xs-4 text-right">Phone:</div>
@@ -80,9 +87,9 @@
                             <h3 class="text-center">Details</h3>
                             <div class="row">
                                 <div class="col-md-12">
-                                    @unless($complaint->category()->detail)
+                                    @unless($complaint->category->detail)
                                     @else
-                                        @foreach(json_decode($complaint->category()->detail) as $item)
+                                        @foreach(json_decode($complaint->category->detail) as $item)
                                             <?php $detail = json_decode($complaint->detail) ?>
                                             {{--@foreach( as $key=>$value)--}}
                                             <label>{{ ucfirst($item) }} <star>*</star></label>
@@ -121,7 +128,7 @@
                                 <div class="col-md-12">
                                     <label>Incident Types <star>*</star></label>
                                     <div class="input-group" style="padding-top: 15px; padding-bottom: 15px">
-                                    @foreach($complaint->category()->scoreByIncident() as $item)
+                                    @foreach($complaint->category->scoreByIncident() as $item)
                                     <nobr>
                                         <input id="check{{ $loop->index }}" type="checkbox" name="incident_types[]" value="{{ $item->incident_id }}" {{ in_array($item->incident_id, json_decode($complaint->incident_types))? "checked": "" }}/>
                                         <label for="check{{ $loop->index }}" style="font-weight:normal; margin-bottom:15px; margin-right:15px; margin-left:5px">{{ ucfirst(\App\Incident::find($item->incident_id)->incident)." ( ".$item->score." ) " }}</label>

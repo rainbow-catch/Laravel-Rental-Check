@@ -4,12 +4,12 @@
 <div style="display: flex; justify-content: center; background-color: rgba(255,249,255,0.73); padding: 30px">
     <div class="container main-register fl-wrap" style="max-width: 500px">
         <h3>Sign In <span>iCheck<strong>Rental</strong></span></h3>
-        <div class="soc-log fl-wrap">
-            <p>For faster login or register use your social account.</p>
-            <a href="{{ url('/social/auth/redirect', ['facebook']) }}" class="facebook-log"><i class="fa fa-facebook-official"></i>Log in with Facebook</a>
-            <a href="{{ url('/social/auth/redirect', ['twitter']) }}" class="twitter-log"><i class="fa fa-twitter"></i> Log in with Twitter</a>
-        </div>
-        <div class="log-separator fl-wrap"><span>or</span></div>
+        {{--<div class="soc-log fl-wrap">--}}
+            {{--<p>For faster login or register use your social account.</p>--}}
+            {{--<a href="{{ url('/social/auth/redirect', ['facebook']) }}" class="facebook-log"><i class="fa fa-facebook-official"></i>Log in with Facebook</a>--}}
+            {{--<a href="{{ url('/social/auth/redirect', ['twitter']) }}" class="twitter-log"><i class="fa fa-twitter"></i> Log in with Twitter</a>--}}
+        {{--</div>--}}
+        {{--<div class="log-separator fl-wrap"><span>or</span></div>--}}
         <div id="tabs-container">
             <ul class="tabs-menu">
                 <li class="current"><a href="#tab-1">Login</a></li>

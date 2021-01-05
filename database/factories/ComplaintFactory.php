@@ -6,13 +6,14 @@ $factory->define(App\Complaint::class, function (Faker $faker) {
     $company = array_random(\App\Company::all()->all());
     $customer = array_random(\App\Customer::all()->all());
 
+    $category_id = array_random($company->categories()->toArray())['id'];
     $detail = [];
-    foreach (json_decode($company->category->detail) as $item) {
+    foreach (json_decode(\App\Category::find($category_id)->detail) as $item) {
         $detail[$item] = $faker->sentence();
     }
 
     $incident_types = [];
-    foreach ($company->category->incidents as $item) {
+    foreach (\App\Category::find($category_id)->incidents as $item) {
         if(random_int(0,1)) array_push($incident_types, $item->id);
     }
 
@@ -20,6 +21,7 @@ $factory->define(App\Complaint::class, function (Faker $faker) {
     return [
         'company_id' => $company->id,
         'customer_id' => $customer->id,
+        'category_id' => $category_id,
         'incident_date' => $faker->dateTimeBetween('-30 days', 'now'),
         'zipcode' => $faker->numerify('######'),
         'detail' => json_encode($detail,JSON_UNESCAPED_SLASHES),

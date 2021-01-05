@@ -165,15 +165,14 @@
 
                             <div class="row">
                                 <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label>Category</label>
-                                        <select name="category" id="category" class="form-control" disabled>
-                                            <option value="" disabled selected>- Select Category -</option>
-                                            @foreach($categories as $category)
-                                                <option value="{{ $category->id }}" {{ old('category_id')? (Input::old('category_id')== $category->id? 'selected':''): ($user->detail? ( $user->detail->category_id == $category->id? 'selected':''): '') }} >{{ $category->category }}
-                                                </option>
-                                            @endforeach
-                                        </select>
+                                    <label>Category <star>*</star></label>
+                                    <div class="input-group" style="padding-top: 15px; padding-bottom: 15px">
+                                        @foreach($categories as $category)
+                                            <nobr>
+                                                <input id="check{{ $loop->index }}" type="checkbox" name="categories[]" value="{{ $category->id }}" {{ old('category_id')? (Input::old('category_id')== $category->id? 'checked':''): ($user->detail? ( $user->detail->hasCategory($category->id)? 'checked':''): '') }}/>
+                                                <label for="check{{ $loop->index }}" style="font-weight:normal; margin-bottom:15px; margin-right:15px; margin-left:5px">{{ ucfirst($category->category) }}</label>
+                                            </nobr>
+                                        @endforeach
                                     </div>
                                 </div>
                             </div>

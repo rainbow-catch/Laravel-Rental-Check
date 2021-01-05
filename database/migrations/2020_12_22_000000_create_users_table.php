@@ -72,17 +72,17 @@ class CreateUsersTable extends Migration
 
             $table->enum('payment_method', ['Visa', 'MasterCard', 'Square Up', 'Paypal', 'Stripe', 'Venmo']);
 
-            $table->unsignedInteger('category_id');
+//            $table->unsignedInteger('category_id');
             $table->string('fed_id');
 
             $table->foreign('user_id')
                 ->references('id')->on('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->foreign('category_id')
-                ->references('id')->on('categories')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
+//            $table->foreign('category_id')
+//                ->references('id')->on('categories')
+//                ->onUpdate('cascade')
+//                ->onDelete('cascade');
             $table->timestamps();
         });
 

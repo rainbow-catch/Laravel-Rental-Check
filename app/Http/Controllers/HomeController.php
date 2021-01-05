@@ -82,6 +82,7 @@ class HomeController extends Controller
                         $rules['license'] = "required|file";
                     $rules['fed_id'] = "required|numeric";
                     $rules['payment_method'] = "required|in:Visa,MasterCard,Square Up,Paypal,Stripe,Venmo";
+                    $rules['categories'] ='required|array';
 
                     $validator = Validator::make($request->all(), $rules);
                     if ($validator->fails()) {
@@ -91,7 +92,7 @@ class HomeController extends Controller
                     }
                     $data = $request->all();
 
-                    unset($data['first_name'], $data['last_name'], $data['license']);
+                    unset($data['first_name'], $data['last_name'], $data['license'], $data['categories']);
 
                     $data['company_name'] = $request->first_name;
                     $data['manager_name'] = $request->last_name;
@@ -106,7 +107,8 @@ class HomeController extends Controller
                     if ($request->license)
                         $data['license'] = $request->file('license')->store('', 'license');
 
-                    Company::updateOrCreate(['user_id' => Auth::user()->id], $data);
+                    $company = Company::updateOrCreate(['user_id' => Auth::user()->id], $data);
+                    $company->categories($request->categories);
 
                     return redirect('/dashboard');
                 }

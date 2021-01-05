@@ -82,7 +82,6 @@ $factory->define(App\Company::class, function (Faker $faker) {
         'instagram_id' => $faker->url,
         'payment_method' => $faker->randomElement(config('var.payment_method')),
         'fed_id' => $faker->randomNumber(6),
-        'category_id' => $faker->randomElement($categories)->id,
         'membership_id'=>$faker->randomElement($memberships)->id
     ];
 });

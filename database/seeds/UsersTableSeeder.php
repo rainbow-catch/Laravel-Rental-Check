@@ -74,6 +74,11 @@ class UsersTableSeeder  extends Seeder
         ]);
         factory(Customer::class, 10)->create();
         factory(Company::class, 10)->create();
+        foreach (Company::all() as $company) {
+            $categories = [1,2,3,4,5];
+            $ids = array_random($categories, rand(1, 3));
+            $company->categories($ids);
+        }
         factory(Admin::class, 5)->create();
     }
 

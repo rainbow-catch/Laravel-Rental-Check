@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Complaint extends Model
 {
     protected $fillable = [
-        'company_id','customer_id','incident_date','zipcode',
+        'company_id','customer_id','category_id','incident_date','zipcode',
         'detail', 'amount', 'pickup_date', 'return_date', 'description', 'incident_types',
         'media_type', 'pathOrUrl',
     ];
@@ -21,6 +21,6 @@ class Complaint extends Model
     }
 
     public function category() {
-        return $this->company->category;
+        return $this->belongsTo('App\Category');
     }
 }

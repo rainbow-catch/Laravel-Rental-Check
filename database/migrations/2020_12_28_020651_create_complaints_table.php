@@ -17,6 +17,7 @@ class CreateComplaintsTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('company_id');
             $table->unsignedInteger('customer_id');
+            $table->unsignedInteger('category_id');
             $table->dateTime('incident_date');
             $table->bigInteger('zipcode');
             $table->json('detail')->nullable();
@@ -31,6 +32,7 @@ class CreateComplaintsTable extends Migration
 
             $table->foreign('company_id')->references('id')->on('companies');
             $table->foreign('customer_id')->references('id')->on('customers');
+            $table->foreign('category_id')->references('id')->on('categories');
         });
     }
 

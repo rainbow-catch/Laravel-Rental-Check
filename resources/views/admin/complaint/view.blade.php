@@ -35,7 +35,7 @@
                                             <td>{{$index+1}}</td>
                                             <td>{{ $complaint->company->company_name }}</td>
                                             <td>{{ $complaint->customer->user->fullname() }}</td>
-                                            <td>{{ $complaint->category()->category }}</td>
+                                            <td>{{ $complaint->category->category }}</td>
                                             <td>{{ $complaint->zipcode }}</td>
                                             <td>{{ $complaint->incident_date }}</td>
                                             <td>

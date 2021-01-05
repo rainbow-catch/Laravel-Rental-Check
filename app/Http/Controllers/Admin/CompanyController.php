@@ -138,6 +138,7 @@ class CompanyController extends AdminController
             'email' => 'required|email|max:255|unique:users,email,'.$id,
             'address' => 'max:200',
             'about' => 'max:300',
+            'categories' => 'required|array',
             'security_question_id' => 'required|integer',
             'security_answer' => 'required|max:50',
         ];
@@ -186,7 +187,7 @@ class CompanyController extends AdminController
                 $detail->license = $request->file('license')->store('','license');
             $detail->fed_id = $request->input('fed_id');
             $detail->payment_method = $request->input('payment_method');
-
+            $detail->categories($request->categories);
             // Avatar Upload
             if ($request->hasFile('avatar')) {
                 if (strpos($detail->avatar, "default/") !== 0) {
@@ -301,7 +302,7 @@ class CompanyController extends AdminController
             if ($user->id !== Auth::user()->id) {
                 try {
                     if ($user->delete()) {
-                        if($detail->delete()) {
+                        if($detail && $detail->delete()) {
                             if (Storage::disk('avatar')->exists($detail->avatar)) {
                                 if (strpos($detail->avatar, "default/") !== 0) {
                                     Storage::delete('public/avatars/' . $detail->avatar);

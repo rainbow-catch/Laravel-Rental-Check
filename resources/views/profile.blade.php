@@ -116,14 +116,19 @@
                                             <label> Fed ID <i class="fa fa-id-badge"></i> </label>
                                             <input type="text" name="fed_id" placeholder="346257245" value="{{ old('fed_id') ? old('fed_id') :( $detail? $detail->fed_id :'' )}}"/>
 
-                                            <label> Category <i class="fa fa-tag"></i> </label>
-                                            <select name="category_id">
-                                                <option value="" disabled selected>- Select Category -</option>
+                                            <label> Category</label>
+                                            <div class="custom-form">
+                                                <div style="display: flex; padding-top: 15px; padding-bottom: 15px">
                                                 @foreach($categories as $category)
-                                                    <option value="{{ $category->id }}" {{ old('category_id')? (Input::old('category_id')== $category->id? 'selected':''): ($detail? ( $detail->category_id == $category->id? 'selected':''): '') }} >{{ $category->category }}
-                                                    </option>
+                                                <nobr>
+                                                    <div style="display:flex">
+                                                        <input id="check{{ $loop->index }}" type="checkbox" name="categories[]" value="{{ $category->id }}" {{ old('category_id')? (Input::old('category_id')== $category->id? 'checked':''): ($detail? ( $detail->hasCategory($category->id)? 'checked':''): '') }}/>
+                                                        <label for="check{{ $loop->index }}" style="margin-bottom:15px; margin-right:15px; margin-left:5px">{{ ucfirst($category->category) }}</label>
+                                                    </div>
+                                                </nobr>
                                                 @endforeach
-                                            </select>
+                                                </div>
+                                            </div>
                                         @endif
 
                                         @if(Auth::user()->role != "Admin")
