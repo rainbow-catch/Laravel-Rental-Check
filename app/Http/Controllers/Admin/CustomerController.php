@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Category;
+use App\Complaint;
 use App\Customer;
 use App\SecurityQuestion;
 use App\User;
@@ -376,5 +378,4 @@ class CustomerController extends AdminController
             return redirect('/admin');
         }
     }
-
 }

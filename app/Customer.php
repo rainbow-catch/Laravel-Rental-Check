@@ -27,7 +27,24 @@ class Customer extends Model
     protected $hidden = [
         'password', 'remember_token',
     ];
+
     public function user() {
         return $this->belongsTo('App\User');
+    }
+
+    public function rentalScore() {
+        $score = 0;
+        foreach(Complaint::where('customer_id', $this->id)->get() as $complaint) {
+            $score += $this->calculateRentalScoreFromComplaint($complaint);
+        }
+        return $score;
+    }
+
+    private function calculateRentalScoreFromComplaint(Complaint $complaint){
+        $subscore = 0;
+        foreach(Category::find($complaint->category_id)->scoreByIncident() as $item) {
+            if(in_array($item->incident_id, json_decode($complaint->incident_types))) $subscore += $item->score;
+        }
+        return $subscore;
     }
 }

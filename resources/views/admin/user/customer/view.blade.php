@@ -24,7 +24,7 @@
                                 <th data-field="phone" data-sortable="true">Phone</th>
                                 <th data-field="email" data-sortable="true">Email</th>
                                 <th data-field="address" data-sortable="true">Address</th>
-                                <th data-field="roles" data-sortable="true">Role</th>
+                                <th data-field="roles" data-sortable="true">RentalScore</th>
                                 <th data-field="isActive" data-sortable="true">isActive</th>
                                 <th data-field="status" data-sortable="true">Status</th>
                                 <th data-field="actions" class="td-actions text-right">Actions
@@ -42,7 +42,7 @@
                                             <td>{{ $user->email }}</td>
                                             <td>{{ $user->detail->address?? "" }}</td>
                                             <td>
-                                                <button class="btn btn-default btn-xs btn-fill">{{ $user->role }}</button>
+                                                {{ $user->detail->rentalScore() }}
                                             </td>
                                             <td>
                                                 @if($user->isActive) <button class="btn btn-success btn-xs btn-fill">Active</button>

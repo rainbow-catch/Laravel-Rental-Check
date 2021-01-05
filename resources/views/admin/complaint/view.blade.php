@@ -19,11 +19,11 @@
                             <table id="bootstrap-table" class="table">
                                 <thead>
                                 <th data-field="sn" class="text-center">S.N.</th>
-                                <th data-field="company">Company Name</th>
-                                <th data-field="customer">Customer Name</th>
-                                <th data-field="category">Category</th>
+                                <th data-field="company" data-sortable="true">Company Name</th>
+                                <th data-field="customer" data-sortable="true">Customer Name</th>
+                                <th data-field="category" data-sortable="true">Category</th>
                                 <th data-field="zipcode">Zipcode</th>
-                                <th data-field="incident_date">IncidentDate</th>
+                                <th data-field="incident_date" data-sortable="true">IncidentDate</th>
                                 <th data-field="actions" class="td-actions text-right">Actions
                                 </th>
                                 </thead>

@@ -54,7 +54,12 @@ class Company extends Model
             if($item->id == $id) return true;
         return false;
     }
+
     public function membership() {
         return $this->belongsTo('App\Membership');
+    }
+
+    public function complaints() {
+        return $this->hasMany('App\Complaint');
     }
 }
