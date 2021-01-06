@@ -16,12 +16,4 @@ return [
         'Company',
         'Admin',
     ],
-    'payment_method'=>[
-        'Visa',
-        'MasterCard',
-        'Square Up',
-        'Paypal',
-        'Stripe',
-        'Venmo'
-    ],
 ];

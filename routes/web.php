@@ -95,5 +95,6 @@ Route::group(['middleware' => 'isVerified'], function () {
 
         Route::resource('membership', "Admin\MembershipController");
         Route::resource('complaint', "Admin\ComplaintController");
+        Route::resource('payment_method', "Admin\PaymentMethodController");
     });
 });

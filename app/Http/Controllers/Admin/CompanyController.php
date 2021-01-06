@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Category;
 use App\Company;
+use App\PaymentMethod;
 use App\SecurityQuestion;
 use App\User;
 use Illuminate\Http\Request;
@@ -118,7 +119,11 @@ class CompanyController extends AdminController
     public function edit($id)
     {
         $user = User::find($id);
-        return view('admin.user.company.edit')->with(['user' => $user, 'categories'=>Category::all(), 'questions'=>SecurityQuestion::all()]);
+        return view('admin.user.company.edit')->with([
+            'user' => $user, 'categories'=>Category::all(),
+            'questions'=>SecurityQuestion::all(),
+            'payment_methods' => PaymentMethod::orderBy('isActive', 'desc')->get()
+        ]);
     }
 
     /**

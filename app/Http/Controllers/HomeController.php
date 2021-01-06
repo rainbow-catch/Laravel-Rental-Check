@@ -6,6 +6,7 @@ use App\Admin;
 use App\Category;
 use App\Company;
 use App\Customer;
+use App\PaymentMethod;
 use App\SecurityQuestion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -35,7 +36,11 @@ class HomeController extends Controller
 
     public function profile()
     {
-        return view('profile')->with(['detail' => Auth::user()->detail, 'categories' => Category::all()]);
+        return view('profile')->with([
+            'detail' => Auth::user()->detail,
+            'categories' => Category::all(),
+            'payment_methods' => PaymentMethod::orderBy('isActive', 'desc')->get()
+        ]);
     }
 
     public function updateProfile(Request $request)

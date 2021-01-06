@@ -51,7 +51,7 @@ $factory->define(App\Customer::class, function (Faker $faker) {
         'twitter_id' => $faker->url,
         'linkedin_id' => $faker->url,
         'instagram_id' => $faker->url,
-        'payment_method' => $faker->randomElement(config('var.payment_method')),
+        'payment_method' => $faker->randomElement(\App\PaymentMethod::all()->all())->name,
     ];
 });
 
@@ -80,7 +80,7 @@ $factory->define(App\Company::class, function (Faker $faker) {
         'twitter_id' => $faker->url,
         'linkedin_id' => $faker->url,
         'instagram_id' => $faker->url,
-        'payment_method' => $faker->randomElement(config('var.payment_method')),
+        'payment_method' => $faker->randomElement(\App\PaymentMethod::all()->all())->name,
         'fed_id' => $faker->randomNumber(6),
         'membership_id'=>$faker->randomElement($memberships)->id
     ];

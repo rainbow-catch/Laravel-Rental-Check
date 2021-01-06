@@ -139,8 +139,9 @@
                                             <label> Payment <i class="fa fa-paypal"></i> </label>
                                             <select name="payment_method">
                                                 <option value="" disabled selected>- Select Payment -</option>
-                                                @foreach(config('var.payment_method') as $item)
-                                                    <option value="{{ $item }}" {{ old('payment_method')? (Input::old('payment_method')== $item? 'selected':''): ($detail? ( $detail->payment_method == $item? 'selected':''): '') }} >{{ $item }}
+                                                @foreach($payment_methods as $item)
+                                                    <option value="{{ $item->name }}" {{ old('payment_method')? (Input::old('payment_method')== $item->name? 'selected':''): ($detail? ( $detail->payment_method == $item->name? 'selected':''): '') }} >
+                                                        {{ $item->name." (".($item->isActive?"Active":"Inactive").")" }}
                                                     </option>
                                                 @endforeach
                                             </select>

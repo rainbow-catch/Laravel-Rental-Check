@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Category;
 use App\Complaint;
 use App\Customer;
+use App\PaymentMethod;
 use App\SecurityQuestion;
 use App\User;
 use Illuminate\Http\Request;
@@ -119,7 +120,11 @@ class CustomerController extends AdminController
     public function edit($id)
     {
         $user = User::find($id);
-        return view('admin.user.customer.edit')->with(['user' => $user, 'questions'=>SecurityQuestion::all()]);
+        return view('admin.user.customer.edit')->with([
+            'user' => $user,
+            'questions'=>SecurityQuestion::all(),
+            'payment_methods' => PaymentMethod::orderBy('isActive', 'desc')->get()
+        ]);
     }
 
     /**

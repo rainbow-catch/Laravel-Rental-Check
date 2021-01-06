@@ -1,3 +1,21 @@
+<?php $navbar = [
+    'complaint' => [
+        'name' => 'complaint',
+        'view'=>'admin/complaint',
+        'icon' => 'fa fa fa-comments'
+    ],
+    'membership' => [
+        'name' => 'membership',
+        'view'=>'admin/membership',
+        'icon' => 'fa fa fa-group'
+    ],
+    'payment_method' => [
+        'name' => 'payment',
+        'view'=>'admin/payment_method',
+        'icon' => 'fa fa fa-paypal'
+    ],
+];
+?>
 @section('side-navbar')
     <div class="sidebar" data-background-color="brown" data-active-color="danger">
         <!--
@@ -42,51 +60,45 @@
                 </div>
             </div>
             <ul class="nav">
-                @if($admin_nav)
-                    @foreach($admin_nav as $item)
-                        @if($item['name'] == 'user')
-                        <li @if (Request::is('admin/user*'))  class="active" @endif>
-                            <a data-toggle="collapse" href="#componentsExamples">
-                                <i class="{{$item['icon']}}"></i>
-                                <p>{{$item['name']}}
-                                    <b class="caret"></b>
-                                </p>
-                            </a>
-                            <div @if (Request::is('admin/user*'))  class="collapse in" @else class="collapse" @endif id="componentsExamples">
-                                <ul class="nav">
-                                    <li @if (Request::is('admin/user/customer*')) class="active" @endif><a href="{{ url($item['actions']['customer'])}}">Customer</a></li>
-                                    <li @if (Request::is('admin/user/company*')) class="active" @endif><a href="{{ url($item['actions']['company'])}}">Company</a></li>
-                                    @if(Auth::user()->super_admin)
-                                        <li @if (Request::is('admin/user/administrator*')) class="active" @endif><a href="{{ url($item['actions']['administrator'])}}">Administrator</a></li>
-                                    @endif
-                                </ul>
-                            </div>
-                        </li>
-                        @elseif($item['name'] == 'category')
-                            <li @if (Request::is('admin/category*')) class="active" @endif>
-                                <a data-toggle="collapse" href="#componentsCategories">
-                                    <i class="{{$item['icon']}}"></i>
-                                    <p>{{$item['name']}}
-                                        <b class="caret"></b>
-                                    </p>
-                                </a>
-                                <div @if (Request::is('admin/category*')) class="collapse in" @else class="collapse" @endif id="componentsCategories">
-                                    <ul class="nav">
-                                        <li @if (Request::is('admin/category*') && !Request::is('admin/category/incident*')) class="active" @endif><a href="{{ url($item['actions']['category'])}}">Category</a></li>
-                                        <li @if (Request::is('admin/category/incident*')) class="active" @endif><a href="{{ url($item['actions']['incident'])}}">Incident</a></li>
-                                    </ul>
-                                </div>
-                            </li>
-                        @else
-                            <li @if (Request::is('admin/'.strtolower($item['name']).'*')) class="active" @endif>
-                                <a href="{{ url($item['actions']['view'])}}">
-                                    <i class="{{$item['icon']}}"></i>
-                                    <p>{{$item['name']}}</p>
-                                </a>
-                            </li>
-                        @endif
-                    @endforeach
-                @endif
+                <li class="{{ Request::is('admin/user*')? 'active' : '' }}">
+                    <a data-toggle="collapse" href="#componentsExamples">
+                        <i class="fa fa fa-user"></i>
+                        <p>User
+                            <b class="caret"></b>
+                        </p>
+                    </a>
+                    <div class="{{ Request::is('admin/user*')? 'collapse in': 'collapse' }}" id="componentsExamples">
+                        <ul class="nav">
+                            <li class="{{ Request::is('admin/user/customer*')?'active' : '' }}"><a href="{{ url('admin/user/customer')}}">Customer</a></li>
+                            <li class="{{ Request::is('admin/user/company*')?'active' : '' }}"><a href="{{ url('admin/user/company')}}">Company</a></li>
+                            @if(Auth::user()->super_admin)
+                                <li class="{{ Request::is('admin/user/administrator*')?'active' : '' }}"><a href="{{ url('admin/user/administrator')}}">Administrator</a></li>
+                            @endif
+                        </ul>
+                    </div>
+                </li>
+                <li class="{{ Request::is('admin/user/category*')?'active' : '' }}">
+                    <a data-toggle="collapse" href="#componentsCategories">
+                        <i class="fa fa fa-tags"></i>
+                        <p>Category
+                            <b class="caret"></b>
+                        </p>
+                    </a>
+                    <div class="{{ Request::is('admin/category*')? 'collapse in': 'collapse' }}" id="componentsCategories">
+                        <ul class="nav">
+                            <li class="{{ Request::is('admin/category*') && !Request::is('admin/category/incident*')? 'active': '' }}" ><a href="{{ url('admin/category')}}">Category</a></li>
+                            <li class="{{ Request::is('admin/category/incident*')? 'active': '' }}" ><a href="{{ url('admin/category/incident')}}">Incident</a></li>
+                        </ul>
+                    </div>
+                </li>
+                @foreach($navbar as $item)
+                <li class="{{ Request::is('admin/'.strtolower($item['name']).'*')? 'active': '' }}">
+                    <a href="{{ url($item['view'])}}">
+                        <i class="{{$item['icon']}}"></i>
+                        <p>{{$item['name']}}</p>
+                    </a>
+                </li>
+                @endforeach
             </ul>
         </div>
     </div>
