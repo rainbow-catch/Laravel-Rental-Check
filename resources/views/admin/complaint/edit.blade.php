@@ -102,7 +102,17 @@
                                 <div class="col-md-6">
                                     <label>Amount owed (USD)<star>*</star></label>
                                     <input type='number' step="0.1" name='amount' class="form-control" value="{{ $complaint->amount }}"/>
-                                </div><div class="clearfix"></div> <br/>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Status <star>*</star></label>
+                                    <select name="isActive" id="isActive" class="form-control">
+                                        <option value="" disabled selected>- Select IsActive -</option>
+                                        <option value="1" @if($complaint->isActive) selected="selected" @endif>Active</option>
+                                        <option value="0" @if(!$complaint->isActive) selected="selected" @endif>Inactive</option>
+                                    </select>
+                                </div>
+
+                                <div class="clearfix"></div> <br/>
                                 <div class="col-md-6">
                                     <label>Date rented <star>*</star></label>
                                     <div class='input-group date' id='pickup_date'>

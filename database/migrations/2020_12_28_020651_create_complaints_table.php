@@ -28,6 +28,7 @@ class CreateComplaintsTable extends Migration
             $table->json('incident_types');
             $table->enum('media_type', ['background', 'carousel', 'video', 'none']);
             $table->json('pathOrUrl');
+            $table->boolean('isActive');
             $table->timestamps();
 
             $table->foreign('company_id')->references('id')->on('companies');

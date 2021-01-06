@@ -98,6 +98,7 @@ class ComplaintController extends AdminController
             'incident_types' => 'nullable|array',
             'paths' => 'nullable|array',
             'url' => 'nullable|url',
+            'isActive' => 'required|boolean',
         ];
 
         $files = $request->paths;
@@ -131,6 +132,7 @@ class ComplaintController extends AdminController
             'description' => $request->description,
             'detail' => json_encode($request->detail),
             'incident_types' => json_encode($request->incident_types?? []),
+            'isActive' => $request->isActive
         ];
         $pathOrUrl = [];
         if($url || $request->media_type=='none') {

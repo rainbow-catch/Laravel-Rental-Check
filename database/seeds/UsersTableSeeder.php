@@ -17,9 +17,6 @@ use Illuminate\Support\Carbon;
 class UsersTableSeeder  extends Seeder
 {
     public function run(){
-        \App\AutoApprove::create([
-            'isAuto' => false
-        ]);
         User::create([
             'email' => "admin@gmail.com",
             'password' => bcrypt('asdfasdf'),
@@ -42,36 +39,6 @@ class UsersTableSeeder  extends Seeder
             'avatar' => 'default/girl-1.png',
         ]);
 
-        Membership::create([
-            'name'=>'basic',
-            'price'=>0,
-            'state'=>1,
-            'search'=>5,
-            'image'=>0,
-            'video'=>0,
-            'video_length'=>0,
-            'record'=>10
-        ]);
-        Membership::create([
-            'name'=>'extended',
-            'price'=>2,
-            'state'=>5,
-            'search'=>10,
-            'image'=>5,
-            'video'=>2,
-            'video_length'=>30,
-            'record'=>50
-        ]);
-        Membership::create([
-            'name'=>'premium',
-            'price'=>5,
-            'state'=>-1,
-            'search'=>-1,
-            'image'=>10,
-            'video'=>5,
-            'video_length'=>60,
-            'record'=>100
-        ]);
         factory(Customer::class, 10)->create();
         factory(Company::class, 10)->create();
         foreach (Company::all() as $company) {

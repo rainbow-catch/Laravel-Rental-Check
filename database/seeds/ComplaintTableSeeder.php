@@ -12,7 +12,7 @@ class ComplaintTableSeeder extends Seeder
     public function run()
     {
         //
-        factory(\App\Complaint::class, 10)->create();
+        factory(\App\Complaint::class, 150)->create();
 
     }
 }

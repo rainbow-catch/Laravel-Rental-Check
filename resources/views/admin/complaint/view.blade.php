@@ -24,6 +24,8 @@
                                 <th data-field="category" data-sortable="true">Category</th>
                                 <th data-field="zipcode">Zipcode</th>
                                 <th data-field="incident_date" data-sortable="true">IncidentDate</th>
+                                <th data-field="rental_score" data-sortable="true">RentalScore</th>
+                                <th data-field="status" data-sortable="true">Status</th>
                                 <th data-field="actions" class="td-actions text-right">Actions
                                 </th>
                                 </thead>
@@ -38,6 +40,12 @@
                                             <td>{{ $complaint->category->category }}</td>
                                             <td>{{ $complaint->zipcode }}</td>
                                             <td>{{ $complaint->incident_date }}</td>
+                                            <td>{{ $complaint->rentalScore() }}</td>
+                                            <td>
+                                                @if($complaint->isActive) <button class="btn btn-success btn-xs btn-fill">Active</button>
+                                                @else <button class="btn btn-default btn-xs btn-fill">Inactive</button>
+                                                @endif
+                                            </td>
                                             <td>
                                                 <div class="table-icons">
                                                     <a rel="tooltip" title="Edit"
@@ -64,6 +72,15 @@
                                 @endunless
                                 </tbody>
                             </table>
+                        </div>
+                        <div class="container" style="padding-bottom: 30px">
+                            @if(\App\AutoApprove::find(2)->isAuto)
+                                <p>If you want to disable auto-approve new complaints please click the following button.</p>
+                                <a class="btn btn-danger" href="{{ route('autoApprove', 2) }}">Disable Auto</a>
+                            @else
+                                <p>If you want to enable auto-approve new complaints please click the following button.</p>
+                                <a class="btn btn-success" href="{{ route('autoApprove', 2) }}">Enable Auto</a>
+                            @endif
                         </div>
                     </div><!--  end card  -->
                 </div> <!-- end col-md-12 -->

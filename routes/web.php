@@ -79,7 +79,7 @@ Route::group(['middleware' => 'isVerified'], function () {
             //        Route::put('administrator/{id}/profile', 'Admin\AdministratorController@update_profile');
             //        Route::get('administrator/{id}/setting', 'Admin\AdministratorController@setting');
             //        Route::put('administrator/{id}/setting', 'Admin\AdministratorController@update_setting');
-            Route::get('allowAutoApprove', 'Admin\AdminController@toggleAutoApprove')->name('autoApprove');
+            Route::get('allowAutoApprove/{id}', 'Admin\AdminController@toggleAutoApprove')->name('autoApprove');
         });
 
         Route::prefix('category')->name('category.')->group(function () {

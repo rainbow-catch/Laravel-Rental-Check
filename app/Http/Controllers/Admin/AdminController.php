@@ -22,8 +22,8 @@ class AdminController extends BaseController
         View::share('admin_nav', $admin_nav);
     }
 
-    public function toggleAutoApprove(){
-        $temp = AutoApprove::find(1);
+    public function toggleAutoApprove($id){
+        $temp = AutoApprove::find($id);
         $temp->update([
             'isAuto'=> !$temp->isAuto
         ]);

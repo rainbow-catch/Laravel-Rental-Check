@@ -15,6 +15,7 @@ class CreateAutoApprovesTable extends Migration
     {
         Schema::create('auto_approves', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('model');
             $table->boolean('isAuto');
             $table->timestamps();
         });

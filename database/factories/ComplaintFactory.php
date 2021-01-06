@@ -32,5 +32,6 @@ $factory->define(App\Complaint::class, function (Faker $faker) {
         'incident_types' => json_encode($incident_types, JSON_UNESCAPED_SLASHES),
         'media_type' => array_random(['background', 'carousel', 'video']),
         'pathOrUrl' => json_encode([array_random([ ['type'=>'path','src'=>$image_path], ['type'=>'url','src'=>$faker->imageUrl()] ])],JSON_UNESCAPED_SLASHES),
+        'isActive' => $faker->boolean
     ];
 });
