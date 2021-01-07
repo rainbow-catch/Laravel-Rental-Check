@@ -301,7 +301,7 @@ class AdministratorController extends AdminController
         if ($user->id !== 1) {
             if ($user->id !== Auth::user()->id) {
                 if ($user->delete()) {
-                    if($detail->delete()) {
+                    if($detail && $detail->delete()) {
                         if (Storage::disk('avatar')->exists($detail->avatar)) {
                             if (strpos($detail->avatar, "default/") !== 0) {
                                 Storage::delete('public/avatars/' . $detail->avatar);
