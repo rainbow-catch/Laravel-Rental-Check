@@ -16,7 +16,7 @@ The laravel project for rentalCheck
 
 ## Update Guide (2021-1-6)
 - update the repository ( if you are using git, just run `git pull` )
-- update ".env" file with ".env.example"
+- update ".env" file with ".env.example" ( only mail config environment )
 - `composer update`
 - `composer dump-autoload`
 - `php artisan migrate:refresh --seed`

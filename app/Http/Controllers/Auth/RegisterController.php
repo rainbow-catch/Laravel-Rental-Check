@@ -72,7 +72,7 @@ class RegisterController extends Controller
 
         UserVerification::generate($user);
 
-        UserVerification::send($user, 'My Custom E-mail Subject');
+        UserVerification::send($user, 'User Verification');
 
         $request->session()->put('auth.password_confirmed_at', time());
 
