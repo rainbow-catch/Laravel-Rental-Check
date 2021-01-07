@@ -39,12 +39,12 @@
                                                 <td>{{$index+1}}</td>
                                                 <td>{{ $user->id }}</td>
                                                 <td>{{ $user->email }}</td>
-                                                <td>{{ $user->detail->company_name?? "" }}</td>
-                                                <td>{{ $user->detail->manager_name?? "" }}</td>
-                                                <td>{{ $user->detail->phone?? "" }}</td>
-                                                <td>{{ $user->detail->address?? "" }}</td>
+                                                <td>{{ $user->detail->company_name?? "_" }}</td>
+                                                <td>{{ $user->detail->manager_name?? "_" }}</td>
+                                                <td>{{ $user->detail->phone?? "_" }}</td>
+                                                <td>{{ $user->detail->address?? "_" }}</td>
                                                 <td>
-                                                    {{ count($user->detail->complaints) }}
+                                                    {{ count($user->detail->complaints?? []) }}
                                                 </td>
                                                 <td>
                                                     @if($user->isActive) <button class="btn btn-success btn-xs btn-fill">Active</button>

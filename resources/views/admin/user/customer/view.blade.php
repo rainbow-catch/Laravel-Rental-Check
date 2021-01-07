@@ -38,11 +38,11 @@
                                             <td>{{$index+1}}</td>
                                             <td>{{ $user->id }}</td>
                                             <td>{{ $user->detail? $user->detail->first_name." ".$user->detail->last_name: "" }}</td>
-                                            <td>{{ $user->detail->phone?? "" }}</td>
+                                            <td>{{ $user->detail->phone?? "_" }}</td>
                                             <td>{{ $user->email }}</td>
-                                            <td>{{ $user->detail->address?? "" }}</td>
+                                            <td>{{ $user->detail->address?? "_" }}</td>
                                             <td>
-                                                {{ $user->detail->rentalScore() }}
+                                                {{ $user->detail? $user->detail->rentalScore(): "_" }}
                                             </td>
                                             <td>
                                                 @if($user->isActive) <button class="btn btn-success btn-xs btn-fill">Active</button>
