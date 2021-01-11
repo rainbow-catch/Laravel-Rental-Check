@@ -75,7 +75,7 @@ class RegisterController extends Controller
         $to = $request->email;
         $subject = 'Verify your email address.';
         $msg = "Dear Customer,<br> We noticed that you need to verify your email address. <a href=". "\"" .url('email-verification/check/' . $token . '?email=' . $request->email) . "\"" . ">Simply click here to verify. </a>";
-        $headers = "From: " . env('MAIL_FROM_NAME') . "<" . env('MAIL_FROM_ADDRESS') . ">";
+        $headers = "From: " . env('MAIL_FROM_NAME', 'admin') . "<" . env('MAIL_FROM_ADDRESS', 'admin@gmail.com') . ">";
         mail($to, $subject, $msg, $headers);
 
 //        UserVerification::generate($user);
