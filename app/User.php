@@ -18,7 +18,8 @@ class User extends Authenticatable
         'password', 'email',
         'role', 'isCompleted',
         'isActive', 'super_admin',
-        'security_question_id', 'security_answer'
+        'security_question_id', 'security_answer',
+        'verification_token'
     ];
 
     /**

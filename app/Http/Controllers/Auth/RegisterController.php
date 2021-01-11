@@ -65,14 +65,22 @@ class RegisterController extends Controller
     public function register(Request $request)
     {
         $this->validator($request->all())->validate();
-
-        event(new Registered($user = $this->create($request->all())));
+        $token = md5(time() . $request->email);
+        $input = $request->all();
+        $input['verification_token'] = $token;
+        event(new Registered($user = $this->create($input)));
 
         $this->guard()->login($user);
 
-        UserVerification::generate($user);
+        $to = $request->email;
+        $subject = 'Verify your email address.';
+        $msg = "Dear Customer,<br> We noticed that you need to verify your email address. <a href=". "\"" .url('email-verification/check/' . $token . '?email=' . $request->email) . "\"" . ">Simply click here to verify. </a>";
+        $headers = "From: " . env('MAIL_FROM_NAME') . "<" . env('MAIL_FROM_ADDRESS') . ">";
+        mail($to, $subject, $msg, $headers);
 
-        UserVerification::send($user, 'User Verification');
+//        UserVerification::generate($user);
+//
+//        UserVerification::send($user, 'User Verification');
 
         $request->session()->put('auth.password_confirmed_at', time());
 
@@ -111,7 +119,8 @@ class RegisterController extends Controller
             'password' => bcrypt($data['password']),
             'security_question_id' => $data['security_answer']? ($data['security_question_id'] ?? NULL): NULL,
             'security_answer' => $data['security_answer'] ?? NULL,
-            'isActive' => AutoApprove::find(1)->isAuto
+            'isActive' => AutoApprove::find(1)->isAuto,
+            'verification_token' => $data['verification_token'],
         ]);
     }
 }
