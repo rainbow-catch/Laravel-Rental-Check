@@ -29,7 +29,7 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::get('email-verification/error', 'Auth\RegisterController@getVerificationError')->name('email-verification.error');
 Route::get('email-verification/check/{token}', 'Auth\RegisterController@getVerification')->name('email-verification.check');
 
-Route::group(['middleware' => 'isVerified'], function () {
+//Route::group(['middleware' => 'isVerified'], function () {
 
     Route::get('/profile', 'HomeController@profile')->middleware(['password.confirm'])->name('profile');
     Route::post('/profile/update', 'HomeController@updateProfile')->name('profile.update');
@@ -97,4 +97,4 @@ Route::group(['middleware' => 'isVerified'], function () {
         Route::resource('complaint', "Admin\ComplaintController");
         Route::resource('payment_method', "Admin\PaymentMethodController");
     });
-});
+// });

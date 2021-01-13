@@ -8,6 +8,7 @@ use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Jrean\UserVerification\Facades\UserVerification;
@@ -76,8 +77,8 @@ class RegisterController extends Controller
         $subject = 'Verify your email address.';
         $msg = "Dear Customer,<br> We noticed that you need to verify your email address. <a href=". "\"" .url('email-verification/check/' . $token . '?email=' . $request->email) . "\"" . ">Simply click here to verify. </a>";
         $headers = "From: " . env('MAIL_FROM_NAME', 'admin') . "<" . env('MAIL_FROM_ADDRESS', 'admin@gmail.com') . ">";
-        mail($to, $subject, $msg, $headers);
-
+//        mail($to, $subject, $msg, $headers);
+        Log::info($msg);
 //        UserVerification::generate($user);
 //
 //        UserVerification::send($user, 'User Verification');
